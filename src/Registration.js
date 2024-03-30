@@ -7,7 +7,6 @@ import './CSS/Registration.css'; // Import CSS file
 function Registration() {
     const navigate = useNavigate();
 
-    const [name, setName] = useState('');
     const [birthday , setBirthday] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
@@ -33,18 +32,6 @@ function Registration() {
     <div style={backgroundStyle}>
         <div className="login-form">
                 <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                        <div className="icon-container">
-                            <img src="\Images\user.png" height={"20px"} alt="Name Icon" className="icon" />
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-
                     <div className="form-group">
                         <div className="icon-container">
                             <img src="\Images\profile.png" height={"20px"} alt="Username Icon" className="icon" />
@@ -54,17 +41,6 @@ function Registration() {
                             placeholder="Username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <div className="icon-container">
-                            <img src="\Images\padlock.png" height={"20px"} alt="Password Icon" className="icon" />
-                        </div>
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <div className="form-group">
@@ -90,10 +66,21 @@ function Registration() {
 
                         />
                     </div>
+                                        <div className="form-group">
+                        <div className="icon-container">
+                            <img src="\Images\padlock.png" height={"20px"} alt="Password Icon" className="icon" />
+                        </div>
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
                     <button type="submit" onClick={handleSubmit} style={{fontWeight:"bold"}}>Let's tune into your taste!</button>
                 </form>
                 <div className="additional-options">
-                    <span onClick={handleBackLogIn} style={{fontSize:"11px"}}>Back to Login</span>
+                    <span onClick={handleBackLogIn} style={{fontFamily: "Calibri", fontSize: "12px"}}>Back to Login</span>
                 </div>
         </div>
     </div>

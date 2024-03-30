@@ -59,11 +59,11 @@ const LogIn = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" onClick={handleSubmit}>Login</button>
+                    <button type="submit" onClick={handleSubmit} style={{fontWeight:"bold"}}>Login</button>
                 </form>
                 <div className="additional-options">
-                    <span onClick={handleRegistration}>Create Account</span>
-                    <span onClick={handleForgotPassword}>Forgot password ?</span>
+                    <span onClick={handleRegistration} style={{fontFamily: "Calibri", fontSize: "12px"}}>Create Account</span>
+                    <span onClick={handleForgotPassword} style={{fontFamily: "Calibri", fontSize: "12px"}}>Forgot Password?</span>
                 </div>
             </div>
     </div>
