@@ -19,7 +19,17 @@ const LogIn = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate(`/HelloWorld`);
+        navigate(`/HomePage`);
+    };
+
+    const handleRegistration = (e) => {
+        e.preventDefault();
+        navigate(`/Registration`);
+    };
+
+    const handleForgotPassword = (e) => {
+        e.preventDefault();
+        navigate(`/ForgotPassword`);
     };
 
 
@@ -52,9 +62,9 @@ const LogIn = () => {
                     <button type="submit" onClick={handleSubmit}>Login</button>
                 </form>
                 <div className="additional-options">
-                <span>Create Account</span>
-                <span>Need Help ?</span>
-            </div>
+                    <span onClick={handleRegistration}>Create Account</span>
+                    <span onClick={handleForgotPassword}>Forgot password ?</span>
+                </div>
             </div>
     </div>
   );
