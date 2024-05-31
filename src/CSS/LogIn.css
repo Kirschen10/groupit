@@ -1,5 +1,16 @@
 /* LogIn.css */
 
+.zoom-background {
+    background-image: url('/public/Images/BackgroundWithlogo.svg');
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    min-height: 100vh; /* Ensures the div covers the full viewport height */
+    width: 100vw; /* Ensures the div covers the full viewport width */
+    overflow: hidden; /* Prevents overflow issues */
+}
+
+/* Existing CSS */
 h2 {
     font-size: 22px; /* Adjust font size as needed */
     font-weight: bold; /* Make the text bold */
@@ -12,18 +23,18 @@ h2 {
 }
 
 .login-form {
-    position: fixed; 
+    position: fixed;
     top: 50%;
-    right: 0; 
-    transform: translateY(-65%); 
-    background-color: white; 
-    padding: 20px; 
+    right: 0;
+    transform: translateY(-65%);
+    background-color: white;
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-right: 300px;
     width: 300px;
     border-color: #8925C7;
-    border-width:thin;
+    border-width: thin;
 }
 
 .form-group {
