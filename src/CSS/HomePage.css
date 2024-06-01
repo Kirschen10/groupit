@@ -1,22 +1,103 @@
 /* HomePage.css */
+.zoom-background-homePage {
+    background-image: url('/public/Images/Background_HomePage.svg');
+    background-size: cover; /* Adjusts the background size to be responsive */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    width: 100%; /* Full width of the viewport */
+    height: 100%; /* Full height of the viewport */
+    overflow: hidden; /* Prevents overflow issues */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the start of the container */
+    align-items: center;
+    text-align: center;
+    position: relative; /* Allows positioning of the logo */
+    padding-top: 50px; /* Add padding to move content down a bit */
+    padding-bottom: 50px; /* Add padding to move content down a bit */
+}
 
-
-.logo-button {
-    top: 0;
-    left: 0;
+.profile-button {
+    position: absolute; /* Positions the logo absolutely within the container */
+    top: 20px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
-
     border: none; /* Remove border */
     padding: 0; /* Remove padding */
 }
 
-.logo-button img {
+.profile-button img {
     height: 50px;
-    margin: 20px; /* Adjust margin as needed */
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
-.logo-button:hover img {
+.profile-button:hover img {
     transform: scale(1.1); /* Enlarge the logo image on hover */
+}
+
+.question-mark-button {
+    position: absolute; /* Positions the logo absolutely within the container */
+    top: 20px; /* Adjust as needed */
+    left: 1150px; /* Adjust as needed */
+    z-index: 9999; /* Ensure the button appears above other content */
+    cursor: pointer; /* Show cursor as pointer on hover */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
+
+.question-mark-button img {
+    height: 50px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.question-mark-button:hover img {
+    transform: scale(1.1); /* Enlarge the logo image on hover */
+}
+
+.headline {
+    font-size: 80px;
+    font-weight: 900; /* Make the headline very bold */
+    color: #fff;
+    margin-bottom: 20px;
+    margin-top: 0; /* Remove any top margin */
+    font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
+    line-height: 1.2; /* Adjust line height if needed */
+    padding-bottom: 20px; /* Add padding to move content down a bit */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.create-group-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.create-group-button img {
+    height: 160px; /* Adjust the size of the button images */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.create-group-button:hover img {
+    transform: scale(1.1); /* Enlarge the button image on hover */
+}
+
+.join-group-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.join-group-button img {
+    height: 160px; /* Adjust the size of the button images */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.join-group-button:hover img {
+    transform: scale(1.1); /* Enlarge the button image on hover */
 }

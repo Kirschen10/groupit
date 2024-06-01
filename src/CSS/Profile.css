@@ -1,0 +1,18 @@
+
+.zoom-background-profile {
+    background-image: url('/public/Images/Profile background.svg');
+    background-size: cover; /* Adjusts the background size to be responsive */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    width: 100%; /* Full width of the viewport */
+    height: 100%; /* Full height of the viewport */
+    overflow: hidden; /* Prevents overflow issues */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the start of the container */
+    align-items: center;
+    text-align: center;
+    position: relative; /* Allows positioning of the logo */
+    padding-top: 50px; /* Add padding to move content down a bit */
+    padding-bottom: 50px; /* Add padding to move content down a bit */
+}
