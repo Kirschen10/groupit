@@ -1,48 +1,57 @@
-// LogIn.js
-import React from 'react';
-
-import { useState} from 'react';
-import { useNavigate  } from 'react-router-dom';
-import './CSS/LogIn.css'; // Import CSS file
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './CSS/LogIn.css';
 
 const LogIn = () => {
     const navigate = useNavigate();
-
-    const connectionString = connectServer.env.REACT_APP_GROUPIT_DB_CONNECTION_STRING;
-
-
-
-    conn = get_db_connection()
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const backgroundStyle = {
         backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        minHeight: '100vh', // Set minimum height to cover the entire viewport
+        minHeight: '100vh',
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate(`/HomePage`);
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                navigate('/HomePage');
+            } else {
+                setError(data.message);
+            }
+        } catch (err) {
+        setError('An error occurred. Please try again later. Details:' + err.message);
+    }
     };
 
     const handleRegistration = (e) => {
         e.preventDefault();
-        navigate(`/Registration`);
+        navigate('/Registration');
     };
 
     const handleForgotPassword = (e) => {
         e.preventDefault();
-        navigate(`/ForgotPassword`);
+        navigate('/ForgotPassword');
     };
 
-
-  return (
-    <div style={backgroundStyle}>
-     <div className="login-form">
+    return (
+        <div style={backgroundStyle}>
+            <div className="login-form">
                 <form onSubmit={handleSubmit}>
                     <div className="form-group-LogIn">
                         <div className="icon-container-LogIn">
@@ -66,15 +75,16 @@ const LogIn = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" onClick={handleSubmit}>Login</button>
+                    {error && <p className="error">{error}</p>}
+                    <button type="submit">Login</button>
                 </form>
                 <div className="additional-options">
                     <span onClick={handleRegistration}>Create Account</span>
-                    <span onClick={handleForgotPassword}>Forgot password ?</span>
+                    <span onClick={handleForgotPassword}>Forgot password?</span>
                 </div>
             </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default LogIn;
