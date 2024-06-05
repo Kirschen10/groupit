@@ -1,0 +1,83 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.artists-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-rows: repeat(3, 1fr); /* 3 rows */
+    gap: 30px;
+    width: 600px; /* Adjust width as needed */
+    height: 450px; /* Adjust height as needed */
+    position: relative;
+}
+
+.artist-button {
+    width: 100%; /* Full width of the grid cell */
+    height: 100%; /* Full height of the grid cell */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #8925C7;
+    background-color: #FFFFFF;
+    color: #000000;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.artist-button.selected {
+    background-color: #8925C7;
+    color: #FFF;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Adjust the gap between buttons */
+    margin-top: -80px;
+  }
+  
+  .button-arrow {
+    width: 30px; /* Smaller button size */
+    height: 30px;
+    border-radius: 15px; /* Circular buttons */
+    background-color: #666; /* Background color for the button */
+    color: white; /* Text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button-arrow:disabled {
+    background-color: #ccc; /* Lighter color when button is disabled */
+  }
+
+  h2 {
+    font-size: 40px; /* Adjust font size as needed */
+    font-weight: bold; /* Make the text bold */
+    color: #ffffff; /* Set the text color */
+    margin-bottom: 54px; /* Add some bottom margin for spacing */
+    text-align: center; /* Center-align the text */
+    letter-spacing: 0.5px; /* Add some letter spacing for emphasis */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Add a subtle text shadow */
+    font-family: Calibri, sans-serif; /* Specify Calibri as the preferred font */
+}
+
+.button-pagination-Lets-Continue{
+  width: 200px;
+  padding: 10px;
+  background-color: #8925C7; /* Blue color for the login button */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+  

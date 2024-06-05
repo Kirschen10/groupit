@@ -26,7 +26,7 @@ h2 {
     border-width:thin;
 }
 
-.form-group {
+.form-group-LogIn {
     position: relative;
     margin-bottom: 20px;
 }
@@ -53,16 +53,13 @@ button:hover {
     opacity: 0.7;
 }
 
-.icon-container {
+.icon-container-LogIn {
     position: absolute;
     left: 5px; /* Adjust the position of the image */
     top: 50%;
     transform: translateY(-50%);
 }
 
-.form-group {
-    position: relative;
-}
 
 .input-with-icon {
     padding-left: 80px; /* Add additional padding to the left of the input field to accommodate the image */

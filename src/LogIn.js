@@ -37,8 +37,8 @@ const LogIn = () => {
     <div style={backgroundStyle}>
      <div className="login-form">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <div className="icon-container">
+                    <div className="form-group-LogIn">
+                        <div className="icon-container-LogIn">
                             <img src="\Images\profile.png" height={"20px"} alt="Username Icon" className="icon" />
                         </div>
                         <input
@@ -48,8 +48,8 @@ const LogIn = () => {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
-                    <div className="icon-container">
+                    <div className="form-group-LogIn">
+                    <div className="icon-container-LogIn">
                             <img src="\Images\padlock.png" height={"20px"} alt="Username Icon" className="icon" />
                         </div>
                         <input
