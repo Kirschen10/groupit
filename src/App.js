@@ -3,7 +3,8 @@ import LogIn from "./LogIn";
 import HomePage from './HomePage';
 import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
-import SongInput from './SongInput';
+import SelectArtists from './SelectArtists';
+import SelectSongs from './SelectSongs';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
           <Route path="/HomePage" element={<HomePage />} />
           <Route path="/Registration" element={<Registration />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
-          <Route path="/SongInput" element={<SongInput />} />
+          <Route path="/SelectArtists" element={<SelectArtists />} />
+          <Route path="/selectSongs" element={<SelectSongs />} />
         </Routes>
       </Router>
     </div>

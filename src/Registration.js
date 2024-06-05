@@ -22,7 +22,7 @@ function Registration() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate(`/SongInput`);
+        navigate(`/SelectArtists`);
     };
 
     const handleBackLogIn = (e) => {

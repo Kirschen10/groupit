@@ -6,7 +6,7 @@
     height: 100vh;
 }
 
-.artists-grid {
+.Picker-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 columns */
     grid-template-rows: repeat(3, 1fr); /* 3 rows */
@@ -16,7 +16,7 @@
     position: relative;
 }
 
-.artist-button {
+.Picker-button {
     width: 100%; /* Full width of the grid cell */
     height: 100%; /* Full height of the grid cell */
     border-radius: 50%;
@@ -30,7 +30,7 @@
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-.artist-button.selected {
+.Picker-button.selected {
     background-color: #8925C7;
     color: #FFF;
 }
@@ -72,7 +72,7 @@
 }
 
 .button-pagination-Lets-Continue{
-  width: 200px;
+  width: 300px;
   padding: 10px;
   background-color: #8925C7; /* Blue color for the login button */
   color: #fff;
@@ -81,3 +81,7 @@
   cursor: pointer;
 }
   
+
+select {
+  width: 500px;
+}

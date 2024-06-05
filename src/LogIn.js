@@ -1,11 +1,18 @@
 // LogIn.js
 import React from 'react';
+
 import { useState} from 'react';
 import { useNavigate  } from 'react-router-dom';
 import './CSS/LogIn.css'; // Import CSS file
 
 const LogIn = () => {
     const navigate = useNavigate();
+
+    const connectionString = connectServer.env.REACT_APP_GROUPIT_DB_CONNECTION_STRING;
+
+
+
+    conn = get_db_connection()
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
