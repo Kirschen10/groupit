@@ -46,6 +46,27 @@ app.post('/users_data', async (req, res) => {
     }
 });
 
+app.post('/forgot_password', async (req, res) => {
+    const {username, email} = req.body;
+
+    try {
+        const result = await sql.query`SELECT *
+                                       FROM users_data
+                                       WHERE userName = ${username}
+                                         AND password = ${email}`;
+
+        if (result.recordset.length > 0) {
+            res.status(200).send({message: 'Login successful'});
+        } else {
+            res.status(401).send({message: 'Invalid username or email'});
+        }
+    } catch (err) {
+        console.error('Error occurred during login:', err);
+        res.status(500).send({message: 'An error occurred', error: err.message});
+    }
+});
+
+
 app.get('/test', async (req, res) => {
     return res.json("test")
 });
