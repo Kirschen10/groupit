@@ -1,44 +1,61 @@
-// LogIn.js
-import React from 'react';
-import { useState} from 'react';
-import { useNavigate  } from 'react-router-dom';
-import './CSS/LogIn.css'; // Import CSS file
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './CSS/LogIn.css';
 
 const LogIn = () => {
     const navigate = useNavigate();
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const backgroundStyle = {
         backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        minHeight: '100vh', // Set minimum height to cover the entire viewport
+        minHeight: '100vh',
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate(`/HomePage`);
+
+        try {
+            const response = await fetch('http://localhost:8081/users_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                navigate('/HomePage');
+            } else {
+                setError(data.message || 'An error occurred. Please try again later.');
+            }
+        } catch (err) {
+            setError('An error occurred. Please try again later. Details: ' + err.message);
+            console.error('Fetch error:', err);
+        }
     };
 
     const handleRegistration = (e) => {
         e.preventDefault();
-        navigate(`/Registration`);
+        navigate('/Registration');
     };
 
     const handleForgotPassword = (e) => {
         e.preventDefault();
-        navigate(`/ForgotPassword`);
+        navigate('/ForgotPassword');
     };
 
-
-  return (
-    <div style={backgroundStyle}>
-     <div className="login-form">
+    return (
+        <div style={backgroundStyle}>
+            <div className="login-form">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <div className="icon-container">
+                    <div className="form-group-LogIn">
+                        <div className="icon-container-LogIn">
                             <img src="\Images\profile.png" height={"20px"} alt="Username Icon" className="icon" />
                         </div>
                         <input
@@ -48,9 +65,9 @@ const LogIn = () => {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-                    <div className="form-group">
-                    <div className="icon-container">
-                            <img src="\Images\padlock.png" height={"20px"} alt="Username Icon" className="icon" />
+                    <div className="form-group-LogIn">
+                        <div className="icon-container-LogIn">
+                            <img src="\Images\padlock.png" height={"20px"} alt="Password Icon" className="icon" />
                         </div>
                         <input
                             type="password"
@@ -59,15 +76,16 @@ const LogIn = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" onClick={handleSubmit} style={{fontWeight:"bold"}}>Login</button>
+                    {error && <p className="error">{error}</p>}
+                    <button type="submit">Login</button>
                 </form>
                 <div className="additional-options">
-                    <span onClick={handleRegistration} style={{fontFamily: "Calibri", fontSize: "12px"}}>Create Account</span>
-                    <span onClick={handleForgotPassword} style={{fontFamily: "Calibri", fontSize: "12px"}}>Forgot Password?</span>
+                    <span onClick={handleRegistration}>Create Account</span>
+                    <span onClick={handleForgotPassword}>Forgot password?</span>
                 </div>
             </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default LogIn;
