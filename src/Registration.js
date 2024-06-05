@@ -1,17 +1,17 @@
-// Registration.js
-import React from 'react';
-import { useState} from 'react';
-import { useNavigate  } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CSS/Registration.css'; // Import CSS file
 
 function Registration() {
     const navigate = useNavigate();
 
-    const [name, setName] = useState('');
-    const [birthday , setBirthday] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [birthday, setBirthday] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');  // State variable for error message
 
     const backgroundStyle = {
         backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
@@ -22,7 +22,26 @@ function Registration() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate(`/SelectArtists`);
+        fetch('http://localhost:8081/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ firstName, lastName, birthday, email, username, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'Registration successful') {
+                navigate('/SelectArtists');
+            } else {  
+                console.error('Registration failed:', data.message);
+                setError(data.message);  // Set the error message
+            }
+        })
+        .catch(error => {
+            setError('Failed to connect to server');  // Set a generic error message
+            console.error('Error during registration:', error);
+        });
     };
 
     const handleBackLogIn = (e) => {
@@ -30,25 +49,35 @@ function Registration() {
         navigate(`/`);
     };
 
-  return (
-    <div style={backgroundStyle}>
-        <div className="login-form-Registration">
+    return (
+        <div style={backgroundStyle}>
+            <div className="login-form-Registration">
                 <form onSubmit={handleSubmit}>
-                <div className="form-group-Registration">
+                    <div className="form-group-Registration">
                         <div className="icon-container-Registration">
-                            <img src="\Images\user.png" height={"20px"} alt="Name Icon" className="icon" />
+                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" className="icon" />
                         </div>
                         <input
                             type="text"
-                            placeholder="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            placeholder="First name"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
                         />
                     </div>
-
                     <div className="form-group-Registration">
                         <div className="icon-container-Registration">
-                            <img src="\Images\profile.png" height={"20px"} alt="Username Icon" className="icon" />
+                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" className="icon" />
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Last name"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group-Registration">
+                        <div className="icon-container-Registration">
+                            <img src="/Images/profile.png" height={"20px"} alt="Username Icon" className="icon" />
                         </div>
                         <input
                             type="text"
@@ -59,7 +88,7 @@ function Registration() {
                     </div>
                     <div className="form-group-Registration">
                         <div className="icon-container-Registration">
-                            <img src="\Images\padlock.png" height={"20px"} alt="Password Icon" className="icon" />
+                            <img src="/Images/padlock.png" height={"20px"} alt="Password Icon" className="icon" />
                         </div>
                         <input
                             type="password"
@@ -70,7 +99,7 @@ function Registration() {
                     </div>
                     <div className="form-group-Registration">
                         <div className="icon-container-Registration">
-                            <img src="\Images\mail.png" height={"20px"} alt="Email Icon" className="icon" />
+                            <img src="/Images/mail.png" height={"20px"} alt="Email Icon" className="icon" />
                         </div>
                         <input
                             type="email"
@@ -81,24 +110,24 @@ function Registration() {
                     </div>
                     <div className="form-group-Registration">
                         <div className="icon-container-Registration">
-                            <img src="\Images\calendar.png" height={"20px"} alt="Age Icon" className="icon" />
+                            <img src="/Images/calendar.png" height={"20px"} alt="Birthday Icon" className="icon" />
                         </div>
                         <input
                             type="date"
                             value={birthday}
                             onChange={(e) => setBirthday(e.target.value)}
-                            style={{ textAlign:"left"}}
-
+                            style={{ textAlign: "left" }}
                         />
                     </div>
-                    <button type="submit" onClick={handleSubmit} style={{fontWeight:"bold"}}>Let's tune into your taste!</button>
+                    {error && <p className="error">{error}</p>}
+                    <button type="submit" style={{ fontWeight: "bold" }}>Let's tune into your taste!</button>
                 </form>
                 <div className="additional-options-Registration">
-                    <span onClick={handleBackLogIn} style={{fontSize:"11px"}}>Back to Login</span>
+                    <span onClick={handleBackLogIn} style={{ fontSize: "11px" }}>Back to Login</span>
                 </div>
+            </div>
         </div>
-    </div>
-  )
+    );
 }
 
-export default Registration
+export default Registration;
