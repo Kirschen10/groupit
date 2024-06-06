@@ -158,6 +158,42 @@ app.post('/password', async (req, res) => {
     }
 });
 
+// Fetch all users endpoint
+app.get('/usersList', async (req, res) => {
+    try {
+        const result = await sql.query`SELECT userName FROM users_data`;
+        const users = result.recordset.map(user => user.userName);
+        res.status(200).json(users);
+    } catch (err) {
+        console.error('Error fetching users:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+// Add user to group endpoint
+app.post('/addUserByUserName', async (req, res) => {
+    const { userName, groupId } = req.body;
+    try {
+        const groupResult = await sql.query`SELECT groupID FROM groups_data WHERE groupID = ${groupId}`;
+        if (groupResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'Group not found' });
+        }
+
+        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${userName}`;
+        if (userResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const userID = userResult.recordset[0].userID;
+        await sql.query`INSERT INTO group_user (groupID, userID) VALUES (${groupId}, ${userID})`;
+
+        res.status(200).send({ message: 'User added to group successfully' });
+    } catch (err) {
+        console.error('Error adding user to group:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
 
 app.get('/test', async (req, res) => {
     return res.json("test")

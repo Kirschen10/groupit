@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate  } from 'react-router-dom';
 import './CSS/HomePage.css'; // Import CSS file
+import Playlist from './Playlist';
 
 function HomePage() {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ function HomePage() {
         <div>
             <span className="logo-button" onClick={handleHomePage}><img src="\Images\Logo.svg" alt='Logo'/></span>
         </div>
+        <Playlist />
       </div>
     )
   }
