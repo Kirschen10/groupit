@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './CSS/SelectArtists.css';
 import Grid from './Grid';
 import ArtistSearch from './ArtistSearch';

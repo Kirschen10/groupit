@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import './CSS/HomePage.css'; // Import CSS file
 
@@ -20,7 +19,7 @@ function HomePage() {
     return (
       <div style={backgroundStyle}>  
         <div>
-            <span className="logo-button" onClick={handleHomePage}><img src="\Images\Logo.svg"/></span>
+            <span className="logo-button" onClick={handleHomePage}><img src="\Images\Logo.svg" alt='Logo'/></span>
         </div>
       </div>
     )

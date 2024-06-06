@@ -51,8 +51,8 @@ function ForgotPassword() {
 
     return (
         <div style={backgroundStyle}>
-            <div className="login-form">
-                <div className="additional-options">
+            <div className="login-form-ForgotPassword">
+                <div className="additional-options-ForgotPassword">
                     <span onClick={handleBackLogIn}
                           style={{fontFamily: "Calibri", fontSize: "15px"}}>Back to Login</span>
                 </div>
@@ -67,6 +67,7 @@ function ForgotPassword() {
                             type="text"
                             placeholder="Username"
                             value={username}
+                            required
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
@@ -78,6 +79,7 @@ function ForgotPassword() {
                             type="email"
                             placeholder="Email"
                             value={email}
+                            requierd
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
