@@ -19,7 +19,11 @@ const LogIn = () => {
         e.preventDefault();
 
         try {
+<<<<<<< HEAD
             const response = await fetch('http://localhost:8081/logIn', {
+=======
+                const response = await fetch('http://localhost:8081/login', {
+>>>>>>> origin/main
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

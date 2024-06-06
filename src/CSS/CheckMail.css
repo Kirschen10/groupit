@@ -1,0 +1,35 @@
+/* CheckMail.css */
+
+
+.check-mail-box {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 20px;
+}
+
+.mail-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #8925C7;
+    margin-bottom: 20px;
+    font-family: Calibri, sans-serif;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+    font-family: Calibri, sans-serif;
+}
