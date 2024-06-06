@@ -85,11 +85,12 @@ app.post('/resetPassword', async (req, res) => {
             return res.status(400).send({ message: 'Username and password are required' });
         }
 
-        // Hash the new password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log('Received username:', username);
 
         // Update the user's password in the database
-        const result = await sql.query`UPDATE users_data SET password = ${hashedPassword} WHERE userName = ${username}`;
+        const result = await sql.query`UPDATE users_data SET password = ${password} WHERE userName = ${username}`;
+        
+        console.log('SQL query result:', result);
 
         if (result.rowsAffected[0] > 0) {
             res.status(200).send({ message: 'Password reset successful' });
@@ -101,6 +102,7 @@ app.post('/resetPassword', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
 // Endpoint to get top 100 artists with most songs
 app.get('/top-artists', async (req, res) => {
     try {

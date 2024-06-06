@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './CSS/ForgotPassword.css'; // Import CSS file
 
@@ -9,6 +9,8 @@ const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [passwordVerification, setPasswordVerification] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [countdown, setCountdown] = useState(5);
 
   const backgroundStyle = {
     backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
@@ -16,6 +18,16 @@ const ResetPassword = () => {
     backgroundPosition: 'center',
     minHeight: '100vh', // Set minimum height to cover the entire viewport
   };
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0 && success) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    } else if (countdown === 0) {
+      navigate('/'); // Redirect to login page or another page
+    }
+    return () => clearTimeout(timer);
+  }, [countdown, success, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,8 +44,8 @@ const ResetPassword = () => {
         })
         .then(response => {
             if (response.ok) {
+                setSuccess('Password reset successful.');
                 console.log('Password reset successful');
-                navigate('/login'); // Redirect to login page or another page
             } else {
                 return response.json().then(data => {
                     throw new Error(data.message || 'Failed to reset password');
@@ -81,6 +93,13 @@ const ResetPassword = () => {
             />
           </div>
           {error && <p style={{ color: 'red' }}>{error}</p>}
+          {success && (
+            <p className="success-message">
+              {success}
+              <br />
+              Redirecting in {countdown} seconds...
+            </p>
+          )}
           <button type="submit">Reset Password</button>
         </form>
       </div>
