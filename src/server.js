@@ -47,15 +47,9 @@ app.post('/login', async (req, res) => {
                                          AND password = ${password}`;
 
         if (result.recordset.length > 0) {
-            const user = result.recordset[0];
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (isMatch) {
-                res.status(200).send({ message: 'Login successful' });
-            } else {
-                res.status(401).send({ message: 'Invalid username or password' });
-            }
+            res.status(200).send({message: 'Login successful'});
         } else {
-            res.status(401).send({ message: 'Invalid username or password' });
+            res.status(401).send({message: 'Invalid username or password'});
         }
     } catch (err) {
         console.error('Error occurred during login:', err);
@@ -69,12 +63,11 @@ app.post('/register', async (req, res) => {
     const createdAt = new Date().toISOString(); // Get the current date and time in ISO format
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10); // Hash the password before storing it
         const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
         const userID = userIDResult.recordset[0].userID;
 
         await sql.query`INSERT INTO users_data (userID, userFirstName, userLastName, userName, birthday, email, password, createdAt) 
-            VALUES (${userID}, ${firstName}, ${lastName}, ${username}, ${birthday}, ${email}, ${hashedPassword}, ${createdAt})`;
+            VALUES (${userID}, ${firstName}, ${lastName}, ${username}, ${birthday}, ${email}, ${password}, ${createdAt})`;
         res.status(201).send({ message: 'Registration successful' });
     } catch (err) {
         console.error('Error occurred during registration:', err);
