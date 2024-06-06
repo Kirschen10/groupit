@@ -30,7 +30,7 @@ function ForgotPassword() {
             <span onClick={handleBackLogIn} style={{fontFamily: "Calibri", fontSize:"15px"}}>Back to Login</span>
         </div>
     <img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock" />
-        <h2 style={{color:"black"}}>Email Verification</h2>
+        <h2>Email Verification</h2>
                <form>
                    <div className="form-group">
                        <div className="icon-container">
@@ -40,6 +40,7 @@ function ForgotPassword() {
                            type="text"
                            placeholder="Username"
                            value={username}
+                           required
                            onChange={(e) => setUsername(e.target.value)}
                        />
                    </div>
@@ -51,6 +52,7 @@ function ForgotPassword() {
                            type="email"
                            placeholder="Email"
                            value={email}
+                           required
                            onChange={(e) => setEmail(e.target.value)}
                        />
                    </div>

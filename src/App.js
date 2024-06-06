@@ -5,6 +5,7 @@ import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
 import SelectArtists from './SelectArtists';
 import SelectSongs from './SelectSongs';
+import ResetPassword from './ResetPassword';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
           <Route path="/SelectArtists" element={<SelectArtists />} />
           <Route path="/selectSongs" element={<SelectSongs />} />
+          <Route path="/ResetPassword/:username" element={<ResetPassword />} />
         </Routes>
       </Router>
     </div>

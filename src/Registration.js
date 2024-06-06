@@ -61,6 +61,7 @@ function Registration() {
                             type="text"
                             placeholder="First name"
                             value={firstName}
+                            required
                             onChange={(e) => setFirstName(e.target.value)}
                         />
                     </div>
@@ -72,6 +73,7 @@ function Registration() {
                             type="text"
                             placeholder="Last name"
                             value={lastName}
+                            required
                             onChange={(e) => setLastName(e.target.value)}
                         />
                     </div>
@@ -83,6 +85,7 @@ function Registration() {
                             type="text"
                             placeholder="Username"
                             value={username}
+                            required
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
@@ -94,6 +97,7 @@ function Registration() {
                             type="password"
                             placeholder="Password"
                             value={password}
+                            required
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
@@ -105,6 +109,7 @@ function Registration() {
                             type="email"
                             placeholder="Email"
                             value={email}
+                            required
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
@@ -116,6 +121,7 @@ function Registration() {
                             type="date"
                             value={birthday}
                             onChange={(e) => setBirthday(e.target.value)}
+                            required
                             style={{ textAlign: "left" }}
                         />
                     </div>
