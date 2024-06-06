@@ -20,28 +20,30 @@ function Registration() {
         minHeight: '100vh', // Set minimum height to cover the entire viewport
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch('http://localhost:8081/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ firstName, lastName, birthday, email, username, password })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message === 'Registration successful') {
-                navigate('/SelectArtists');
-            } else {  
-                console.error('Registration failed:', data.message);
-                setError(data.message);  // Set the error message
+
+        try {
+            const response = await fetch('http://localhost:8081/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ firstName, lastName, birthday, email, username, password }),
+                credentials: 'include' // Include credentials in the request
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                navigate('/SelectArtists'); // Redirect to the desired page after successful registration
+            } else {
+                setError(data.message || 'An error occurred. Please try again later.');
             }
-        })
-        .catch(error => {
+        } catch (error) {
             setError('Failed to connect to server');  // Set a generic error message
             console.error('Error during registration:', error);
-        });
+        }
     };
 
     const handleBackLogIn = (e) => {
