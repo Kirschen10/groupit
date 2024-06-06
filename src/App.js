@@ -5,8 +5,7 @@ import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
 import SelectArtists from './SelectArtists';
 import SelectSongs from './SelectSongs';
-import SentEmail from './SentEmail'
-
+import CheckMail from './CheckMail'
 function App() {
   return (
     <div className="App">
@@ -18,7 +17,7 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
           <Route path="/SelectArtists" element={<SelectArtists />} />
           <Route path="/selectSongs" element={<SelectSongs />} />
-          <Route path="/sentEmail" element={<SentEmail />} />
+          <Route path="/checkMail" element={<CheckMail />} />
         </Routes>
       </Router>
     </div>

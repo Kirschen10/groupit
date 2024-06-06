@@ -28,7 +28,7 @@ function ForgotPassword() {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8081/forgot_password', {
+            const response = await fetch('http://localhost:8081/password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ function ForgotPassword() {
             const data = await response.json();
 
             if (response.ok) {
-                navigate('/sentEmail');
+                navigate('/checkMail');
             } else {
                 setError(data.message || 'An error occurred. Please try again later.');
             }
@@ -81,6 +81,7 @@ function ForgotPassword() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
+                    {error && <p className="error">{error}</p>}
                     <button type="submit">Reset Password</button>
                 </form>
             </div>
