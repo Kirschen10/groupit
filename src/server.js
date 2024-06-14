@@ -12,7 +12,7 @@ app.use(cors());
 const connectionString = {
     user: 'groupit_admin',
     password: 'Group123it',
-    server: 'groupitserver.database.windows.net',
+    server: 'groupit.database.windows.net',
     database: 'groupit_db',
     options: {
         encrypt: true,
@@ -66,7 +66,7 @@ app.post('/register', async (req, res) => {
         const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
         const userID = userIDResult.recordset[0].userID;
 
-        await sql.query`INSERT INTO users_data (userID, userFirstName, userLastName, userName, birthday, email, password, createdAt) 
+        await sql.query`INSERT INTO users_data (userID, firstName, lastName, userName, birthday, email, password, createdAt) 
             VALUES (${userID}, ${firstName}, ${lastName}, ${username}, ${birthday}, ${email}, ${password}, ${createdAt})`;
         res.status(201).send({ message: 'Registration successful' });
     } catch (err) {

@@ -51,10 +51,10 @@ function ForgotPassword() {
 
     return (
         <div style={backgroundStyle}>
-            <div className="login-form-ForgotPassword">
-                <div className="additional-options-ForgotPassword">
+            <div className="forgot-password-form">
+                <div className="additional-options">
                     <span onClick={handleBackLogIn}
-                          style={{fontFamily: "Calibri", fontSize: "15px"}}>Back to Login</span>
+                          style={{fontFamily: "Calibri", fontSize:"15px"}}>Back to Login</span>
                 </div>
                 <img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock"/>
                 <h2>Email Verification</h2>

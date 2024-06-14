@@ -14,7 +14,7 @@ function Registration() {
     const [error, setError] = useState('');  // State variable for error message
 
     const backgroundStyle = {
-        backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
+        backgroundImage: `url('/Images/Background with logo short.svg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         minHeight: '100vh', // Set minimum height to cover the entire viewport
@@ -51,13 +51,14 @@ function Registration() {
 
     return (
         <div style={backgroundStyle}>
-            <div className="login-form-Registration">
+            <div className="registration-form">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group-Registration">
-                        <div className="icon-container-Registration">
-                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" className="icon" />
+                    <div className="form-group-reg">
+                        <div className="icon-container-reg">
+                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" className="icon-reg" />
                         </div>
                         <input
+                            className="input-reg"
                             type="text"
                             placeholder="First name"
                             value={firstName}
@@ -65,11 +66,12 @@ function Registration() {
                             onChange={(e) => setFirstName(e.target.value)}
                         />
                     </div>
-                    <div className="form-group-Registration">
-                        <div className="icon-container-Registration">
-                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" className="icon" />
+                    <div className="form-group-reg">
+                        <div className="icon-container-reg">
+                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" className="icon-reg" />
                         </div>
                         <input
+                            className="input-reg"
                             type="text"
                             placeholder="Last name"
                             value={lastName}
@@ -77,11 +79,12 @@ function Registration() {
                             onChange={(e) => setLastName(e.target.value)}
                         />
                     </div>
-                    <div className="form-group-Registration">
-                        <div className="icon-container-Registration">
-                            <img src="/Images/profile.png" height={"20px"} alt="Username Icon" className="icon" />
+                    <div className="form-group-reg">
+                        <div className="icon-container-reg">
+                            <img src="/Images/profile.png" height={"20px"} alt="Username Icon" className="icon-reg" />
                         </div>
                         <input
+                            className="input-reg"
                             type="text"
                             placeholder="Username"
                             value={username}
@@ -89,11 +92,12 @@ function Registration() {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-                    <div className="form-group-Registration">
-                        <div className="icon-container-Registration">
-                            <img src="/Images/padlock.png" height={"20px"} alt="Password Icon" className="icon" />
+                    <div className="form-group-reg">
+                        <div className="icon-container-reg">
+                            <img src="/Images/padlock.png" height={"20px"} alt="Password Icon" className="icon-reg" />
                         </div>
                         <input
+                            className="input-reg"
                             type="password"
                             placeholder="Password"
                             value={password}
@@ -101,11 +105,12 @@ function Registration() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div className="form-group-Registration">
-                        <div className="icon-container-Registration">
-                            <img src="/Images/mail.png" height={"20px"} alt="Email Icon" className="icon" />
+                    <div className="form-group-reg">
+                        <div className="icon-container-reg">
+                            <img src="/Images/mail.png" height={"20px"} alt="Email Icon" className="icon-reg" />
                         </div>
                         <input
+                            className="input-reg"
                             type="email"
                             placeholder="Email"
                             value={email}
@@ -113,9 +118,9 @@ function Registration() {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div className="form-group-Registration">
-                        <div className="icon-container-Registration">
-                            <img src="/Images/calendar.png" height={"20px"} alt="Birthday Icon" className="icon" />
+                    <div className="form-group-reg">
+                        <div className="icon-container-reg">
+                            <img src="/Images/calendar.png" height={"20px"} alt="Birthday Icon" className="icon-reg" />
                         </div>
                         <input
                             type="date"
@@ -123,12 +128,13 @@ function Registration() {
                             onChange={(e) => setBirthday(e.target.value)}
                             required
                             style={{ textAlign: "left" }}
+                            className="input-reg"
                         />
                     </div>
                     {error && <p className="error">{error}</p>}
                     <button type="submit" style={{ fontWeight: "bold" }}>Let's tune into your taste!</button>
                 </form>
-                <div className="additional-options-Registration">
+                <div className="additional-options-reg">
                     <span onClick={handleBackLogIn} style={{ fontSize: "11px" }}>Back to Login</span>
                 </div>
             </div>

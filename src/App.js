@@ -3,6 +3,7 @@ import LogIn from "./LogIn";
 import HomePage from './HomePage';
 import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
+import Profile from './Profile';
 import SelectArtists from './SelectArtists';
 import SelectSongs from './SelectSongs';
 import ResetPassword from './ResetPassword';
@@ -21,6 +22,7 @@ function App() {
           <Route path="/selectSongs" element={<SelectSongs />} />
           <Route path="/ResetPassword/:username" element={<ResetPassword />} />
           <Route path="/checkMail" element={<CheckMail />} />
+          <Route path="/Profile" element={<Profile />} />
         </Routes>
       </Router>
     </div>
