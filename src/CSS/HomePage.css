@@ -3,7 +3,7 @@
     background-image: url('/public/Images/Background_HomePage.svg');
     background-size: cover; /* Adjusts the background size to be responsive */
     background-position: center; /* Centers the image */
-    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    /*background-attachment: fixed; !* Keeps the background fixed during scrolling *!*/
     width: 100%; /* Full width of the viewport */
     height: 100%; /* Full height of the viewport */
     overflow: hidden; /* Prevents overflow issues */

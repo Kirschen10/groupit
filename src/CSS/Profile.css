@@ -4,8 +4,8 @@
     background-size: cover; /* Adjusts the background size to be responsive */
     background-position: center; /* Centers the image */
     background-attachment: fixed; /* Keeps the background fixed during scrolling */
-    width: 100%; /* Full width of the viewport */
-    height: 100%; /* Full height of the viewport */
+    /*width: 100%; !* Full width of the viewport *!*/
+    /*height: 100%; !* Full height of the viewport *!*/
     overflow: hidden; /* Prevents overflow issues */
     display: flex;
     flex-direction: column;
@@ -82,7 +82,7 @@
 
 .info-content div {
     position: relative;
-    font-family: "Poor Richard"; /* Specify Calibri as the preferred font */
+    font-family: "Poor Richard";
 }
 
 .info-content div p {
@@ -137,14 +137,14 @@
 }
 
 .info-container button:hover {
-    background-color: pur #937; /* Darker background on hover */
+    background-color: rebeccapurple; /* Darker background on hover */
 }
 
 .content-container {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin-top: 400px; /* Adjust as needed */
+    margin-top: 300px; /* Adjust as needed */
 }
 
 .content-box {
@@ -158,4 +158,8 @@
 .content-box h2 {
     margin: 0 0 20px 0; /* Adjust margins */
     color: mediumpurple; /* Text color */
+    font-family: "Poor Richard";
+    font-size: 40px;
+    letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
+
 }

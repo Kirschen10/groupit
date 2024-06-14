@@ -5,6 +5,14 @@ import './CSS/HomePage.css'; // Import CSS file
 function HomePage() {
     const navigate = useNavigate();
 
+    const backgroundStyleHomePage = {
+        backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+        width: '100%',  // Ensure it covers full width
+    };
+
     const handleProfile = () => {
         navigate(`/Profile`);
     };
@@ -22,7 +30,8 @@ function HomePage() {
     };
 
     return (
-        <div className="zoom-background-homePage">
+        <div style={backgroundStyleHomePage}>
+        {/*<div className="zoom-background-homePage">*/}
             <div>
                 <span className="profile-button" onClick={handleProfile}>
                     <img src="/Images/user.svg" alt="Profile" />
