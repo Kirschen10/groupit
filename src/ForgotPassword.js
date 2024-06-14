@@ -25,7 +25,7 @@ function ForgotPassword() {
     
   return (
     <div style={backgroundStyle}>
-    <div className="login-form">
+    <div className="forgot-password-form">
         <div className="additional-options">
             <span onClick={handleBackLogIn} style={{fontFamily: "Calibri", fontSize:"15px"}}>Back to Login</span>
         </div>

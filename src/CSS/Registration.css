@@ -1,6 +1,6 @@
 /* LogIn.css */
 
-.login-form {
+.registration-form {
     position: fixed; 
     top: 50%;
     right: 0; 
@@ -15,7 +15,7 @@
     border-width:thin;
 }
 
-.form-group {
+.form-group-registration {
     position: relative;
     margin-bottom: 20px;
 }

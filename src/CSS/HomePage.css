@@ -14,8 +14,8 @@
     align-items: center;
     text-align: center;
     position: relative; /* Allows positioning of the logo */
-    padding-top: 50px; /* Add padding to move content down a bit */
-    padding-bottom: 50px; /* Add padding to move content down a bit */
+    padding-top: 6%; /* Add padding to move content down a bit */
+    padding-bottom: 6%; /* Add padding to move content down a bit */
 }
 
 .profile-button {
@@ -60,11 +60,10 @@
     font-size: 80px;
     font-weight: 900; /* Make the headline very bold */
     color: #fff;
-    margin-bottom: 20px;
+    margin-bottom: 5%;
     margin-top: 0; /* Remove any top margin */
     font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
     line-height: 1.2; /* Adjust line height if needed */
-    padding-bottom: 20px; /* Add padding to move content down a bit */
 }
 
 .button-container {
