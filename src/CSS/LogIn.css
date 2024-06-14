@@ -1,88 +1,182 @@
 /* LogIn.css */
 
-h2 {
-    font-size: 22px; /* Adjust font size as needed */
-    font-weight: bold; /* Make the text bold */
-    color: #333; /* Set the text color */
-    margin-bottom: 20px; /* Add some bottom margin for spacing */
-    text-align: center; /* Center-align the text */
-    letter-spacing: 0.5px; /* Add some letter spacing for emphasis */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Add a subtle text shadow */
-    font-family: Calibri, sans-serif; /* Specify Calibri as the preferred font */
+.zoom-background-login {
+    /*background-image: url('/public/Images/BackgroundWithlogo.svg');*/
+    /*background-size: cover; !* Adjusts the background size to be responsive *!*/
+    /*background-position: center; !* Centers the image *!*/
+    /*background-attachment: local; !* Keeps the background fixed during scrolling *!*/
+    /*width: 100%; !* Full width of the viewport *!*/
+    /*min-height: 90vh;*/
+    /*overflow: hidden; !* Prevents overflow issues *!*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: flex-start; !* Align items to the start of the container *!*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+    /*position: relative; !* Allows positioning of the logo *!*/
+    /*padding-top: 6%; !* Add padding to move content down a bit *!*/
+    /*padding-bottom: 6%; !* Add padding to move content down a bit *!*/
+    background-image: url('/public/Images/Background with logo short.svg');
+    background-size: cover; /* Adjusts the background size to cover the entire container */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    width: 100%; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the content vertically */
+    align-items: center; /* Center the content horizontally */
+    text-align: center;
+    position: relative; /* Allows positioning of the logo */
+    margin: 0; /* Ensure there is no margin around the element */
+    padding: 0; /* Ensure there is no padding around the element */
 }
 
 .login-form {
-    position: fixed; 
-    top: 50%;
-    right: 0; 
-    transform: translateY(-65%); 
-    background-color: white; 
-    padding: 20px; 
+    background-color: rgba(255, 255, 255, 0); /* Transparent background */
+    position: absolute;
+    top: 30%;
+    right: 10%;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-    margin-right: 300px;
-    width: 300px;
-    border-color: #8925C7;
-    border-width:thin;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 350px; /* Fixed width for the container */
 }
 
-.form-group-LogIn {
+.form-group-login {
     position: relative;
     margin-bottom: 20px;
+    width: 100%; /* Ensure the form group takes up the full width */
 }
 
-input {
-    width: 85%;
-    padding: 20px;
-    border: none;
+.input-login {
+    width: 100%; /* Input takes up full width of the form group */
+    padding: 15px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    padding-left: 30px;
+    padding-left: 50px; /* Adjust for icon */
+    font-family: Calibri;
+    font-size: 19px;
+    box-sizing: border-box; /* Ensure padding is included in the element's total width */
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #8925C7; /* Blue color for the login button */
+.button-login {
+    width: 100%; /* Button takes up full width of the form group */
+    padding: 15px;
+    background-color: mediumpurple;
     color: #fff;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    font-family: Calibri;
+    font-size: 19px;
+    box-sizing: border-box; /* Ensure padding is included in the element's total width */
 }
 
-button:hover {
+.button-login:hover {
     opacity: 0.7;
 }
 
-.icon-container-LogIn {
+.icon-container-login {
     position: absolute;
-    left: 5px; /* Adjust the position of the image */
+    left: 15px; /* Adjust the position of the image */
     top: 50%;
     transform: translateY(-50%);
 }
 
-
-.input-with-icon {
-    padding-left: 80px; /* Add additional padding to the left of the input field to accommodate the image */
-}
-
-.additional-options {
+.additional-options-login {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px; /* Adjust margin top as needed */
+    margin-top: 10px;
 }
 
-.additional-options span {
-    color: #777; /* Adjust color as needed */
-    font-size: 10px; /* Adjust font size as needed */
-    cursor: pointer; /* Show cursor as pointer on hover */
+.additional-options-login span {
+    color: white;
+    font-size: 13px;
+    font-family: Calibri;
+    cursor: pointer;
 }
 
-.additional-options span:hover {
-    color: #8925C7; /* Adjust hover color as needed */
+.additional-options-login span:hover {
+    color: mediumpurple;
 }
 
-.iconLock {
-    display: block; /* Ensure the image is displayed as a block element */
-    margin: 0 auto; /* Center the image horizontally */
-    text-align: center; /* Center the content of the div */
-}
+
+
+
+/*.login-form {*/
+/*    position: absolute;*/
+/*    top: 50%;*/
+/*    right: 5%;*/
+/*    transform: translateY(-50%);*/
+/*    background-color: transparent;*/
+/*    padding: 20px;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);*/
+/*    width: 300px;*/
+/*    border-color: #8925C7;*/
+/*    border-width: thin;*/
+/*}*/
+
+/*.form-group-login {*/
+/*    position: relative;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.input {*/
+/*    width: 85%;*/
+/*    padding: 20px;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    padding-left: 30px;*/
+/*}*/
+
+/*.login-button {*/
+/*    width: 100%;*/
+/*    padding: 10px;*/
+/*    background-color: red; !* Blue color for the login button *!*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.button:hover {*/
+/*    opacity: 0.7;*/
+/*}*/
+
+/*.icon-container-login {*/
+/*    position: absolute;*/
+/*    left: 5px; !* Adjust the position of the image *!*/
+/*    top: 50%;*/
+/*    transform: translateY(-50%);*/
+/*}*/
+
+/*.form-group-login {*/
+/*    position: relative;*/
+/*}*/
+
+/*.input-with-icon-login {*/
+/*    padding-left: 80px; !* Add additional padding to the left of the input field to accommodate the image *!*/
+/*}*/
+
+/*.additional-options-login {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    margin-top: 10px; !* Adjust margin top as needed *!*/
+/*}*/
+
+/*.additional-options span {*/
+/*    color: #777; !* Adjust color as needed *!*/
+/*    font-size: 10px; !* Adjust font size as needed *!*/
+/*    font-family: Calibri;*/
+/*    cursor: pointer; !* Show cursor as pointer on hover *!*/
+/*}*/
+
+/*.additional-options span:hover {*/
+/*    color: #8925C7; !* Adjust hover color as needed *!*/
+/*}*/
+
+/*.iconLock-login {*/
+/*    display: block; !* Ensure the image is displayed as a block element *!*/
+/*    margin: 0 auto; !* Center the image horizontally *!*/
+/*    text-align: center; !* Center the content of the div *!*/
+/*}*/
