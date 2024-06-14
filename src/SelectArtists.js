@@ -6,6 +6,9 @@ import ArtistSearch from './ArtistSearch';
 
 function SelectArtists() {
     const navigate = useNavigate();
+    const [artists, setArtists] = useState([]);
+    const [extraArtists, setExtraArtists] = useState([]);
+    const [error, setError] = useState('');
 
     const backgroundStyle = {
         backgroundImage: `url('/Images/Background_HomePage.svg')`,
@@ -14,44 +17,31 @@ function SelectArtists() {
         minHeight: '100vh',
     };
 
-    const extraArtists = [
-        { id: 101, name: "Adele" },
-        { id: 102, name: "Drake" },
-        { id: 103, name: "Taylor Swift" },
-        { id: 104, name: "The Weeknd" },
-        { id: 105, name: "Billie Eilish" },
-        { id: 106, name: "Ed Sheeran" },
-        { id: 107, name: "Ariana Grande" },
-        { id: 108, name: "Justin Bieber" },
-        { id: 109, name: "BTS" },
-        { id: 110, name: "Dua Lipa" },
-        { id: 111, name: "Post Malone" },
-        { id: 112, name: "SZA" },
-        { id: 113, name: "Kendrick Lamar" },
-        { id: 114, name: "Harry Styles" },
-        { id: 115, name: "Lizzo" },
-        { id: 116, name: "Tame Impala" },
-        { id: 117, name: "Arctic Monkeys" },
-        { id: 118, name: "Coldplay" },
-        { id: 119, name: "Beyoncé" },
-        { id: 120, name: "Lady Gaga" }
-    ];    
+    useEffect(() => {
+        fetch('http://localhost:8081/top-artists')
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    const top20 = data.slice(0, 20).map((artist, index) => ({
+                        id: index + 1,
+                        name: artist.artistName
+                    }));
+                    const next80 = data.slice(20).map((artist, index) => ({
+                        id: index + 21,
+                        name: artist.artistName
+                    }));
+                    setArtists(top20);
+                    setExtraArtists(next80);
+                } else {
+                    setError('Unexpected response format for top artists');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching top artists:', error);
+                setError('Failed to fetch top artists');
+            });
+    }, []);
 
-    const [artists, setArtists] = useState([
-        { id: 1, name: "Artist 1" },
-        { id: 2, name: "Artist 2" },
-        { id: 3, name: "Artist 3" },
-        { id: 4, name: "Artist 4" },
-        { id: 5, name: "Artist 5" },
-        { id: 6, name: "Artist 6" },
-        { id: 7, name: "Artist 7" },
-        { id: 8, name: "Artist 8" },
-        { id: 9, name: "Artist 9" },
-        { id: 10, name: "Artist 10" },
-        { id: 11, name: "Artist 11" },
-        { id: 12, name: "Artist 12" },
-        { id: 13, name: "Artist 13" },
-    ]);
     const [showSearch, setShowSearch] = useState(false);  // Controls the visibility of the search box
     const [selectedArtists, setSelectedArtists] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
@@ -105,7 +95,8 @@ function SelectArtists() {
     return (
         <div style={backgroundStyle}>
             <div className="app">
-                <h2>Select Your 5 Favorite Artists </h2>         
+                <h2>Select Your 5 Favorite Artists </h2>  
+                {error && <div className="error">{error}</div>}       
             <Grid
                     Picker={currentArtists}
                     selectedCatalog={selectedArtists}

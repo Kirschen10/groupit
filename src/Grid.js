@@ -34,7 +34,7 @@ function Grid({ Picker, selectedCatalog, setSelectedCatalog, onCompletion, limit
         if (selectedCatalog.length === limit) {
             onCompletion();
         }
-    }, [selectedCatalog, onCompletion]);
+    }, [selectedCatalog, onCompletion, limit]);
 
     return (
         <div className="Picker-grid">
