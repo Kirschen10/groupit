@@ -4,6 +4,10 @@ import HomePage from './HomePage';
 import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
 import Profile from './Profile';
+import SelectArtists from './SelectArtists';
+import SelectSongs from './SelectSongs';
+import ResetPassword from './ResetPassword';
+import CheckMail from './CheckMail'
 
 function App() {
   return (
@@ -14,6 +18,10 @@ function App() {
           <Route path="/HomePage" element={<HomePage />} />
           <Route path="/Registration" element={<Registration />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
+          <Route path="/SelectArtists" element={<SelectArtists />} />
+          <Route path="/selectSongs" element={<SelectSongs />} />
+          <Route path="/ResetPassword/:username" element={<ResetPassword />} />
+          <Route path="/checkMail" element={<CheckMail />} />
           <Route path="/Profile" element={<Profile />} />
         </Routes>
       </Router>
