@@ -4,8 +4,8 @@
     background-size: cover; /* Adjusts the background size to be responsive */
     background-position: center; /* Centers the image */
     background-attachment: fixed; /* Keeps the background fixed during scrolling */
-    /*width: 100%; !* Full width of the viewport *!*/
-    /*height: 100%; !* Full height of the viewport *!*/
+    width: 100%; /* Full width of the viewport */
+    min-height: 100vh;
     overflow: hidden; /* Prevents overflow issues */
     display: flex;
     flex-direction: column;

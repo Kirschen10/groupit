@@ -1,21 +1,35 @@
 /* LogIn.css */
 
 .zoom-background-login {
-    background-image: url('/public/Images/BackgroundWithlogo.svg');
-    background-size: cover; /* Adjusts the background size to be responsive */
+    /*background-image: url('/public/Images/BackgroundWithlogo.svg');*/
+    /*background-size: cover; !* Adjusts the background size to be responsive *!*/
+    /*background-position: center; !* Centers the image *!*/
+    /*background-attachment: local; !* Keeps the background fixed during scrolling *!*/
+    /*width: 100%; !* Full width of the viewport *!*/
+    /*min-height: 90vh;*/
+    /*overflow: hidden; !* Prevents overflow issues *!*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: flex-start; !* Align items to the start of the container *!*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+    /*position: relative; !* Allows positioning of the logo *!*/
+    /*padding-top: 6%; !* Add padding to move content down a bit *!*/
+    /*padding-bottom: 6%; !* Add padding to move content down a bit *!*/
+    background-image: url('/public/Images/Background with logo short.svg');
+    background-size: cover; /* Adjusts the background size to cover the entire container */
     background-position: center; /* Centers the image */
-    background-attachment: local; /* Keeps the background fixed during scrolling */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
     width: 100%; /* Full width of the viewport */
-    min-height: 100vh;
-    overflow: hidden; /* Prevents overflow issues */
+    height: 100vh; /* Full height of the viewport */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align items to the start of the container */
-    align-items: center;
+    justify-content: center; /* Center the content vertically */
+    align-items: center; /* Center the content horizontally */
     text-align: center;
     position: relative; /* Allows positioning of the logo */
-    padding-top: 6%; /* Add padding to move content down a bit */
-    padding-bottom: 6%; /* Add padding to move content down a bit */
+    margin: 0; /* Ensure there is no margin around the element */
+    padding: 0; /* Ensure there is no padding around the element */
 }
 
 .login-form {
@@ -23,10 +37,9 @@
     position: absolute;
     top: 30%;
     right: 10%;
-    padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Fixed width for the container */
+    width: 350px; /* Fixed width for the container */
 }
 
 .form-group-login {
@@ -42,7 +55,7 @@
     border-radius: 5px;
     padding-left: 50px; /* Adjust for icon */
     font-family: Calibri;
-    font-size: 17px;
+    font-size: 19px;
     box-sizing: border-box; /* Ensure padding is included in the element's total width */
 }
 
@@ -54,7 +67,7 @@
     border: none;
     cursor: pointer;
     font-family: Calibri;
-    font-size: 17px;
+    font-size: 19px;
     box-sizing: border-box; /* Ensure padding is included in the element's total width */
 }
 
