@@ -194,6 +194,34 @@ app.post('/addUserByUserName', async (req, res) => {
     }
 });
 
+app.post('/groupMembers', async (req, res) => {
+    const { groupId } = req.body;
+
+    try {
+        const client = await pool.connect();
+
+        // Get user IDs for the group
+        const groupUsersResult = await client.query('SELECT userID FROM group_user WHERE groupID = $1', [groupId]);
+        const userIds = groupUsersResult.rows.map(row => row.user_id);
+
+        if (userIds.length === 0) {
+            res.json([]);
+            client.release();
+            return;
+        }
+
+        // Get user names from user IDs
+        const usersResult = await client.query('SELECT userName FROM users_data WHERE userID = ANY($1)', [userIds]);
+        const userNames = usersResult.rows.map(row => row.user_name);
+
+        client.release();
+        res.json(userNames);
+    } catch (error) {
+        console.error('Error fetching group members:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 app.get('/test', async (req, res) => {
     return res.json("test")
