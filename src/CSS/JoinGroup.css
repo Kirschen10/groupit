@@ -1,0 +1,47 @@
+/* JoinGroup.css */
+.join-group-container {
+    position: fixed;
+    top: 10%;
+    right: 35%;
+    width: 500px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(244, 244, 244, 0.9); /* Adjust the alpha value to make it more/less transparent */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Calibri, sans-serif;
+}
+
+.join-group-top, .explore-groups-bottom {
+    margin-bottom: 20px;
+}
+
+.join-group-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+.join-group-container input, .join-group-container button {
+    background-color: rgba(255, 255, 255, 0.9);
+    }
+
+
+button {
+    background-color: #8925C7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

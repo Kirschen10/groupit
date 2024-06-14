@@ -1,0 +1,70 @@
+/* CreateGroup.css */
+.create-group-container {
+    position: fixed;
+    top: 20%;
+    right: 35%;
+    width: 500px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(244, 244, 244, 0.9); /* Adjust the alpha value to make it more/less transparent */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-group-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: Calibri, sans-serif;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.added-users {
+    margin-top: 20px;
+    font-family: Calibri, sans-serif;
+}
+
+.added-users ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.added-users li {
+    background-color: #e0e0e0;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #8925C7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

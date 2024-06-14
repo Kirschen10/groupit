@@ -8,6 +8,8 @@ import SelectArtists from './SelectArtists';
 import SelectSongs from './SelectSongs';
 import ResetPassword from './ResetPassword';
 import CheckMail from './CheckMail'
+import CreateGroup from './CreateGroup';
+import JoinGroup from './JoinGroup';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/ResetPassword/:username" element={<ResetPassword />} />
           <Route path="/checkMail" element={<CheckMail />} />
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/CreateGroup" element={<CreateGroup />} />
+          <Route path="/JoinGroup" element={<JoinGroup />} />
         </Routes>
       </Router>
     </div>
