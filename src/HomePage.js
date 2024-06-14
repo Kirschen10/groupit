@@ -15,7 +15,7 @@ function HomePage() {
 
     const handleHomePage = (e) => {
       navigate(`/HomePage`);
-  };
+    };
 
     return (
       <div style={backgroundStyle}>  

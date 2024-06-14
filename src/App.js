@@ -5,6 +5,8 @@ import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
 import SelectArtists from './SelectArtists';
 import SelectSongs from './SelectSongs';
+import CreateGroup from './CreateGroup';
+import JoinGroup from './JoinGroup';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
           <Route path="/SelectArtists" element={<SelectArtists />} />
           <Route path="/selectSongs" element={<SelectSongs />} />
+          <Route path="/CreateGroup" element={<CreateGroup />} />
+          <Route path="/JoinGroup" element={<JoinGroup />} />
         </Routes>
       </Router>
     </div>
