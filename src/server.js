@@ -85,11 +85,12 @@ app.post('/resetPassword', async (req, res) => {
             return res.status(400).send({ message: 'Username and password are required' });
         }
 
-        // Hash the new password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        console.log('Received username:', username);
 
         // Update the user's password in the database
-        const result = await sql.query`UPDATE users_data SET password = ${hashedPassword} WHERE userName = ${username}`;
+        const result = await sql.query`UPDATE users_data SET password = ${password} WHERE userName = ${username}`;
+        
+        console.log('SQL query result:', result);
 
         if (result.rowsAffected[0] > 0) {
             res.status(200).send({ message: 'Password reset successful' });
@@ -101,6 +102,7 @@ app.post('/resetPassword', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
 // Endpoint to get top 100 artists with most songs
 app.get('/top-artists', async (req, res) => {
     try {
@@ -153,6 +155,70 @@ app.post('/password', async (req, res) => {
     } catch (err) {
         console.error('Error occurred during login:', err);
         res.status(500).send({message: 'An error occurred', error: err.message});
+    }
+});
+
+// Fetch all users endpoint
+app.get('/usersList', async (req, res) => {
+    try {
+        const result = await sql.query`SELECT userName FROM users_data`;
+        const users = result.recordset.map(user => user.userName);
+        res.status(200).json(users);
+    } catch (err) {
+        console.error('Error fetching users:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+// Add user to group endpoint
+app.post('/addUserByUserName', async (req, res) => {
+    const { userName, groupId } = req.body;
+    try {
+        const groupResult = await sql.query`SELECT groupID FROM groups_data WHERE groupID = ${groupId}`;
+        if (groupResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'Group not found' });
+        }
+
+        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${userName}`;
+        if (userResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const userID = userResult.recordset[0].userID;
+        await sql.query`INSERT INTO group_user (groupID, userID) VALUES (${groupId}, ${userID})`;
+
+        res.status(200).send({ message: 'User added to group successfully' });
+    } catch (err) {
+        console.error('Error adding user to group:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/groupMembers', async (req, res) => {
+    const { groupId } = req.body;
+
+    try {
+        const client = await pool.connect();
+
+        // Get user IDs for the group
+        const groupUsersResult = await client.query('SELECT userID FROM group_user WHERE groupID = $1', [groupId]);
+        const userIds = groupUsersResult.rows.map(row => row.user_id);
+
+        if (userIds.length === 0) {
+            res.json([]);
+            client.release();
+            return;
+        }
+
+        // Get user names from user IDs
+        const usersResult = await client.query('SELECT userName FROM users_data WHERE userID = ANY($1)', [userIds]);
+        const userNames = usersResult.rows.map(row => row.user_name);
+
+        client.release();
+        res.json(userNames);
+    } catch (error) {
+        console.error('Error fetching group members:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
 

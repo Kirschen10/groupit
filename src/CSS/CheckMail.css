@@ -33,3 +33,15 @@ p {
     margin-bottom: 10px;
     font-family: Calibri, sans-serif;
 }
+
+.success-message {
+    color: green;
+    font-size: 18px;
+    font-family: 'Calibri', sans-serif;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid green;
+    border-radius: 5px;
+    background-color: #e0ffe0;
+}
