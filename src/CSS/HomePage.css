@@ -5,7 +5,8 @@
     background-position: center; /* Centers the image */
     /*background-attachment: fixed; !* Keeps the background fixed during scrolling *!*/
     width: 100%; /* Full width of the viewport */
-    height: 100%; /* Full height of the viewport */
+    min-height: 100vh;
+    /*height: 100%; !* Full height of the viewport *!*/
     overflow: hidden; /* Prevents overflow issues */
     display: flex;
     flex-direction: column;
@@ -19,8 +20,8 @@
 
 .profile-button {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 20px; /* Adjust as needed */
-    left: 20px; /* Adjust as needed */
+    top: 5%; /* Adjust as needed */
+    left: 5%; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
@@ -38,8 +39,8 @@
 
 .question-mark-button {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 20px; /* Adjust as needed */
-    left: 1150px; /* Adjust as needed */
+    top: 5%; /* Adjust as needed */
+    right: 5%; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
