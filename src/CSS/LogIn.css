@@ -76,8 +76,9 @@
 }
 
 .additional-options-login span {
-    color: #777;
+    color: white;
     font-size: 13px;
+    font-family: Calibri;
     cursor: pointer;
 }
 
