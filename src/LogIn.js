@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from './UserContext';
 import './CSS/LogIn.css'; // Import CSS file
 
 const LogIn = () => {
     const navigate = useNavigate();
+    const { login } = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [remember, setRemember] = useState(false); // Remember me state
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
@@ -23,7 +26,8 @@ const LogIn = () => {
             const data = await response.json();
 
             if (response.ok) {
-                navigate('/HomePage');
+                login({ username }, remember); // Save user data in context
+                navigate('/HomePage'); // Navigate to HomePage
             } else {
                 setError(data.message || 'An error occurred. Please try again later.');
             }
@@ -70,6 +74,14 @@ const LogIn = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             className="input-login"
                         />
+                    </div>
+                    <div className="remember-me-container">
+                        <input
+                            type="checkbox"
+                            checked={remember}
+                            onChange={(e) => setRemember(e.target.checked)}
+                        />
+                        <label>Remember Me?</label>
                     </div>
                     {error && <p className="error">{error}</p>}
                     <button type="submit" className="button-login" style={{ fontWeight: 'bold' }}>Login</button>

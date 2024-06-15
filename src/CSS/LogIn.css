@@ -99,8 +99,25 @@
     color: mediumpurple;
 }
 
+.remember-me-container {
+    width: 30%; /* Button takes up full width of the form group */
+    display: flex;
+    align-items: left;
+    margin-bottom: 20px;
+    color: white;
+    margin-right: 50px;
+}
 
+.remember-me-container input {
+    margin-right: 10px;
+}
 
+.remember-me-container label {
+    font-family: Calibri;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 0; /* Ensure no margin around the label */
+}
 
 /*.login-form {*/
 /*    position: absolute;*/

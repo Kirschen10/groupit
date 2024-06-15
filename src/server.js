@@ -158,6 +158,24 @@ app.post('/password', async (req, res) => {
     }
 });
 
+app.get('/api/user-data/:userID', async (req, res) => {
+    const {user.username} = req.params;
+
+    try {
+        const result = await sql.query`SELECT firstName, lastName, userName, email, birthday, password FROM users_data WHERE WHERE userName = ${user.username}`;
+
+        if (result.recordset.length > 0) {
+            res.status(200).send(result.recordset[0]);
+        } else {
+            res.status(404).send({ message: 'User not found' });
+        }
+    } catch (err) {
+        console.error('Error fetching user data:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+
 // Fetch all users endpoint
 app.get('/usersList', async (req, res) => {
     try {

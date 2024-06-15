@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from './UserContext';
 import './CSS/Profile.css'; // Import CSS file
 
 function Profile() {
     const navigate = useNavigate();
+    const { user, logout } = useUser();
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await fetch(`http://localhost:8081/api/user-data/${user.username}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    setUserData(data);
+                } else {
+                    console.error('Error fetching user data:', data.message);
+                }
+            } catch (err) {
+                console.error('Error fetching user data:', err);
+            }
+        };
+
+        if (user) {
+            fetchUserData();
+        }
+    }, [user]);
 
     const handleHomePage = () => {
         navigate(`/HomePage`);
@@ -15,52 +39,52 @@ function Profile() {
     };
 
     const handleSignOut = () => {
-        // Handle sign out action
-        console.log('Sign out clicked');
+        logout();
+        navigate('/');
     };
 
-     return (
+
+    return (
         <div className="zoom-background-profile">
             <span className="Home-page-button" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
             <div className="info-container">
                 <h2>Personal Information</h2>
-                {/*<img className="profile-image" src="/Images/user.svg" alt="Profile" />*/}
                 <div className="info-content">
                     <div>
                         <p>
-                            <span className="label">First Name</span>
-                            John
+                            <span className="label">First Name: </span>
+                            {userData?.firstName || 'Loading...'}
                         </p>
                     </div>
                     <div>
                         <p>
-                            <span className="label">Last Name</span>
-                            Doe
+                            <span className="label">Last Name: </span>
+                            {userData?.lastName || 'Loading...'}
                         </p>
                     </div>
                     <div>
                         <p>
-                            <span className="label">User Name</span>
-                            johndoe
+                            <span className="label">User Name: </span>
+                            {userData?.userName || 'Loading...'}
                         </p>
                     </div>
                     <div>
                         <p>
-                            <span className="label">Email</span>
-                            john.doe@example.com
+                            <span className="label">Email: </span>
+                            {userData?.email || 'Loading...'}
                         </p>
                     </div>
                     <div>
                         <p>
-                            <span className="label">Birthday</span>
-                            01/01/2001
+                            <span className="label">Birthday: </span>
+                            {userData?.birthday || 'Loading...'}
                         </p>
                     </div>
                     <div>
                         <p>
-                            <span className="label">Password</span>
+                            <span className="label">Password: </span>
                             ********
                         </p>
                     </div>
