@@ -68,3 +68,49 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.error-message {
+    color: red;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.form-group.vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-user-select {
+    width: 100%; /* Take full width */
+    margin-bottom: 10px; /* Add some space between the select and the button */
+}
+
+.add-user-button {
+    width: 100%; /* Take full width */
+}
+
+.added-users {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.added-users ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;  /* Center list items */
+}
+
+.added-users li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;  /* Center text inside list items */
+    flex: 1 1 20%; /* Allow up to 5 items per row, adjust as needed */
+    max-width: 23%; /* Ensure items wrap correctly */
+}
