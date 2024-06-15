@@ -13,7 +13,7 @@ const connectionString = {
     user: 'groupit_admin',
     password: 'Group123it',
     server: 'groupit.database.windows.net',
-    database: 'groupit_db',
+    database: 'groupit_new',
     options: {
         encrypt: true,
         enableArithAbort: true,
