@@ -13,12 +13,6 @@ function Registration() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');  // State variable for error message
 
-    const backgroundStyle = {
-        backgroundImage: `url('/Images/Background with logo short.svg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh', // Set minimum height to cover the entire viewport
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,12 +44,12 @@ function Registration() {
     };
 
     return (
-        <div style={backgroundStyle}>
+        <div className="background-Registration">
             <div className="registration-form">
                 <form onSubmit={handleSubmit}>
                     <div className="form-group-reg">
                         <div className="icon-container-reg">
-                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" className="icon-reg" />
+                            <img src="/Images/user.png" height="20px" alt="Name Icon" />
                         </div>
                         <input
                             className="input-reg"
@@ -68,7 +62,7 @@ function Registration() {
                     </div>
                     <div className="form-group-reg">
                         <div className="icon-container-reg">
-                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" className="icon-reg" />
+                            <img src="/Images/user.png" height={"20px"} alt="Name Icon" />
                         </div>
                         <input
                             className="input-reg"
@@ -81,7 +75,7 @@ function Registration() {
                     </div>
                     <div className="form-group-reg">
                         <div className="icon-container-reg">
-                            <img src="/Images/profile.png" height={"20px"} alt="Username Icon" className="icon-reg" />
+                            <img src="/Images/profile.png" height={"20px"} alt="Username Icon" />
                         </div>
                         <input
                             className="input-reg"
@@ -94,7 +88,7 @@ function Registration() {
                     </div>
                     <div className="form-group-reg">
                         <div className="icon-container-reg">
-                            <img src="/Images/padlock.png" height={"20px"} alt="Password Icon" className="icon-reg" />
+                            <img src="/Images/padlock.png" height={"20px"} alt="Password Icon" />
                         </div>
                         <input
                             className="input-reg"
@@ -107,7 +101,7 @@ function Registration() {
                     </div>
                     <div className="form-group-reg">
                         <div className="icon-container-reg">
-                            <img src="/Images/mail.png" height={"20px"} alt="Email Icon" className="icon-reg" />
+                            <img src="/Images/mail.png" height={"20px"} alt="Email Icon" />
                         </div>
                         <input
                             className="input-reg"
@@ -120,7 +114,7 @@ function Registration() {
                     </div>
                     <div className="form-group-reg">
                         <div className="icon-container-reg">
-                            <img src="/Images/calendar.png" height={"20px"} alt="Birthday Icon" className="icon-reg" />
+                            <img src="/Images/calendar.png" height={"20px"} alt="Birthday Icon" />
                         </div>
                         <input
                             type="date"
@@ -132,10 +126,10 @@ function Registration() {
                         />
                     </div>
                     {error && <p className="error">{error}</p>}
-                    <button type="submit" style={{ fontWeight: "bold" }}>Let's tune into your taste!</button>
+                    <button className={"button-reg"} type="submit" style={{ fontWeight: "bold" }}>Let's tune into your taste!</button>
                 </form>
                 <div className="additional-options-reg">
-                    <span onClick={handleBackLogIn} style={{ fontSize: "11px" }}>Back to Login</span>
+                    <span onClick={handleBackLogIn}>Back to Login</span>
                 </div>
             </div>
         </div>

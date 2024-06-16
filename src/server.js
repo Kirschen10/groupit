@@ -89,7 +89,7 @@ app.post('/resetPassword', async (req, res) => {
 
         // Update the user's password in the database
         const result = await sql.query`UPDATE users_data SET password = ${password} WHERE userName = ${username}`;
-        
+
         console.log('SQL query result:', result);
 
         if (result.rowsAffected[0] > 0) {
@@ -157,6 +157,24 @@ app.post('/password', async (req, res) => {
         res.status(500).send({message: 'An error occurred', error: err.message});
     }
 });
+
+app.get('/api/user-data/:username', async (req, res) => {
+    const { username } = req.params;
+
+    try {
+        const result = await sql.query`SELECT firstName, lastName, userName, email, birthday, password FROM users_data WHERE userName = ${username}`;
+
+        if (result.recordset.length > 0) {
+            res.status(200).send(result.recordset[0]);
+        } else {
+            res.status(404).send({ message: 'User not found' });
+        }
+    } catch (err) {
+        console.error('Error fetching user data:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
 
 // Fetch all users endpoint
 app.get('/usersList', async (req, res) => {

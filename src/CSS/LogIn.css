@@ -1,22 +1,7 @@
 /* LogIn.css */
 
-.zoom-background-login {
-    /*background-image: url('/public/Images/BackgroundWithlogo.svg');*/
-    /*background-size: cover; !* Adjusts the background size to be responsive *!*/
-    /*background-position: center; !* Centers the image *!*/
-    /*background-attachment: local; !* Keeps the background fixed during scrolling *!*/
-    /*width: 100%; !* Full width of the viewport *!*/
-    /*min-height: 90vh;*/
-    /*overflow: hidden; !* Prevents overflow issues *!*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-content: flex-start; !* Align items to the start of the container *!*/
-    /*align-items: center;*/
-    /*text-align: center;*/
-    /*position: relative; !* Allows positioning of the logo *!*/
-    /*padding-top: 6%; !* Add padding to move content down a bit *!*/
-    /*padding-bottom: 6%; !* Add padding to move content down a bit *!*/
-    background-image: url('/public/Images/Background with logo short.svg');
+.background-login {
+    background-image: url('/public/Images/Login Background.svg');
     background-size: cover; /* Adjusts the background size to cover the entire container */
     background-position: center; /* Centers the image */
     background-attachment: fixed; /* Keeps the background fixed during scrolling */
@@ -99,84 +84,21 @@
     color: mediumpurple;
 }
 
+.remember-me-container {
+    display: flex;
+    align-items: center; /* Align items vertically centered */
+    margin-right: 62%;
+    color: white;
+    font-family: Calibri;
+    font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
 
+.remember-me-container input[type="checkbox"] {
+    margin: 0; /* Remove any default margin */
+    transform: scale(2); /* Change the scale to adjust size */}
 
-
-/*.login-form {*/
-/*    position: absolute;*/
-/*    top: 50%;*/
-/*    right: 5%;*/
-/*    transform: translateY(-50%);*/
-/*    background-color: transparent;*/
-/*    padding: 20px;*/
-/*    border-radius: 10px;*/
-/*    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);*/
-/*    width: 300px;*/
-/*    border-color: #8925C7;*/
-/*    border-width: thin;*/
-/*}*/
-
-/*.form-group-login {*/
-/*    position: relative;*/
-/*    margin-bottom: 20px;*/
-/*}*/
-
-/*.input {*/
-/*    width: 85%;*/
-/*    padding: 20px;*/
-/*    border: none;*/
-/*    border-radius: 5px;*/
-/*    padding-left: 30px;*/
-/*}*/
-
-/*.login-button {*/
-/*    width: 100%;*/
-/*    padding: 10px;*/
-/*    background-color: red; !* Blue color for the login button *!*/
-/*    color: #fff;*/
-/*    border: none;*/
-/*    border-radius: 5px;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.button:hover {*/
-/*    opacity: 0.7;*/
-/*}*/
-
-/*.icon-container-login {*/
-/*    position: absolute;*/
-/*    left: 5px; !* Adjust the position of the image *!*/
-/*    top: 50%;*/
-/*    transform: translateY(-50%);*/
-/*}*/
-
-/*.form-group-login {*/
-/*    position: relative;*/
-/*}*/
-
-/*.input-with-icon-login {*/
-/*    padding-left: 80px; !* Add additional padding to the left of the input field to accommodate the image *!*/
-/*}*/
-
-/*.additional-options-login {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    margin-top: 10px; !* Adjust margin top as needed *!*/
-/*}*/
-
-/*.additional-options span {*/
-/*    color: #777; !* Adjust color as needed *!*/
-/*    font-size: 10px; !* Adjust font size as needed *!*/
-/*    font-family: Calibri;*/
-/*    cursor: pointer; !* Show cursor as pointer on hover *!*/
-/*}*/
-
-/*.additional-options span:hover {*/
-/*    color: #8925C7; !* Adjust hover color as needed *!*/
-/*}*/
-
-/*.iconLock-login {*/
-/*    display: block; !* Ensure the image is displayed as a block element *!*/
-/*    margin: 0 auto; !* Center the image horizontally *!*/
-/*    text-align: center; !* Center the content of the div *!*/
-/*}*/
+.remember-me-container span {
+    margin-left: 5px; /* Add a margin to separate checkbox and text */
+}

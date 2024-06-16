@@ -11,13 +11,6 @@ function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
 
-    const backgroundStyle = {
-        backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh', // Set minimum height to cover the entire viewport
-    };
-
 
     const handleBackLogIn = (e) => {
         e.preventDefault();
@@ -50,7 +43,7 @@ function ForgotPassword() {
     };
 
     return (
-        <div style={backgroundStyle}>
+        <div className="background-ForgotPassword">
             <div className="forgot-password-form">
                 <div className="additional-options">
                     <span onClick={handleBackLogIn}

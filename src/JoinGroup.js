@@ -69,7 +69,7 @@ const JoinGroup = () => {
                     value={groupID}
                     onChange={(e) => setGroupID(e.target.value)}
                 />
-                <button onClick={handleJoinGroupByID}>Join Group</button>
+                <button className={"button-JoinGroup"} onClick={handleJoinGroupByID}>Join Group</button>
             </div>
             <div className="explore-groups-bottom">
                 <h3>Explore Groups with Similar Taste</h3>
