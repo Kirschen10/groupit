@@ -48,7 +48,7 @@ const CreateGroup = () => {
             }
         }
     };
-    
+
 
     const handleCreateGroup = async () => {
         if (groupName === '') {
@@ -80,38 +80,31 @@ const CreateGroup = () => {
         }
     };
 
-    const backgroundStyle = {
-        backgroundImage: `url('/Images/Background_HomePage.svg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh', // Set minimum height to cover the entire viewport
-    };
-
     return (
-        <div style={backgroundStyle}>
-            <div className="create-group-container">
-                <h2>Create New Group</h2>
-                <form onSubmit={(e) => e.preventDefault()}>
-                    <div className="form-group">
-                        <label>Group Name:</label>
-                        <input
-                            type="text"
-                            maxLength="50"
-                            value={groupName}
-                            onChange={(e) => setGroupName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Group Description:</label>
-                        <textarea
-                            maxLength="255"
-                            value={groupDescription}
-                            onChange={(e) => setGroupDescription(e.target.value)}
-                            required
-                        ></textarea>
-                    </div>
-                    <div className="form-group flex">
+    <div className="background-CreateGroup">
+        <div className="create-group-container">
+            <h2>Create New Group</h2>
+            <form onSubmit={(e) => e.preventDefault()}>
+                <div className="form-group">
+                    <label>Group Name:</label>
+                    <input
+                        type="text"
+                        maxLength="50"
+                        value={groupName}
+                        onChange={(e) => setGroupName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Group Description:</label>
+                    <textarea
+                        maxLength="255"
+                        value={groupDescription}
+                        onChange={(e) => setGroupDescription(e.target.value)}
+                        required
+                    ></textarea>
+                </div>
+                      <div className="form-group flex">
                         <Select
                             options={allUsers}
                             value={newUser}
@@ -121,19 +114,19 @@ const CreateGroup = () => {
                             className="add-user-select"
                         />
                         <button type="button" className="add-user-button" onClick={handleAddUser}>Add</button>
-                    </div>
-                    <div className="added-users">
-                        <h4>Added Users:</h4>
-                        <ul>
-                            {users.map((user, index) => (
-                                <li key={index}>{user.username}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <button type="button" onClick={handleCreateGroup}>Create Group</button>
-                    {error && <p className="error-message">{error}</p>}
-                </form>
-            </div>
+                </div>
+                <div className="added-users">
+                    <h4>Added Users:</h4>
+                    <ul>
+                        {users.map((user, index) => (
+                            <li key={index}>{user.username}</li>
+                        ))}
+                    </ul>
+                </div>
+                <button className={"button-CreateGroup"} type="button" onClick={handleCreateGroup}>Create Group</button>
+                {error && <p className="error-message">{error}</p>}
+            </form>
+        </div>
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React from 'react';
 import LogIn from "./LogIn";
 import HomePage from './HomePage';
 import Registration from './Registration';
@@ -11,6 +12,7 @@ import CheckMail from './CheckMail';
 import GroupDetails from './GroupDetails';
 import CreateGroup from './CreateGroup';
 import JoinGroup from './JoinGroup';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
   return (
@@ -18,17 +20,19 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LogIn />} />
-          <Route path="/HomePage" element={<HomePage />} />
           <Route path="/Registration" element={<Registration />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
-          <Route path="/SelectArtists" element={<SelectArtists />} />
-          <Route path="/selectSongs" element={<SelectSongs />} />
-          <Route path="/ResetPassword/:username" element={<ResetPassword />} />
-          <Route path="/checkMail" element={<CheckMail />} />
-          <Route path="/Profile" element={<Profile />} />
-          <Route path="/CreateGroup" element={<CreateGroup />} />
-          <Route path="/JoinGroup" element={<JoinGroup />} />
-          <Route path="/GroupDetails" element={<GroupDetails />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/HomePage" element={<HomePage />} />
+            <Route path="/SelectArtists" element={<SelectArtists />} />
+            <Route path="/SelectSongs" element={<SelectSongs />} />
+            <Route path="/ResetPassword/:username" element={<ResetPassword />} />
+            <Route path="/CheckMail" element={<CheckMail />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/CreateGroup" element={<CreateGroup />} />
+            <Route path="/JoinGroup" element={<JoinGroup />} />
+            <Route path="/GroupDetails" element={<GroupDetails />} />
+          </Route>
         </Routes>
       </Router>
     </div>

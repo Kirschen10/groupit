@@ -1,4 +1,23 @@
 /* CreateGroup.css */
+
+.background-CreateGroup {
+    background-image: url('/public/Images/Home Page Background.svg');
+    background-size: cover; /* Adjusts the background size to be responsive */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    width: 100%; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevents overflow issues */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the start of the container */
+    align-items: center;
+    text-align: center;
+    position: relative; /* Allows positioning of the logo */
+    margin: 0; /* Ensure there is no margin around the element */
+    padding: 0; /* Ensure there is no padding around the element */
+}
+
 .create-group-container {
     position: fixed;
     top: 20%;
@@ -52,7 +71,7 @@
     border-radius: 4px;
 }
 
-button {
+.button-CreateGroup {
     background-color: #8925C7;
     color: white;
     border: none;
@@ -65,7 +84,7 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
+.button-CreateGroup:hover {
     background-color: #0056b3;
 }
 
