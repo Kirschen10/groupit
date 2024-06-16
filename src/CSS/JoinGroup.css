@@ -29,7 +29,7 @@
     }
 
 
-button {
+.button-JoinGroup {
     background-color: #8925C7;
     color: white;
     border: none;
@@ -42,6 +42,6 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
+.button-JoinGroup:hover {
     background-color: #0056b3;
 }

@@ -1,5 +1,6 @@
+/* Profile.css */
 
-.zoom-background-profile {
+.background-profile {
     background-image: url('/public/Images/Profile background.svg');
     background-size: cover; /* Adjusts the background size to be responsive */
     background-position: center; /* Centers the image */
@@ -43,18 +44,19 @@
     position: absolute; /* Position absolutely at the top */
     top: 15px; /* Adjust as needed */
     width: 80%; /* Adjust width as needed */
-    max-width: 800px; /* Max width */
+    max-width: 900px; /* Max width */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     column-gap: 30px;
     align-items: start;
+    transform: translateX(8.5%); /* Adjust position to center horizontally */
 }
 
 .info-container h2 {
     grid-column: span 3; /* Make the heading span all columns */
     color: white; /* text color */
-    margin: 20px 0 0 0; /* Adjust margins */
+    margin: 20px 12% 0 0; /* Adjust margins */
     font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
     font-size: 40px;
     font-weight: 900; /* Make the headline very bold */
@@ -80,6 +82,15 @@
     column-gap: 30px;
 }
 
+.info-content input {
+    margin: 5px 0; /* Adjust margins */
+    color: white; /* Make text color white */
+    padding: 10px; /* Adjust padding as needed */
+    border: 2px solid white; /* Border around the text box */
+    border-radius: 5px; /* Rounded corners */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
 .info-content div {
     position: relative;
     font-family: "Poor Richard";
@@ -93,7 +104,6 @@
     border-radius: 5px; /* Rounded corners */
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 }
-
 
 .info-content div p span.label {
     position: absolute;
@@ -161,5 +171,4 @@
     font-family: "Poor Richard";
     font-size: 40px;
     letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
-
 }

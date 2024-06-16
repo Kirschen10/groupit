@@ -30,8 +30,7 @@ function HomePage() {
     };
 
     return (
-        // <div style={backgroundStyleHomePage}>
-        <div className="zoom-background-homePage">
+        <div className="background-homePage">
             <div>
                 <span className="profile-button" onClick={handleProfile}>
                     <img src="/Images/user.svg" alt="Profile" />

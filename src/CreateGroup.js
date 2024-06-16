@@ -42,15 +42,8 @@ const CreateGroup = () => {
         }
     };
 
-    const backgroundStyle = {
-        backgroundImage: `url('/Images/Background_HomePage.svg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh', // Set minimum height to cover the entire viewport
-    };
-
     return (
-    <div  style={backgroundStyle}>
+    <div className="background-CreateGroup">
         <div className="create-group-container">
             <h2>Create New Group</h2>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -90,7 +83,7 @@ const CreateGroup = () => {
                         ))}
                     </ul>
                 </div>
-                <button type="button" onClick={handleCreateGroup}>Create Group</button>
+                <button className={"button-CreateGroup"} type="button" onClick={handleCreateGroup}>Create Group</button>
             </form>
         </div>
         </div>

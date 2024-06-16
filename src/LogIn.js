@@ -48,7 +48,7 @@ const LogIn = () => {
     };
 
     return (
-        <div className="zoom-background-login">
+        <div className="background-login">
             <div className="login-form">
                 <form onSubmit={handleSubmit}>
                     <div className="form-group-login">
@@ -75,13 +75,15 @@ const LogIn = () => {
                             className="input-login"
                         />
                     </div>
-                    <div className="remember-me-container">
-                        <input
-                            type="checkbox"
-                            checked={remember}
-                            onChange={(e) => setRemember(e.target.checked)}
-                        />
-                        <label>Remember Me?</label>
+                    <div className="form-group-login">
+                        <label className="remember-me-container">
+                            <input
+                                type="checkbox"
+                                checked={remember}
+                                onChange={(e) => setRemember(e.target.checked)}
+                            />
+                            <span>Remember Me</span>
+                        </label>
                     </div>
                     {error && <p className="error">{error}</p>}
                     <button type="submit" className="button-login" style={{ fontWeight: 'bold' }}>Login</button>

@@ -89,7 +89,7 @@ app.post('/resetPassword', async (req, res) => {
 
         // Update the user's password in the database
         const result = await sql.query`UPDATE users_data SET password = ${password} WHERE userName = ${username}`;
-        
+
         console.log('SQL query result:', result);
 
         if (result.rowsAffected[0] > 0) {
@@ -158,11 +158,11 @@ app.post('/password', async (req, res) => {
     }
 });
 
-app.get('/api/user-data/:userID', async (req, res) => {
-    const {user.username} = req.params;
+app.get('/api/user-data/:username', async (req, res) => {
+    const { username } = req.params;
 
     try {
-        const result = await sql.query`SELECT firstName, lastName, userName, email, birthday, password FROM users_data WHERE WHERE userName = ${user.username}`;
+        const result = await sql.query`SELECT firstName, lastName, userName, email, birthday, password FROM users_data WHERE userName = ${username}`;
 
         if (result.recordset.length > 0) {
             res.status(200).send(result.recordset[0]);
