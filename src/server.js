@@ -213,33 +213,43 @@ app.post('/addUserByUserName', async (req, res) => {
     }
 });
 
+// Fetch group members endpoint
 app.post('/groupMembers', async (req, res) => {
     const { groupId } = req.body;
 
     try {
-        const client = await pool.connect();
+        // Ensure the pool is connected
+        await sql.connect(connectionString);
 
         // Get user IDs for the group
-        const groupUsersResult = await client.query('SELECT userID FROM group_user WHERE groupID = $1', [groupId]);
-        const userIds = groupUsersResult.rows.map(row => row.user_id);
+        const groupUsersResult = await sql.query`
+            SELECT userID 
+            FROM group_user 
+            WHERE groupID = ${groupId}
+        `;
+
+        const userIds = groupUsersResult.recordset.map(row => row.userID);
 
         if (userIds.length === 0) {
-            res.json([]);
-            client.release();
-            return;
+            return res.json([]); // Return an empty array if no users found
         }
 
         // Get user names from user IDs
-        const usersResult = await client.query('SELECT userName FROM users_data WHERE userID = ANY($1)', [userIds]);
-        const userNames = usersResult.rows.map(row => row.user_name);
+        const usersResult = await sql.query`
+            SELECT userName 
+            FROM users_data 
+            WHERE userID IN (${userIds})
+        `;
+        
+        const userNames = usersResult.recordset.map(row => row.userName);
 
-        client.release();
         res.json(userNames);
     } catch (error) {
         console.error('Error fetching group members:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 });
+
 
 
 app.get('/api/search-users', async (req, res) => {
@@ -414,8 +424,30 @@ app.get('/user-groups/:userID', async (req, res) => {
     }
 });
 
+// Endpoint to remove a user from a group
+app.post('/leave-group', async (req, res) => {
+    const { userID, groupID } = req.body;
 
+    try {
+        // Ensure the pool is connected
+        await sql.connect(connectionString);
 
+        // Delete the user from the group
+        const result = await sql.query`
+            DELETE FROM group_user 
+            WHERE userID = ${userID} AND groupID = ${groupID}
+        `;
+
+        if (result.rowsAffected[0] > 0) {
+            res.status(200).send({ message: 'Successfully left the group' });
+        } else {
+            res.status(404).send({ message: 'User or group not found' });
+        }
+    } catch (err) {
+        console.error('Error leaving group:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
 
 app.get('/test', async (req, res) => {
     return res.json("test")

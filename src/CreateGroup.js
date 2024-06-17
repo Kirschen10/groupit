@@ -104,8 +104,26 @@ const CreateGroup = () => {
         }
     };
 
+    const handleProfile = () => {
+        navigate(`/Profile`);
+    };
+
+    const handleHomePage = () => {
+        navigate(`/HomePage`);
+    };
+
     return (
     <div className="background-CreateGroup">
+         <div>
+                <span className="profile-CreateGroup-button" onClick={handleProfile}>
+                    <img src="/Images/user.svg" alt="Profile" />
+                </span>
+            </div>
+            <div>
+            <span className="Home-Page-CreateGroup-button" onClick={handleHomePage}>
+                <img src="/Images/Logo.svg" alt="Logo" />
+            </span>
+            </div>
         <div className="create-group-container">
             <h2>Create New Group</h2>
             <form onSubmit={(e) => e.preventDefault()}>
