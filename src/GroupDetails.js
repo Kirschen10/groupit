@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Select from 'react-select';
 import './CSS/GroupDetails.css'; // Import CSS file
 
 const GroupDetails = () => {
-    const group = {
-        name: 'Music Lovers',
-        description: 'A group for people who love music',
-        id: '12345',
-        dateOfFormation: '2023-01-01',
-    };
-
+    const location = useLocation();
+    const { group } = location.state;
+    console.log(group);
     const [newUser, setNewUser] = useState(null);
     const [users, setUsers] = useState([]); // Initially empty
     const [allUsers, setAllUsers] = useState([]); // All users from DB
@@ -109,23 +106,17 @@ const GroupDetails = () => {
         console.log('Get playlist');
     };
 
-    const backgroundStyle = {
-        backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-    };
-
     return (
-        <div className="background" style={backgroundStyle}>
+        <div className="background-group-details">
             <div className="group-details-container">
-                <h1 className="group-header">{group.name}</h1>
-                <div className="group-info">
-                    <span><strong>Description:</strong> {group.description}</span>
+                <h1 className="group-header">{group.groupName}</h1>
+                <div className="group-info group-info-row">
+                    <span><strong>Description:</strong> {group.groupDescription}</span>
+                    <span><strong>Group user Count:</strong> {group.userCount}</span>
                 </div>
                 <div className="group-info group-info-row">
-                    <span><strong>Group ID:</strong> {group.id}</span>
-                    <span><strong>Date of Formation:</strong> {group.dateOfFormation}</span>
+                    <span><strong>Group ID:</strong> {group.groupID}</span>
+                    <span><strong>Date of Formation:</strong> {new Date(group.createdAt).toLocaleDateString()}</span>
                 </div>
                 <div className="group-actions">
                     <button onClick={handleLeaveGroup}>Leave Group</button>
