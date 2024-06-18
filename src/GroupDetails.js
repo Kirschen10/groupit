@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import './CSS/GroupDetails.css'; // Import CSS file
 
 const GroupDetails = () => {
-    const group = {
-        name: 'Music Lovers',
-        description: 'A group for people who love music',
-        id: '12345',
-        dateOfFormation: '2023-01-01',
-    };
-
+    const location = useLocation();
+    const navigate = useNavigate(); // Initialize navigate
+    const { group, userID } = location.state;
+    console.log(group);
     const [newUser, setNewUser] = useState(null);
     const [users, setUsers] = useState([]); // Initially empty
     const [allUsers, setAllUsers] = useState([]); // All users from DB
     const [showModal, setShowModal] = useState(false); // State for showing modal
+    const [showSuccessModal, setShowSuccessModal] = useState(false); // State for showing success modal
     const [feedbackMessage, setFeedbackMessage] = useState(''); // State for feedback message
     const [errorAllUsersMessage, setAllUsersErrorMessage] = useState(''); // State for error message
     const [errorGroupUsersMessage, setErrorGroupUsersMessage] = useState(''); // State for error message
+    const [countdown, setCountdown] = useState(5); // Countdown state
 
     useEffect(() => {
         // Fetch all users from the backend
@@ -29,8 +29,8 @@ const GroupDetails = () => {
             })
             .then(data => {
                 const usersOptions = data.map(user => ({
-                    value: user,
-                    label: user,
+                    value: user.userID,
+                    label: user.userName,
                 }));
                 setAllUsers(usersOptions);
             })
@@ -45,7 +45,7 @@ const GroupDetails = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ groupId: group.id }),
+            body: JSON.stringify({ groupId: group.groupID }),
         })
             .then(response => {
                 if (!response.ok) {
@@ -56,11 +56,11 @@ const GroupDetails = () => {
             .then(data => {
                 setUsers(data);
             })
-                .catch(error => {
-                    console.error('Error fetching group members:', error);
-                    setErrorGroupUsersMessage('Error fetching group members');
-                });
-        }, [group.id]);
+            .catch(error => {
+                console.error('Error fetching group members:', error);
+                setErrorGroupUsersMessage('Error fetching group members');
+            });
+    }, [group.groupID]);
 
     const handleAddUser = () => {
         if (newUser) {
@@ -69,7 +69,7 @@ const GroupDetails = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userName: newUser.value, groupId: group.id }),
+                body: JSON.stringify({ userName: newUser.label, groupId: group.groupID }),
             })
                 .then(response => response.json())
                 .then(data => {
@@ -94,10 +94,37 @@ const GroupDetails = () => {
     };
 
     const confirmLeaveGroup = () => {
-        // Logic to leave the group
-        console.log('Left the group');
-        setShowModal(false);
-        setFeedbackMessage('You have left the group.');
+        fetch('http://localhost:8081/leave-group', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userID, groupID: group.groupID }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Successfully left the group') {
+                    setShowModal(false);
+                    setFeedbackMessage('You have left the group.');
+                    setShowSuccessModal(true);
+                    // Start countdown
+                    const countdownInterval = setInterval(() => {
+                        setCountdown(prevCountdown => {
+                            if (prevCountdown === 1) {
+                                clearInterval(countdownInterval);
+                                navigate('/profile'); // Navigate to the profile page
+                            }
+                            return prevCountdown - 1;
+                        });
+                    }, 1000);
+                } else {
+                    setFeedbackMessage(`Error: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error leaving group:', error);
+                setFeedbackMessage('An error occurred while leaving the group.');
+            });
     };
 
     const cancelLeaveGroup = () => {
@@ -109,23 +136,35 @@ const GroupDetails = () => {
         console.log('Get playlist');
     };
 
-    const backgroundStyle = {
-        backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
+    const handleProfile = () => {
+        navigate(`/Profile`);
     };
 
+    const handleHomePage = () => {
+        navigate(`/HomePage`);
+    };
+
+
     return (
-        <div className="background" style={backgroundStyle}>
+        <div className="background-group-details">
+              <div>
+                <span className="profile-button" onClick={handleProfile}>
+                    <img src="/Images/user.svg" alt="Profile" />
+                </span>
+            </div>
+            <div>
+            <span className="Home-Page-CreateGroup-button" onClick={handleHomePage}>
+                <img src="/Images/Logo.svg" alt="Logo" />
+            </span>
+            </div>
             <div className="group-details-container">
-                <h1 className="group-header">{group.name}</h1>
+                <h1 className="group-header">{group.groupName}</h1>
                 <div className="group-info">
-                    <span><strong>Description:</strong> {group.description}</span>
+                    <span>{group.groupDescription}</span>
                 </div>
                 <div className="group-info group-info-row">
-                    <span><strong>Group ID:</strong> {group.id}</span>
-                    <span><strong>Date of Formation:</strong> {group.dateOfFormation}</span>
+                    <span><strong>Group ID:</strong> {group.groupID}</span>
+                    <span><strong>Date of Formation:</strong> {new Date(group.createdAt).toLocaleDateString()}</span>
                 </div>
                 <div className="group-actions">
                     <button onClick={handleLeaveGroup}>Leave Group</button>
@@ -164,6 +203,16 @@ const GroupDetails = () => {
                             <button className="modal-button modal-cancel-button" onClick={cancelLeaveGroup}>Cancel</button>
                             <button className="modal-button" onClick={confirmLeaveGroup}>Confirm</button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {showSuccessModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Successfully Left the Group</h2>
+                        <p>You have been successfully removed from the group.</p>
+                        <p>Redirecting to profile page in <strong>{countdown}</strong></p>
                     </div>
                 </div>
             )}

@@ -22,10 +22,10 @@ function App() {
           <Route path="/" element={<LogIn />} />
           <Route path="/Registration" element={<Registration />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
+          <Route path="/SelectArtists" element={<SelectArtists />} />
+          <Route path="/SelectSongs" element={<SelectSongs />} />
           <Route element={<PrivateRoute />}>
             <Route path="/HomePage" element={<HomePage />} />
-            <Route path="/SelectArtists" element={<SelectArtists />} />
-            <Route path="/SelectSongs" element={<SelectSongs />} />
             <Route path="/ResetPassword/:username" element={<ResetPassword />} />
             <Route path="/CheckMail" element={<CheckMail />} />
             <Route path="/Profile" element={<Profile />} />

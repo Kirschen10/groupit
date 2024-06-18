@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 import './CSS/SelectArtists.css';
 import Grid from './Grid';
 import ArtistSearch from './ArtistSearch';
 
 function SelectArtists() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [artists, setArtists] = useState([]);
     const [extraArtists, setExtraArtists] = useState([]);
     const [error, setError] = useState('');
+    const { username } = location.state || { username };
 
     const backgroundStyle = {
         backgroundImage: `url('/Images/Background_HomePage.svg')`,
@@ -47,7 +49,7 @@ function SelectArtists() {
     const [currentPage, setCurrentPage] = useState(0);
     const artistsPerPage = 12;
     const currentArtists = artists.slice(currentPage * artistsPerPage, (currentPage + 1) * artistsPerPage);
-
+    console.log("artists", artists);
     const handleSelectArtist = (selectedOption) => {
         const newArtist = { id: selectedOption.value, name: selectedOption.label };
         setArtists(prevArtists => [...prevArtists, newArtist]);
@@ -89,7 +91,7 @@ function SelectArtists() {
         }).filter(artist => artist !== null);  // Filter out any null entries
     
         console.log("Selected Artists Details:", selectedArtistsDetails); // Log the final array
-        navigate('/selectSongs', { state: { selectedArtists: selectedArtistsDetails } });
+        navigate('/selectSongs', { state: { selectedArtists: selectedArtistsDetails, username: username } }); // Pass username to the next page
     };
     
     return (

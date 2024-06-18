@@ -26,7 +26,7 @@ function Registration() {
         .then(response => response.json())
         .then(data => {
             if (data.message === 'Registration successful') {
-                navigate('/SelectArtists');
+                navigate('/SelectArtists', { state: { username } }); // Pass the username to SelectArtists
             } else {  
                 console.error('Registration failed:', data.message);
                 setError(data.message);  // Set the error message

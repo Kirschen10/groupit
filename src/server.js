@@ -162,11 +162,11 @@ app.get('/api/user-data/:username', async (req, res) => {
     const { username } = req.params;
 
     try {
-        const result = await sql.query`SELECT firstName, lastName, userName, email, birthday, password FROM users_data WHERE userName = ${username}`;
+        const result = await sql.query`SELECT firstName, lastName, userName, email, birthday, password, userID FROM users_data WHERE userName = ${username}`;
 
         if (result.recordset.length > 0) {
             res.status(200).send(result.recordset[0]);
-        } else {
+        } else {    
             res.status(404).send({ message: 'User not found' });
         }
     } catch (err) {
@@ -179,14 +179,15 @@ app.get('/api/user-data/:username', async (req, res) => {
 // Fetch all users endpoint
 app.get('/usersList', async (req, res) => {
     try {
-        const result = await sql.query`SELECT userName FROM users_data`;
-        const users = result.recordset.map(user => user.userName);
+        const result = await sql.query`SELECT userID, userName FROM users_data`;
+        const users = result.recordset.map(user => ({ userID: user.userID, userName: user.userName }));
         res.status(200).json(users);
     } catch (err) {
         console.error('Error fetching users:', err);
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
 
 // Add user to group endpoint
 app.post('/addUserByUserName', async (req, res) => {
@@ -212,33 +213,43 @@ app.post('/addUserByUserName', async (req, res) => {
     }
 });
 
+// Fetch group members endpoint
 app.post('/groupMembers', async (req, res) => {
     const { groupId } = req.body;
 
     try {
-        const client = await pool.connect();
+        // Ensure the pool is connected
+        await sql.connect(connectionString);
 
         // Get user IDs for the group
-        const groupUsersResult = await client.query('SELECT userID FROM group_user WHERE groupID = $1', [groupId]);
-        const userIds = groupUsersResult.rows.map(row => row.user_id);
+        const groupUsersResult = await sql.query`
+            SELECT userID 
+            FROM group_user 
+            WHERE groupID = ${groupId}
+        `;
+
+        const userIds = groupUsersResult.recordset.map(row => row.userID);
 
         if (userIds.length === 0) {
-            res.json([]);
-            client.release();
-            return;
+            return res.json([]); // Return an empty array if no users found
         }
 
         // Get user names from user IDs
-        const usersResult = await client.query('SELECT userName FROM users_data WHERE userID = ANY($1)', [userIds]);
-        const userNames = usersResult.rows.map(row => row.user_name);
+        const usersResult = await sql.query`
+            SELECT userName 
+            FROM users_data 
+            WHERE userID IN (${userIds})
+        `;
+        
+        const userNames = usersResult.recordset.map(row => row.userName);
 
-        client.release();
         res.json(userNames);
     } catch (error) {
         console.error('Error fetching group members:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 });
+
 
 
 app.get('/api/search-users', async (req, res) => {
@@ -270,7 +281,7 @@ app.post('/api/verify-user', async (req, res) => {
 });
 
 
-app.post('/api/create-group', async (req, res) => {
+app.post('/create-group', async (req, res) => {
     const { groupName, groupDescription, users } = req.body;
     const groupID = sql.UniqueIdentifier();
 
@@ -279,7 +290,7 @@ app.post('/api/create-group', async (req, res) => {
         const groupIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.GroupIDSequence AS groupID`;
         const groupID = groupIDResult.recordset[0].groupID;
         await sql.query`INSERT INTO groups_data (groupID, groupName, groupDescription, createdAt) VALUES (${groupID}, ${groupName}, ${groupDescription}, GETDATE())`;
-
+        console.log(users);
         // Save the users to the group_user table
         for (const user of users) {
             await sql.query`INSERT INTO group_user (userID, groupID) VALUES (${user.userID}, ${groupID})`;
@@ -332,6 +343,247 @@ app.get('/api/find-groups', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
+// Fetch the groups a user belongs to along with user counts
+app.get('/user-groups/:userID', async (req, res) => {
+    const { userID } = req.params;
+    
+    try {
+        // Log the incoming userID
+        console.log('Received userID:', userID);
+
+        // Ensure the pool is connected
+        await sql.connect(connectionString);
+
+        // Fetch the group IDs the user belongs to
+        const userGroupsResult = await sql.query`
+            SELECT groupID
+            FROM group_user
+            WHERE userID = ${userID}
+        `;
+
+        // Log the result of the user groups query
+        console.log('User groups result:', userGroupsResult.recordset);
+
+        const groupIDs = userGroupsResult.recordset.map(record => record.groupID);
+
+        // Log the extracted groupIDs
+        console.log('User groupIDs:', groupIDs);
+
+        if (groupIDs.length === 0) {
+            return res.status(200).json([]); // User belongs to no groups
+        }
+
+        // Dynamically construct the SQL query for group details using parameterized queries
+        let groupIDPlaceholders = groupIDs.map((id, index) => `@groupID${index}`).join(',');
+        let request = new sql.Request();
+        groupIDs.forEach((id, index) => {
+            request.input(`groupID${index}`, sql.Int, id); // Treat groupID as integer
+        });
+
+        const groupsDataQuery = `
+            SELECT groupID, groupName, groupDescription, createdAt
+            FROM groups_data
+            WHERE groupID IN (${groupIDPlaceholders})
+        `;
+        const groupsDataResult = await request.query(groupsDataQuery);
+
+        // Log the result of the groups data query
+        console.log('Groups data result:', groupsDataResult.recordset);
+
+        const groupsData = groupsDataResult.recordset;
+
+        // Fetch the number of users in each group
+        const groupsWithUserCounts = await Promise.all(groupsData.map(async group => {
+            try {
+                const userCountResult = await sql.query`
+                    SELECT COUNT(*) as userCount
+                    FROM group_user
+                    WHERE groupID = ${group.groupID}
+                `;
+
+                // Log the user count for each group
+                console.log(`User count for group ${group.groupID}:`, userCountResult.recordset[0].userCount);
+
+                const userCount = userCountResult.recordset[0].userCount;
+                return {
+                    ...group,
+                    userCount
+                };
+            } catch (err) {
+                console.error(`Error fetching user count for group ${group.groupID}:`, err);
+                throw err;
+            }
+        }));
+
+        console.log('Final groups data with user counts:', groupsWithUserCounts);
+        res.status(200).json(groupsWithUserCounts);
+    } catch (err) {
+        console.error('Error fetching user groups:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+// Endpoint to remove a user from a group
+app.post('/leave-group', async (req, res) => {
+    const { userID, groupID } = req.body;
+
+    try {
+        // Ensure the pool is connected
+        await sql.connect(connectionString);
+
+        // Delete the user from the group
+        const result = await sql.query`
+            DELETE FROM group_user 
+            WHERE userID = ${userID} AND groupID = ${groupID}
+        `;
+
+        if (result.rowsAffected[0] > 0) {
+            res.status(200).send({ message: 'Successfully left the group' });
+        } else {
+            res.status(404).send({ message: 'User or group not found' });
+        }
+    } catch (err) {
+        console.error('Error leaving group:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/all-songs-by-artists', async (req, res) => {
+    const { selectedArtists } = req.body;
+    const artistNames = selectedArtists.map(artist => artist.name);
+
+    try {
+        const request = new sql.Request();
+        const artistPlaceholders = artistNames.map((_, index) => `@artist${index}`).join(',');
+        artistNames.forEach((artist, index) => {
+            request.input(`artist${index}`, sql.VarChar, artist);
+        });
+
+        const query = `
+            SELECT trackId AS id, trackName AS name, artistName
+            FROM songs_data
+            WHERE artistName IN (${artistPlaceholders})
+        `;
+
+        const result = await request.query(query);
+        res.status(200).json(result.recordset);
+    } catch (err) {
+        console.error('Error fetching songs by artists:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/top-songs-by-artists', async (req, res) => {
+    const { selectedArtists } = req.body;
+    const artistNames = selectedArtists.map(artist => artist.name);
+
+    try {
+        const request = new sql.Request();
+        const artistPlaceholders = artistNames.map((_, index) => `@artist${index}`).join(',');
+        artistNames.forEach((artist, index) => {
+            request.input(`artist${index}`, sql.VarChar, artist);
+        });
+
+        const query = `
+            SELECT s.trackId AS id, s.trackName AS name, s.artistName, COUNT(us.userId) AS playCount
+            FROM songs_data s
+            JOIN user_song us ON s.trackId = us.trackId
+            WHERE s.artistName IN (${artistPlaceholders})
+            GROUP BY s.trackId, s.trackName, s.artistName
+            ORDER BY playCount DESC
+        `;
+
+        const result = await request.query(query);
+
+        const topSongs = [];
+        const artistSongCount = {};
+
+        result.recordset.forEach(song => {
+            if (!artistSongCount[song.artistName]) {
+                artistSongCount[song.artistName] = 0;
+            }
+            if (artistSongCount[song.artistName] < 5) {
+                topSongs.push(song);
+                artistSongCount[song.artistName] += 1;
+            }
+        });
+
+        res.status(200).json(topSongs);
+    } catch (err) {
+        console.error('Error fetching top songs by artists:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+// Endpoint to add user songs
+app.post('/add-user-songs', async (req, res) => {
+    const { username, songIDs } = req.body;
+
+    try {
+        // Fetch user ID based on username
+        const userResult = await sql.query`
+            SELECT userID FROM users_data WHERE userName = ${username}
+        `;
+        
+        if (userResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const userID = userResult.recordset[0].userID;
+
+        for (const songID of songIDs) {
+            await sql.query`
+                INSERT INTO user_song (userID, trackId)
+                VALUES (${userID}, ${songID})
+            `;
+        }
+
+        res.status(200).send({ message: 'Songs added to user successfully' });
+    } catch (err) {
+        console.error('Error adding user songs:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+// Endpoint to get playlist for a user
+app.get('/userPlaylist/:userID', async (req, res) => {
+    const { userID } = req.params;
+
+    try {
+        // Fetch trackIds based on userID from user_song table
+        const userSongsResult = await sql.query`
+            SELECT trackId 
+            FROM user_song 
+            WHERE userId = ${userID}
+        `;
+
+        if (userSongsResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'No songs found for this user' });
+        }
+
+        const trackIds = userSongsResult.recordset.map(row => row.trackId);
+
+        // Fetch trackName and artistName based on trackIds from songs_data table
+        const songsResult = await sql.query`
+            SELECT trackName, artistName 
+            FROM songs_data 
+            WHERE trackId IN (${trackIds})
+        `;
+
+        const songs = songsResult.recordset.map(song => ({
+            name: song.trackName,
+            artist: song.artistName,
+        }));
+
+        res.status(200).send({ songs });
+    } catch (err) {
+        console.error('Error fetching user playlist:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+
 
 
 app.get('/test', async (req, res) => {

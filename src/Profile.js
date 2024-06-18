@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import './CSS/Profile.css'; // Import CSS file
+import Playlist from './Playlist';
+import UserGroups from './UserGroups';
 
 function Profile() {
     const navigate = useNavigate();
     const { user, logout } = useUser();
+    const [userID , setUserID] = useState('');
     const [userData, setUserData] = useState(null);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
@@ -32,6 +35,7 @@ function Profile() {
                         email: data.email,
                         password: '' // Do not populate password field for security reasons
                     });
+                    setUserID(data.userID)
                 } else {
                     console.error('Error fetching user data:', data.message);
                 }
@@ -241,11 +245,11 @@ function Profile() {
             <div className="content-container">
                 <div className="content-box">
                     <h2>My Favorite Music</h2>
-                    {/* Content for favorite music */}
+                    <Playlist userID={userID}/>
                 </div>
                 <div className="content-box">
                     <h2>My Group</h2>
-                    {/* Content for group */}
+                    <UserGroups userID={userID}/>
                 </div>
             </div>
         </div>

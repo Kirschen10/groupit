@@ -1,15 +1,8 @@
 .play-list-container {
-    background-color: #f5f5f5;
-    min-height: 20vh;
+    max-height: 50vh; /* Adjust this value as needed to limit the visible height */
+    overflow-y: auto;
     padding: 20px;
     font-family: 'Arial', sans-serif;
-}
-
-.play-list-title {
-    text-align: center;
-    color: #4a148c; /* Dark purple */
-    font-size: 24px;
-    margin-bottom: 20px;
 }
 
 .song-card {
@@ -22,6 +15,7 @@
     padding: 15px;
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 .song-info {
