@@ -1,5 +1,6 @@
 .play-list-container {
-    min-height: 20vh;
+    max-height: 50vh; /* Adjust this value as needed to limit the visible height */
+    overflow-y: auto;
     padding: 20px;
     font-family: 'Arial', sans-serif;
 }
@@ -14,6 +15,7 @@
     padding: 15px;
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
 }
 
 .song-info {

@@ -245,7 +245,7 @@ function Profile() {
             <div className="content-container">
                 <div className="content-box">
                     <h2>My Favorite Music</h2>
-                    <Playlist />
+                    <Playlist userID={userID}/>
                 </div>
                 <div className="content-box">
                     <h2>My Group</h2>

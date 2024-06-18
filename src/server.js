@@ -449,6 +449,143 @@ app.post('/leave-group', async (req, res) => {
     }
 });
 
+app.post('/all-songs-by-artists', async (req, res) => {
+    const { selectedArtists } = req.body;
+    const artistNames = selectedArtists.map(artist => artist.name);
+
+    try {
+        const request = new sql.Request();
+        const artistPlaceholders = artistNames.map((_, index) => `@artist${index}`).join(',');
+        artistNames.forEach((artist, index) => {
+            request.input(`artist${index}`, sql.VarChar, artist);
+        });
+
+        const query = `
+            SELECT trackId AS id, trackName AS name, artistName
+            FROM songs_data
+            WHERE artistName IN (${artistPlaceholders})
+        `;
+
+        const result = await request.query(query);
+        res.status(200).json(result.recordset);
+    } catch (err) {
+        console.error('Error fetching songs by artists:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/top-songs-by-artists', async (req, res) => {
+    const { selectedArtists } = req.body;
+    const artistNames = selectedArtists.map(artist => artist.name);
+
+    try {
+        const request = new sql.Request();
+        const artistPlaceholders = artistNames.map((_, index) => `@artist${index}`).join(',');
+        artistNames.forEach((artist, index) => {
+            request.input(`artist${index}`, sql.VarChar, artist);
+        });
+
+        const query = `
+            SELECT s.trackId AS id, s.trackName AS name, s.artistName, COUNT(us.userId) AS playCount
+            FROM songs_data s
+            JOIN user_song us ON s.trackId = us.trackId
+            WHERE s.artistName IN (${artistPlaceholders})
+            GROUP BY s.trackId, s.trackName, s.artistName
+            ORDER BY playCount DESC
+        `;
+
+        const result = await request.query(query);
+
+        const topSongs = [];
+        const artistSongCount = {};
+
+        result.recordset.forEach(song => {
+            if (!artistSongCount[song.artistName]) {
+                artistSongCount[song.artistName] = 0;
+            }
+            if (artistSongCount[song.artistName] < 5) {
+                topSongs.push(song);
+                artistSongCount[song.artistName] += 1;
+            }
+        });
+
+        res.status(200).json(topSongs);
+    } catch (err) {
+        console.error('Error fetching top songs by artists:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+// Endpoint to add user songs
+app.post('/add-user-songs', async (req, res) => {
+    const { username, songIDs } = req.body;
+
+    try {
+        // Fetch user ID based on username
+        const userResult = await sql.query`
+            SELECT userID FROM users_data WHERE userName = ${username}
+        `;
+        
+        if (userResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const userID = userResult.recordset[0].userID;
+
+        for (const songID of songIDs) {
+            await sql.query`
+                INSERT INTO user_song (userID, trackId)
+                VALUES (${userID}, ${songID})
+            `;
+        }
+
+        res.status(200).send({ message: 'Songs added to user successfully' });
+    } catch (err) {
+        console.error('Error adding user songs:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+// Endpoint to get playlist for a user
+app.get('/userPlaylist/:userID', async (req, res) => {
+    const { userID } = req.params;
+
+    try {
+        // Fetch trackIds based on userID from user_song table
+        const userSongsResult = await sql.query`
+            SELECT trackId 
+            FROM user_song 
+            WHERE userId = ${userID}
+        `;
+
+        if (userSongsResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'No songs found for this user' });
+        }
+
+        const trackIds = userSongsResult.recordset.map(row => row.trackId);
+
+        // Fetch trackName and artistName based on trackIds from songs_data table
+        const songsResult = await sql.query`
+            SELECT trackName, artistName 
+            FROM songs_data 
+            WHERE trackId IN (${trackIds})
+        `;
+
+        const songs = songsResult.recordset.map(song => ({
+            name: song.trackName,
+            artist: song.artistName,
+        }));
+
+        res.status(200).send({ songs });
+    } catch (err) {
+        console.error('Error fetching user playlist:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+
+
+
 app.get('/test', async (req, res) => {
     return res.json("test")
 });

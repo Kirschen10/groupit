@@ -1,0 +1,122 @@
+.select-songs-container {
+    background-image: url('/public/Images/Profile background.svg');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover; /* Adjusts the background size to be responsive */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    width: 100%; /* Full width of the viewport */
+    overflow: hidden; /* Prevents overflow issues */
+    display: flex;
+
+    position: relative; /* Allows positioning of the logo */
+    padding-top: 50px; /* Add padding to move content down a bit */
+    padding-bottom: 50px; /* Add padding to move content down a bit */
+}
+
+.page-header {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.page-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 1.2em;
+}
+
+.songs-selection {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+
+.songs-list, .selected-songs {
+    width: 48%;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.songs-scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.song-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.song-item:hover {
+    background-color: #e0e0e0;
+}
+
+.song-item.selected {
+    background-color: #f8f8f8;
+}
+
+.song-item.selected:hover {
+    background-color: #e0e0e0;
+}
+.song-name {
+    font-weight: bold;
+}
+
+.artist-name {
+    color: #555;
+}
+
+
+.search-box-item {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search-select {
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #8925C7;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    opacity: 0.5;
+}
