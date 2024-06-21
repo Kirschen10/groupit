@@ -52,8 +52,8 @@ function ForgotPassword() {
                 <img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock"/>
                 <h2>Email Verification</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <div className="icon-container">
+                    <div className="form-group-ForgotPassword">
+                        <div className="icon-container-ForgotPassword">
                             <img src="\Images\profile.png" height={"20px"} alt="Username Icon" className="icon"/>
                         </div>
                         <input
@@ -62,10 +62,11 @@ function ForgotPassword() {
                             value={username}
                             required
                             onChange={(e) => setUsername(e.target.value)}
+                            className="input-with-icon-ForgotPassword"
                         />
                     </div>
-                    <div className="form-group">
-                        <div className="icon-container">
+                    <div className="form-group-ForgotPassword">
+                        <div className="icon-container-ForgotPassword">
                             <img src="\Images\mail.png" height={"20px"} alt="Mail Icon" className="icon"/>
                         </div>
                         <input
@@ -74,6 +75,7 @@ function ForgotPassword() {
                             value={email}
                             requierd
                             onChange={(e) => setEmail(e.target.value)}
+                            className="input-with-icon-ForgotPassword"
                         />
                     </div>
                     {error && <p className="error">{error}</p>}
