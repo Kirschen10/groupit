@@ -10,6 +10,8 @@ function Profile() {
     const { user, logout } = useUser();
     const [userID , setUserID] = useState('');
     const [userData, setUserData] = useState(null);
+    const [songs, setSongs] = useState([]);
+    const [selectedSong, setSelectedSong] = useState(null);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -44,13 +46,52 @@ function Profile() {
             }
         };
 
+        const fetchSongs = async () => {
+            try {
+                const response = await fetch('http://localhost:8081/api/songs');
+                const data = await response.json();
+                setSongs(data);
+            } catch (err) {
+                console.error('Error fetching songs:', err);
+            }
+        };
+
         if (user) {
             fetchUserData();
+            fetchSongs();
         }
     }, [user]);
 
+     const handleAddSong = async () => {
+        if (!selectedSong) return;
+
+        try {
+            const response = await fetch('http://localhost:8081/api/add-user-song', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userID, trackID: selectedSong })
+            });
+
+            if (response.ok) {
+                // Optionally, refresh the playlist or notify the user
+                alert('Song added to your favorite list!');
+            } else {
+                const data = await response.json();
+                console.error('Error adding song:', data.message);
+            }
+        } catch (err) {
+            console.error('Error adding song:', err);
+        }
+    };
+
     const handleHomePage = () => {
         navigate(`/HomePage`);
+    };
+
+    const handleQuestions = () => {
+        navigate(`/Questions`);
     };
 
     const handleEdit = () => {
@@ -115,6 +156,11 @@ function Profile() {
 
     return (
         <div className="background-profile">
+            <div>
+                <span className="question-mark-button" onClick={handleQuestions}>
+                    <img src="/Images/question.svg" alt="Question" />
+                </span>
+            </div>
             <span className="Home-page-button" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
@@ -245,6 +291,17 @@ function Profile() {
             <div className="content-container">
                 <div className="content-box">
                     <h2>My Favorite Music</h2>
+                        <div className="profile-add-song">
+                            <select onChange={(e) => setSelectedSong(e.target.value)} value={selectedSong}>
+                                <option value="">Select a song</option>
+                                {songs.map(song => (
+                                    <option key={song.trackId} value={song.trackId}>
+                                        {song.trackName} - {song.artistName}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    <button onClick={handleAddSong}>Add to Favorite</button>
                     <Playlist userID={userID}/>
                 </div>
                 <div className="content-box">

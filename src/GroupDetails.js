@@ -144,19 +144,28 @@ const GroupDetails = () => {
         navigate(`/HomePage`);
     };
 
+    const handleQuestions = () => {
+        navigate(`/Question`);
+    };
+
 
     return (
         <div className="background-group-details">
-              <div>
-                <span className="profile-button" onClick={handleProfile}>
-                    <img src="/Images/user.svg" alt="Profile" />
-                </span>
-            </div>
-            <div>
-            <span className="Home-Page-CreateGroup-button" onClick={handleHomePage}>
+         <div>
+            <span className="Home-page-button" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
-            </div>
+        </div>
+        <div>
+            <span className="profile-button" onClick={handleProfile}>
+                <img src="/Images/user.svg" alt="Profile" />
+            </span>
+        </div>
+        <div>
+            <span className="question-mark-button" onClick={handleQuestions}>
+                <img src="/Images/question.svg" alt="Question" />
+            </span>
+        </div>
             <div className="group-details-container">
                 <h1 className="group-header">{group.groupName}</h1>
                 <div className="group-info">
