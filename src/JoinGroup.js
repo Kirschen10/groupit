@@ -57,9 +57,36 @@ const JoinGroup = () => {
         minHeight: '100vh', // Set minimum height to cover the entire viewport
     };
 
+        const handleQuestions = () => {
+    navigate(`/Questions`);
+    };
+
+    const handleProfile = () => {
+        navigate(`/Profile`);
+    };
+
+    const handleHomePage = () => {
+        navigate(`/HomePage`);
+    };
+
 
     return (
     <div  style={backgroundStyle}>
+        <div>
+            <span className="Home-page-button" onClick={handleHomePage}>
+                <img src="/Images/Logo.svg" alt="Logo" />
+            </span>
+        </div>
+        <div>
+            <span className="profile-button" onClick={handleProfile}>
+                <img src="/Images/user.svg" alt="Profile" />
+            </span>
+        </div>
+        <div>
+            <span className="question-mark-button" onClick={handleQuestions}>
+                <img src="/Images/question.svg" alt="Question" />
+            </span>
+        </div>
         <div className="join-group-container">
             <h2>Join Group</h2>
             <div className="join-group-top">
