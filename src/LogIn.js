@@ -20,14 +20,31 @@ const LogIn = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({username, password}),
+                body: JSON.stringify({ username, password }),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                login({ username }, remember); // Save user data in context
-                navigate('/HomePage'); // Navigate to HomePage
+                const songCheckResponse = await fetch(`http://localhost:8081/checkUserSongs?username=${username}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const songCheckData = await songCheckResponse.json();
+
+                if (songCheckResponse.ok) {
+                    login({ username }, remember); // Save user data in context
+                    if (songCheckData.hasSongs) {
+                        navigate('/HomePage'); // Navigate to HomePage
+                    } else {
+                        navigate('/SelectArtists', { state: { username } }); // Pass the username to SelectArtists
+                    }
+                } else {
+                    setError(songCheckData.message || 'An error occurred. Please try again later.');
+                }
             } else {
                 setError(data.message || 'An error occurred. Please try again later.');
             }
@@ -89,8 +106,8 @@ const LogIn = () => {
                     <button type="submit" className="button-login" style={{ fontWeight: 'bold' }}>Login</button>
                 </form>
                 <div className="additional-options-login">
-                    <span onClick={handleRegistration} >Create Account</span>
-                    <span onClick={handleForgotPassword} >Forgot Password?</span>
+                    <span onClick={handleRegistration}>Create Account</span>
+                    <span onClick={handleForgotPassword}>Forgot Password?</span>
                 </div>
             </div>
         </div>

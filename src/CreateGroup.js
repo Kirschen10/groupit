@@ -145,8 +145,7 @@ const CreateGroup = () => {
                         onChange={(e) => setGroupDescription(e.target.value)}
                         required
                     ></textarea>
-                </div>
-                      <div className="form-group flex">
+<br />
                         <Select
                             options={allUsers}
                             value={newUser}

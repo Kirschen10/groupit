@@ -304,23 +304,37 @@ app.post('/create-group', async (req, res) => {
 });
 
 
-app.post('/api/join-group', async (req, res) => {
-    const { groupID, userID } = req.body; // You need to pass userID as well
-
+app.post('/join-group', async (req, res) => {
+    const { groupID, userName } = req.body; 
+    console.log(userName);
     try {
+        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${userName}`;
+        if (userResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+        const userID = userResult.recordset[0].userID;
+
         const groupResult = await sql.query`SELECT * FROM groups_data WHERE groupID = ${groupID}`;
         if (groupResult.recordset.length === 0) {
-            return res.status(200).send({ exists: false });
+            return res.status(404).send({ message: 'Group not found' });
         }
 
-        // Add the user to the group_user table
+        const membershipResult = await sql.query`
+            SELECT * FROM group_user WHERE userID = ${userID} AND groupID = ${groupID}
+        `;
+        if (membershipResult.recordset.length > 0) {
+            return res.status(400).send({ message: 'User already belongs to this group' });
+        }
+
         await sql.query`INSERT INTO group_user (userID, groupID) VALUES (${userID}, ${groupID})`;
-        res.status(200).send({ exists: true });
+        res.status(200).send({ message: 'Successfully joined the group' });
     } catch (err) {
         console.error('Error joining group:', err);
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
+
 
 app.post('/api/leave-group', async (req, res) => {
     const { groupID, userID } = req.body;
@@ -334,15 +348,23 @@ app.post('/api/leave-group', async (req, res) => {
     }
 });
 
-app.get('/api/find-groups', async (req, res) => {
+app.get('/find-groups', async (req, res) => {
     try {
-        const result = await sql.query`SELECT TOP 10 groupID, groupName FROM groups_data`;
+        const result = await sql.query`
+            SELECT g.*, COUNT(gu.userID) AS userCount
+            FROM groups_data g
+            JOIN group_user gu ON g.groupID = gu.groupID
+            GROUP BY g.groupID, g.groupName, g.groupDescription, g.createdAt
+            HAVING COUNT(gu.userID) > 0
+        `;
         res.status(200).send({ groups: result.recordset });
     } catch (err) {
         console.error('Error finding groups:', err);
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
+
 
 // Fetch the groups a user belongs to along with user counts
 app.get('/user-groups/:userID', async (req, res) => {
@@ -583,7 +605,32 @@ app.get('/userPlaylist/:userID', async (req, res) => {
     }
 });
 
+app.get('/checkUserSongs', async (req, res) => {
+    const { username } = req.query;
 
+    try {
+        // Find the user ID based on the username
+        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${username}`;
+        
+        if (userResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const userID = userResult.recordset[0].userID;
+
+        // Check if the user has songs
+        const songResult = await sql.query`SELECT COUNT(*) AS songCount FROM user_song WHERE userID = ${userID}`;
+
+        if (songResult.recordset[0].songCount > 0) {
+            res.json({ hasSongs: true });
+        } else {
+            res.json({ hasSongs: false });
+        }
+    } catch (err) {
+        console.error('Error checking user songs:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
 
 
 app.get('/test', async (req, res) => {

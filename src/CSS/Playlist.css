@@ -1,5 +1,5 @@
 .play-list-container {
-    max-height: 50vh; /* Adjust this value as needed to limit the visible height */
+    max-height: 55vh; /* Adjust this value as needed to limit the visible height */
     overflow-y: auto;
     padding: 20px;
     font-family: 'Arial', sans-serif;
