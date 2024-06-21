@@ -18,50 +18,6 @@
     padding-bottom: 50px; /* Add padding to move content down a bit */
 }
 
-.Home-page-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 20px; /* Adjust as needed */
-    left: 20px; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.Home-page-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 5%; /* Adjust as needed */
-    left: 1%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.Home-page-button img {
-    height: 50px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.Home-page-button:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
-}
-
-.info-container {
-    background-color: rgba(255, 255, 255, 0); /* White background with opacity */
-    border-radius: 3px; /* Rounded corners */
-    padding: 20px; /* Padding inside the container */
-    position: absolute; /* Position absolutely at the top */
-    top: 15px; /* Adjust as needed */
-    width: 80%; /* Adjust width as needed */
-    max-width: 900px; /* Max width */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    column-gap: 30px;
-    align-items: start;
-    transform: translateX(8.5%); /* Adjust position to center horizontally */
-}
 
 .info-container h2 {
     grid-column: span 3; /* Make the heading span all columns */
@@ -182,25 +138,3 @@
     font-size: 40px;
     letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
 }
-
-/* Add styles for the dropdown and button */
-.profile-add-song  select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-.profile-add-song button {
-    background-color: mediumpurple;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-

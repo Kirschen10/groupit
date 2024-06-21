@@ -20,7 +20,7 @@
 .profile-button {
     position: absolute; /* Positions the logo absolutely within the container */
     top: 5%; /* Adjust as needed */
-    left: 3%; /* Adjust as needed */
+    left: 4%; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
