@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const sql = require('mssql');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
 
 const app = express();
 app.use(bodyParser.json());
@@ -212,9 +211,20 @@ app.post('/api/add-user-song', async (req, res) => {
 
 
 // Fetch all users endpoint
-app.get('/usersList', async (req, res) => {
+app.post('/usersList', async (req, res) => {
+    const { groupID } = req.body;
+    console.log('Group ID:', groupID); // Log groupID for debugging
     try {
-        const result = await sql.query`SELECT userID, userName FROM users_data`;
+        const result = await sql.query`
+            SELECT u.userID, u.userName 
+            FROM users_data u
+            LEFT JOIN (
+                SELECT userID, groupID
+                FROM group_user
+                WHERE groupID = ${groupID}
+            ) AS gu ON u.userID = gu.userID
+            WHERE gu.userID IS NULL
+        `;
         const users = result.recordset.map(user => ({ userID: user.userID, userName: user.userName }));
         res.status(200).json(users);
     } catch (err) {
@@ -222,7 +232,6 @@ app.get('/usersList', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
-
 
 // Add user to group endpoint
 app.post('/addUserByUserName', async (req, res) => {
@@ -747,8 +756,106 @@ app.post('/addSong/:userID/:trackId', async (req, res) => {
     }
 });
 
-app.get('/test', async (req, res) => {
-    return res.json("test")
+app.post('/getPlaylist', async (req, res) => {
+    const { groupID } = req.body;
+    try {
+        const result = await sql.query`
+        SELECT TOP 10 sd.trackID, sd.trackName, sd.artistName
+        FROM (
+            SELECT us.trackID, COUNT(*) AS count
+            FROM group_user gu
+            JOIN user_song us ON gu.userID = us.userID
+            WHERE gu.groupID = ${groupID}
+            GROUP BY us.trackID
+        ) AS SongCounts
+        JOIN songs_data sd ON SongCounts.trackID = sd.trackID
+        ORDER BY SongCounts.count DESC;`
+
+        const songs = result.recordset;
+        const playlistIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.PlaylistIDSequence AS playlistID`;
+        const playlistID = playlistIDResult.recordset[0].playlistID;
+
+        // Insert into group_song if not exists
+        for (const song of songs) {
+            const { trackID } = song;
+
+            // Insert new record
+            await sql.query`
+                INSERT INTO group_song (groupID, trackId, playlistID) 
+                VALUES (${groupID}, ${trackID}, ${playlistID})
+                `;
+            }
+        res.status(200).send({ songs });
+
+    } catch (err) {
+        console.error('Error fetching playlist:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/giveFeedback', async (req, res) => {
+    const { userID, trackID, groupID } = req.body;
+    try {
+        await sql.query`INSERT INTO feedback_data (userID, groupID, trackID, isLiked) VALUES (${userID}, ${groupID} ,${trackID} ,'1' )`;
+        res.status(200).send({ message: 'Feedback recorded' });
+    } catch (err) {
+        console.error('Error recording feedback:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/removeFeedback', async (req, res) => {
+    const { userID, trackID, groupID } = req.body;
+    try {
+        await sql.query`DELETE FROM feedback_data WHERE userID = ${userID} AND trackID = ${trackID} AND groupID = ${groupID}`;
+        res.status(200).send({ message: 'Feedback removed' });
+    } catch (err) {
+        console.error('Error removing feedback:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/getFeedbackForTracks', async (req, res) => {
+    const { userID, groupID, trackIDs } = req.body;
+    try {
+        const result = await sql.query`
+            SELECT trackID 
+            FROM feedback_data 
+            WHERE userID = ${userID} 
+            AND groupID = ${groupID} 
+            AND trackID IN (${trackIDs})
+        `;
+
+        const feedbackTrackIDs = result.recordset.map(row => row.trackID);
+        res.status(200).send({ feedbackTrackIDs });
+    } catch (err) {
+        console.error('Error fetching feedback:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/getGroupSongs', async (req, res) => {
+    const { groupID, userID } = req.body; // Include userID in the request
+    try {
+        const result = await sql.query`
+            SELECT gs.trackID, sd.trackName, sd.artistName,
+                   ISNULL(fd.isLiked, 0) AS isLiked
+            FROM group_song gs
+            JOIN songs_data sd ON gs.trackID = sd.trackID
+            LEFT JOIN feedback_data fd ON gs.trackID = fd.trackID AND fd.userID = ${userID}
+            WHERE gs.groupID = ${groupID}
+            AND gs.playlistID = (
+                SELECT MAX(playlistID)
+                FROM group_song
+                WHERE groupID = ${groupID}
+            )
+        `;
+        const groupSongs = result.recordset;
+        res.status(200).send({ groupSongs });
+    } catch (err) {
+        console.error('Error fetching group songs:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
 });
 
 const PORT = process.env.PORT || 8081;

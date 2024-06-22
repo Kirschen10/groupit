@@ -225,3 +225,99 @@
     color: red;
 }
 
+.like-button {
+    background: none;
+    border: none;
+    font-size: 24px; /* Adjust size as needed */
+    cursor: pointer;
+    color: #800000;
+    position: absolute;
+    transform: translateY(-50%);
+    left: 93%;
+    top: 50%;
+    padding: 0; /* Remove padding */
+    width: 24px; /* Adjust size as needed */
+    height: 24px; /* Adjust size as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.like-button img {
+    height: 30px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.like-button:hover img {
+    transform: scale(1.3); /* Enlarge the logo image on hover */
+}
+
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #09f;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.group-songs-container {
+    max-height: 20vh; /* Adjust this value as needed to limit the visible height */
+    overflow-y: auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+
+.play-list-container-gd {
+    max-height: 55vh; /* Adjust this value as needed to limit the visible height */
+    overflow-y: auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    width: 100%;
+}
+
+.song-card-gd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    position: relative;
+}
+
+.song-info-gd {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-name-gd {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.song-artist-gd {
+    font-size: 16px;
+    color: #666;
+}
