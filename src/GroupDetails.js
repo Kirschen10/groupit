@@ -23,13 +23,7 @@ const GroupDetails = () => {
 
     useEffect(() => {
         // Fetch all users from the backend
-        fetch('http://localhost:8081/usersList',{
-                        method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ groupId: group.groupID }),
-        })
+        fetch('http://localhost:8081/usersList')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
