@@ -7,7 +7,6 @@ const GroupDetails = () => {
     const location = useLocation();
     const navigate = useNavigate(); // Initialize navigate
     const { group, userID } = location.state;
-    console.log(group);
     const [newUser, setNewUser] = useState(null);
     const [users, setUsers] = useState([]); // Initially empty
     const [allUsers, setAllUsers] = useState([]); // All users from DB
@@ -17,10 +16,20 @@ const GroupDetails = () => {
     const [errorAllUsersMessage, setAllUsersErrorMessage] = useState(''); // State for error message
     const [errorGroupUsersMessage, setErrorGroupUsersMessage] = useState(''); // State for error message
     const [countdown, setCountdown] = useState(5); // Countdown state
+    const [playlist, setPlaylist] = useState([]); // State for playlist
+    const [likedSongs, setLikedSongs] = useState({}); // State to track liked songs
+    const [loading, setLoading] = useState(false); // State for loading indicator
+
 
     useEffect(() => {
         // Fetch all users from the backend
-        fetch('http://localhost:8081/usersList')
+        fetch('http://localhost:8081/usersList',{
+                        method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ groupId: group.groupID }),
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -60,7 +69,29 @@ const GroupDetails = () => {
                 console.error('Error fetching group members:', error);
                 setErrorGroupUsersMessage('Error fetching group members');
             });
-    }, [group.groupID]);
+
+        // Fetch group songs on component mount
+        fetch('http://localhost:8081/getGroupSongs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ groupID: group.groupID, userID }), // Pass userID in the request
+        })
+            .then(response => response.json())
+            .then(data => {
+                setPlaylist(data.groupSongs);
+                const likedSongsMap = data.groupSongs.reduce((acc, song) => {
+                    acc[song.trackID] = song.isLiked;
+                    return acc;
+                }, {});
+                setLikedSongs(likedSongsMap);
+                setLoading(false); // Ensure loading is false after data is fetched
+            })
+            .catch(error => {
+                console.error('Error fetching group songs:', error);
+            });
+    }, [group.groupID, userID]);
 
     const handleAddUser = () => {
         if (newUser) {
@@ -132,8 +163,48 @@ const GroupDetails = () => {
     };
 
     const handleGetPlaylist = () => {
-        // Logic to get the playlist
-        console.log('Get playlist');
+        setLoading(true); // Set loading to true
+        setPlaylist([]); // Clear current playlist
+
+        fetch('http://localhost:8081/getPlaylist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ groupID: group.groupID }),
+        })
+        .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setPlaylist(data.songs);
+                // Get feedback for the tracks in the playlist
+                const trackIDs = data.songs.map(song => song.trackID);
+                fetch('http://localhost:8081/getFeedbackForTracks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userID, groupID: group.groupID, trackIDs }),
+                })
+                    .then(response => response.json())
+                    .then(feedbackData => {
+                        console.log('Fetched feedback:', feedbackData);
+                        const updatedLikedSongs = feedbackData.feedbackTrackIDs.reduce((acc, trackID) => {
+                            acc[trackID] = true;
+                            return acc;
+                        }, {});
+                        setLikedSongs(updatedLikedSongs);
+                        setLoading(false); // Set loading to false after all operations are done
+                    })
+            })
+            .catch(error => {
+                console.error('Error fetching playlist:', error);
+                setLoading(false); // Set loading to false in case of error
+            });
     };
 
     const handleProfile = () => {
@@ -148,24 +219,73 @@ const GroupDetails = () => {
         navigate(`/Questions`);
     };
 
+    const handleStarClick = (trackID) => {
+    if (likedSongs[trackID]) {
+        // If already liked, remove feedback
+        fetch('http://localhost:8081/removeFeedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userID, trackID, groupID: group.groupID }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response from server:', data);
+                if (data.message === 'Feedback removed') {
+                    setFeedbackMessage('Feedback removed successfully.');
+                    setLikedSongs({ ...likedSongs, [trackID]: false }); // Update the liked state
+                } else {
+                    setFeedbackMessage(`Error: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error removing feedback:', error);
+                setFeedbackMessage('An error occurred while removing feedback.');
+            });
+    } else {
+        // If not liked, add feedback
+        fetch('http://localhost:8081/giveFeedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userID, trackID, groupID: group.groupID }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response from server:', data);
+                if (data.message === 'Feedback recorded') {
+                    setFeedbackMessage('Feedback recorded successfully.');
+                    setLikedSongs({ ...likedSongs, [trackID]: true }); // Update the liked state
+                } else {
+                    setFeedbackMessage(`Error: ${data.message}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error giving feedback:', error);
+                setFeedbackMessage('An error occurred while giving feedback.');
+            });
+    }
+};
 
     return (
         <div className="background-group-details">
-         <div>
-            <span className="Home-page-button" onClick={handleHomePage}>
-                <img src="/Images/Logo.svg" alt="Logo" />
-            </span>
-        </div>
-        <div>
-            <span className="profile-button" onClick={handleProfile}>
-                <img src="/Images/user.svg" alt="Profile" />
-            </span>
-        </div>
-        <div>
-            <span className="question-mark-button" onClick={handleQuestions}>
-                <img src="/Images/question.svg" alt="Question" />
-            </span>
-        </div>
+            <div>
+                <span className="Home-page-button" onClick={handleHomePage}>
+                    <img src="/Images/Logo.svg" alt="Logo" />
+                </span>
+            </div>
+            <div>
+                <span className="profile-button" onClick={handleProfile}>
+                    <img src="/Images/user.svg" alt="Profile" />
+                </span>
+            </div>
+            <div>
+                <span className="question-mark-button" onClick={handleQuestions}>
+                    <img src="/Images/question.svg" alt="Question" />
+                </span>
+            </div>
             <div className="group-details-container">
                 <h1 className="group-header">{group.groupName}</h1>
                 <div className="group-info">
@@ -199,8 +319,27 @@ const GroupDetails = () => {
                         ))}
                     </ul>
                 </div>
-                <button className="get-playlist-btn" onClick={handleGetPlaylist}>Get Playlist</button>
+                <h2>Group's Playlist</h2>
+                {loading && <div className="loading-indicator"><div className="spinner"></div></div>}
+                <div className="play-list-container-gd">
+                    <ul>
+                        {playlist.map((song, index) => (
+                    <div key={index} className="song-card-gd">
+                        <div className="song-info-gd">
+                            <span className="song-name-gd">{song.trackName}</span>
+                            <span className="song-artist-gd">{song.artistName}</span>
+                            <span className="like-button" onClick={() => handleStarClick(song.trackID)}>
+                                <img src={likedSongs[song.trackID] ? "/Images/likeFill.png" : "/Images/like.png"}
+                                alt="Like" />
+                </span>
+                                                    </div>
+
+                            </div>
+                        ))}
+                    </ul>
+                </div>
                 {feedbackMessage && <p className="feedback-message">{feedbackMessage}</p>}
+                <button className="get-playlist-btn" onClick={handleGetPlaylist}>Refresh Our Playlist</button>
             </div>
 
             {showModal && (
