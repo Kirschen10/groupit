@@ -175,7 +175,6 @@ app.get('/api/user-data/:username', async (req, res) => {
     }
 });
 
-
 // Fetch all users endpoint
 app.get('/usersList', async (req, res) => {
     try {
