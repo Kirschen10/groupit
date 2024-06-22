@@ -86,9 +86,7 @@ app.post('/register', async (req, res) => {
         if (userResult.recordset.length > 0) {
             return res.status(400).send({ message: 'Username already exists' });
         }
-        // Get the next userID
-        const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
-        const userID = userIDResult.recordset[0].userID;
+
 
         // Insert the new user
         await sql.query`INSERT INTO users_data (userID, firstName, lastName, userName, birthday, email, password, createdAt)
