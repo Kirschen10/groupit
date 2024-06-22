@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const sql = require('mssql');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
+const EmailVerifier = require('email-verifier');
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -36,6 +39,7 @@ sql.connect(connectionString, err => {
     }
 });
 
+
 app.post('/login', async (req, res) => {
     const {username, password} = req.body;
 
@@ -61,6 +65,7 @@ app.post('/register', async (req, res) => {
     const createdAt = new Date().toISOString(); // Get the current date and time in ISO format
 
     try {
+
         // Check if the username already exists
 
         const usernameResult = await sql.query`SELECT userName FROM users_data WHERE userName = ${username}`;
@@ -81,12 +86,10 @@ app.post('/register', async (req, res) => {
         if (userResult.recordset.length > 0) {
             return res.status(400).send({ message: 'Username already exists' });
         }
-        // Get the next userID
-        const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
-        const userID = userIDResult.recordset[0].userID;
+
 
         // Insert the new user
-        await sql.query`INSERT INTO users_data (userID, firstName, lastName, userName, birthday, email, password, createdAt) 
+        await sql.query`INSERT INTO users_data (userID, firstName, lastName, userName, birthday, email, password, createdAt)
             VALUES (${userID}, ${firstName}, ${lastName}, ${username}, ${birthday}, ${email}, ${password}, ${createdAt})`;
         res.status(201).send({ message: 'Registration successful' });
     } catch (err) {
@@ -216,7 +219,7 @@ app.post('/usersList', async (req, res) => {
     console.log('Group ID:', groupID); // Log groupID for debugging
     try {
         const result = await sql.query`
-            SELECT u.userID, u.userName 
+            SELECT u.userID, u.userName
             FROM users_data u
             LEFT JOIN (
                 SELECT userID, groupID
@@ -399,7 +402,7 @@ app.get('/find-groups', async (req, res) => {
     try {
         // Find the user ID based on the provided username
         const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${username}`;
-        
+
         if (userResult.recordset.length === 0) {
             return res.status(404).send({ message: 'User not found' });
         }
@@ -416,7 +419,7 @@ app.get('/find-groups', async (req, res) => {
             GROUP BY g.groupID, g.groupName, g.groupDescription, g.createdAt
             HAVING COUNT(gu.userID) > 0
         `;
-        
+
         res.status(200).send({ groups: result.recordset });
     } catch (err) {
         console.error('Error finding groups:', err);
@@ -728,7 +731,7 @@ const escapeStringForSQLLike = (str) => {
 app.get('/searchArtist/:searchTerm', async (req, res) => {
     const { searchTerm } = req.params;
     const escapedSearchTerm = escapeStringForSQLLike(searchTerm);
-  
+
     try {
       const result = await sql.query`
         SELECT DISTINCT artistName
@@ -781,7 +784,7 @@ app.post('/getPlaylist', async (req, res) => {
 
             // Insert new record
             await sql.query`
-                INSERT INTO group_song (groupID, trackId, playlistID) 
+                INSERT INTO group_song (groupID, trackId, playlistID)
                 VALUES (${groupID}, ${trackID}, ${playlistID})
                 `;
             }
@@ -819,10 +822,10 @@ app.post('/getFeedbackForTracks', async (req, res) => {
     const { userID, groupID, trackIDs } = req.body;
     try {
         const result = await sql.query`
-            SELECT trackID 
-            FROM feedback_data 
-            WHERE userID = ${userID} 
-            AND groupID = ${groupID} 
+            SELECT trackID
+            FROM feedback_data
+            WHERE userID = ${userID}
+            AND groupID = ${groupID}
             AND trackID IN (${trackIDs})
         `;
 
