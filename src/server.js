@@ -175,32 +175,6 @@ app.get('/api/user-data/:username', async (req, res) => {
     }
 });
 
-// Add endpoint to fetch all songs
-app.get('/api/songs', async (req, res) => {
-    try {
-        const result = await sql.query`SELECT trackId, trackName, artistName FROM songs_data`;
-        res.status(200).json(result.recordset);
-    } catch (err) {
-        console.error('Error fetching songs:', err);
-        res.status(500).send({ message: 'An error occurred', error: err.message });
-    }
-});
-
-// Add endpoint to add a song to the user's favorite list
-app.post('/api/add-user-song', async (req, res) => {
-    const { userID, trackID } = req.body;
-
-    try {
-        await sql.query`INSERT INTO user_song (userID, trackId) VALUES (${userID}, ${trackID})`;
-        res.status(200).send({ message: 'Song added to user\'s favorite list' });
-    } catch (err) {
-        console.error('Error adding song to user\'s favorite list:', err);
-        res.status(500).send({ message: 'An error occurred', error: err.message });
-    }
-});
-
-
-
 // Fetch all users endpoint
 app.get('/usersList', async (req, res) => {
     try {

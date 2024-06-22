@@ -28,6 +28,7 @@ function Questions() {
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
             <h2>About Us</h2>
+
         </div>
     );
 }
