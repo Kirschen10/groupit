@@ -16,6 +16,7 @@
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
+    position: relative;
 }
 
 .song-info {
@@ -33,3 +34,17 @@
     font-size: 16px;
     color: #666;
 }
+
+.trash-can-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    display: none;
+}
+
+.song-card:hover .trash-can-icon {
+    display: block;
+}
+

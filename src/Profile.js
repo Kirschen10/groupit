@@ -45,19 +45,8 @@ function Profile() {
             }
         };
 
-        const fetchSongs = async () => {
-            try {
-                const response = await fetch('http://localhost:8081/api/songs');
-                const data = await response.json();
-                setSongs(data);
-            } catch (err) {
-                console.error('Error fetching songs:', err);
-            }
-        };
-
         if (user) {
             fetchUserData();
-            fetchSongs();
         }
     }, [user]);
 

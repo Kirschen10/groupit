@@ -13,7 +13,6 @@ function Registration() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');  // State variable for error message
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
 

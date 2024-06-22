@@ -1,0 +1,169 @@
+.add-song-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.add-song-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: mediumpurple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.add-song-content {
+    margin-top: 20px;
+    width: 80%;
+}
+
+.option-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.option-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px; /* Add margin-right for spacing */
+}
+
+.option-button:last-child {
+    margin-right: 0; /* Remove margin-right from the last button */
+}
+
+.option-button.active {
+    opacity: 0.5;
+}
+
+.artist-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: white;
+}
+
+.artist-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.artist-item:hover {
+    background-color: #f5f5f5;
+}
+
+.artist-item.selected {
+    background-color: lightgreen;
+}
+
+.search-artist {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-artist input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: mediumpurple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.songs-section {
+    margin-top: 20px;
+}
+
+.songs-section h3 {
+    color: mediumpurple;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.song-search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.song-search-container input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.return-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.song-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: white;
+}
+
+.song-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.song-item:hover {
+    background-color: #f5f5f5;
+}
+
+.song-item.selected {
+    opacity: 0.2;
+}
+
+.add-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: mediumpurple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
