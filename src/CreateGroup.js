@@ -96,8 +96,13 @@ const CreateGroup = () => {
                 groupDescription,
                 users,
             });
-            alert('Group created successfully!');
-            navigate('/HomePage');
+            if (response.data) {
+                const { groupID, createdAt } = response.data;
+                alert('Group created successfully!');
+                navigate('/GroupDetails', { state: { group: { groupID, groupName, groupDescription, createdAt }, userID: user.userID } }); // Navigate to the group details page with state
+            } else {
+                throw new Error('Group creation response does not contain expected data.');
+            }
         } catch (error) {
             console.error('Error creating group:', error);
             alert('Failed to create group');

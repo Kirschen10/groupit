@@ -63,9 +63,15 @@ app.post('/register', async (req, res) => {
     const createdAt = new Date().toISOString(); // Get the current date and time in ISO format
 
     try {
+        // Check if the username already exists
+        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${username}`;
+        if (userResult.recordset.length > 0) {
+            return res.status(400).send({ message: 'Username already exists' });
+        }
+        // Get the next userID
         const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
         const userID = userIDResult.recordset[0].userID;
-
+        // Insert the new user
         await sql.query`INSERT INTO users_data (userID, firstName, lastName, userName, birthday, email, password, createdAt) 
             VALUES (${userID}, ${firstName}, ${lastName}, ${username}, ${birthday}, ${email}, ${password}, ${createdAt})`;
         res.status(201).send({ message: 'Registration successful' });
@@ -288,14 +294,15 @@ app.post('/create-group', async (req, res) => {
         // Save the group to the groups_data table
         const groupIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.GroupIDSequence AS groupID`;
         const groupID = groupIDResult.recordset[0].groupID;
-        await sql.query`INSERT INTO groups_data (groupID, groupName, groupDescription, createdAt) VALUES (${groupID}, ${groupName}, ${groupDescription}, GETDATE())`;
+        const createdAt = new Date().toISOString();
+        await sql.query`INSERT INTO groups_data (groupID, groupName, groupDescription, createdAt) VALUES (${groupID}, ${groupName}, ${groupDescription}, ${createdAt})`;
         console.log(users);
         // Save the users to the group_user table
         for (const user of users) {
             await sql.query`INSERT INTO group_user (userID, groupID) VALUES (${user.userID}, ${groupID})`;
         }
 
-         res.status(201).send({ message: 'Group created successfully', groupID: groupID });
+         res.status(201).send({ message: 'Group created successfully', groupID, createdAt});
     } catch (err) {
         console.error('Error creating group:', err);
         res.status(500).send({ message: 'An error occurred', error: err.message });
