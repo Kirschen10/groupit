@@ -47,16 +47,16 @@
     width: 100%; /* Adjust width as needed */
     max-width: 900px; /* Max width */
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 300px 300px 30px;
     gap: 20px;
     column-gap: 30px;
     align-items: start;
-    left: 50%;
+    left: 58%;
     transform: translateX(-50%); /* Adjust position to center horizontally */
 }
 
 .info-container h2 {
-    grid-column: span 3; /* Make the heading span all columns */
+    grid-column: span 2; /* Make the heading span all columns */
     color: white; /* text color */
     margin: 20px 0; /* Adjust margins */
     font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
@@ -70,8 +70,9 @@
     display: flex;
     flex-direction: column;
     gap: 10px; /* Space between buttons */
+    margin-top: 50px; /* Add margin to the top */
+    margin-left: 20px;
     grid-column: 3; /* Position in the third column */
-    grid-column-end: span;
     justify-self: start; /* Align to the start of the column */
 }
 
@@ -90,6 +91,7 @@
     width: 120px; /* Set button width */
     font-family: Calibri; /* Specify Calibri as the preferred font */
     font-size: 15px;
+    font-weight: bold; /* Make the text bold */
 }
 
 .info-container button img {

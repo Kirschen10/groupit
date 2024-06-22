@@ -56,9 +56,9 @@ function Questions() {
     ];
 
     return (
-        <div className="background-profile">
+        <div className="background-faq">
             <div>
-                <span className="profile-button" onClick={handleProfile}>
+                <span className="profile-button-faq" onClick={handleProfile}>
                     <img src="/Images/user.svg" alt="Profile" />
                 </span>
             </div>
@@ -66,13 +66,14 @@ function Questions() {
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
             <h3 className="faq_h3">Frequently Asked Questions</h3>
-            <div className="faq_faq-section">
-                <p className="faq_p">Got a question? Get an answer! We have compiled a list of frequently asked questions to help you find quick answers about our group recommendation system. If you don’t find the information you’re looking for, please feel free to contact us at groupittechnion@gmail.com.</p>
-                <div className="faq_faq-container">
+            <div className="section-faq">
+                <div className="faq_p">Got a question? Get an answer! <br></br> We have compiled a list of frequently asked questions to help you find quick answers about our group recommendation system. <br></br> If you don’t find the information you’re looking for, please feel free to contact us at groupittechnion@gmail.com</div>
+                <br></br>
+                <div className="container-faq">
                     {faqItems.map((item, index) => (
                         <div
                             key={index}
-                            className={`faq_faq-card ${activeIndex === index ? 'faq_active' : ''}`}
+                            className={`card-faq ${activeIndex === index ? 'faq_active' : ''}`}
                             onClick={() => toggleAnswer(index)}
                         >
                             <h4 className="faq_h4">{item.question}</h4>
