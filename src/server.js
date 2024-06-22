@@ -214,20 +214,10 @@ app.post('/api/add-user-song', async (req, res) => {
 
 
 // Fetch all users endpoint
-app.post('/usersList', async (req, res) => {
-    const { groupID } = req.body;
-    console.log('Group ID:', groupID); // Log groupID for debugging
+// Fetch all users endpoint
+app.get('/usersList', async (req, res) => {
     try {
-        const result = await sql.query`
-            SELECT u.userID, u.userName
-            FROM users_data u
-            LEFT JOIN (
-                SELECT userID, groupID
-                FROM group_user
-                WHERE groupID = ${groupID}
-            ) AS gu ON u.userID = gu.userID
-            WHERE gu.userID IS NULL
-        `;
+        const result = await sql.query`SELECT userID, userName FROM users_data`;
         const users = result.recordset.map(user => ({ userID: user.userID, userName: user.userName }));
         res.status(200).json(users);
     } catch (err) {
