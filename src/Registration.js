@@ -16,6 +16,16 @@ function Registration() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const minDate = new Date('1900-01-01');
+        const maxDate = new Date();
+        const enteredDate = new Date(birthday);
+
+        if (enteredDate < minDate || enteredDate > maxDate) {
+            setError('Birthday must be between January 1, 1900, and today.');
+            return;
+        }
+
         fetch('http://localhost:8081/register', {
             method: 'POST',
             headers: {
@@ -23,13 +33,13 @@ function Registration() {
             },
             body: JSON.stringify({ firstName, lastName, birthday, email, username, password })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message === 'Registration successful') {
+        .then(response => response.json().then(data => ({ status: response.status, body: data })))
+        .then(({ status, body }) => {
+            if (status === 201) {
                 navigate('/SelectArtists', { state: { username } }); // Pass the username to SelectArtists
-            } else {  
-                console.error('Registration failed:', data.message);
-                setError(data.message);  // Set the error message
+            } else {
+                console.error('Registration failed:', body.message);
+                setError('username is already taken');
             }
         })
         .catch(error => {
