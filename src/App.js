@@ -14,6 +14,7 @@ import CreateGroup from './CreateGroup';
 import JoinGroup from './JoinGroup';
 import PrivateRoute from './PrivateRoute';
 import Questions from './Questions';
+import EditProfile from './EditProfile';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/ResetPassword/:username" element={<ResetPassword />} />
             <Route path="/CheckMail" element={<CheckMail />} />
             <Route path="/Profile" element={<Profile />} />
+            <Route path="/EditProfile" element={<EditProfile />} />
             <Route path="/CreateGroup" element={<CreateGroup />} />
             <Route path="/JoinGroup" element={<JoinGroup />} />
             <Route path="/GroupDetails" element={<GroupDetails />} />

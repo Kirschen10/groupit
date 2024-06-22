@@ -86,13 +86,6 @@ const JoinGroup = () => {
             });
         }, 1000);
     };
-
-    const backgroundStyle = {
-        backgroundImage: `url('/Images/Background_HomePage.svg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-    };
   
           const handleQuestions = () => {
     navigate(`/Questions`);
@@ -108,19 +101,19 @@ const JoinGroup = () => {
 
 
     return (
-        <div style={backgroundStyle}>
+        <div className={"background-join"}>
               <div>
-                <span className="Home-page-button" onClick={handleHomePage}>
+                <span className="Home-page-button-join" onClick={handleHomePage}>
                     <img src="/Images/Logo.svg" alt="Logo" />
                 </span>
             </div>
             <div>
-                <span className="profile-button" onClick={handleProfile}>
+                <span className="profile-button-join" onClick={handleProfile}>
                     <img src="/Images/user.svg" alt="Profile" />
                 </span>
             </div>
             <div>
-                <span className="question-mark-button" onClick={handleQuestions}>
+                <span className="question-mark-button-join" onClick={handleQuestions}>
                     <img src="/Images/question.svg" alt="Question" />
                 </span>
             </div>
