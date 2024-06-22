@@ -183,24 +183,3 @@
     letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
 }
 
-/* Add styles for the dropdown and button */
-.profile-add-song  select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-.profile-add-song button {
-    background-color: mediumpurple;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-

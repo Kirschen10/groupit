@@ -35,11 +35,13 @@ const JoinGroup = () => {
 
     const handleFindGroups = async () => {
         try {
-            const response = await axios.get('http://localhost:8081/find-groups');
+            const response = await axios.get('http://localhost:8081/find-groups', {
+                params: { username: user.username } // Pass the username as a query parameter
+            });
             setFoundGroups(response.data.groups);
         } catch (error) {
             console.error('Error finding groups:', error);
-            setFeedbackMessage('Failed to find groups');
+            alert('Failed to find groups');
         }
     };
 

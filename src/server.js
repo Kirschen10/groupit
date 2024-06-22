@@ -57,15 +57,28 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// Registration endpoint
 app.post('/register', async (req, res) => {
     const { firstName, lastName, birthday, email, username, password } = req.body;
     const createdAt = new Date().toISOString(); // Get the current date and time in ISO format
 
     try {
+        // Check if the username already exists
+        const usernameResult = await sql.query`SELECT userName FROM users_data WHERE userName = ${username}`;
+        if (usernameResult.recordset.length > 0) {
+            return res.status(400).send({ message: 'Username already exists' });
+        }
+
+        // Check if the email already exists
+        const emailResult = await sql.query`SELECT email FROM users_data WHERE email = ${email}`;
+        if (emailResult.recordset.length > 0) {
+            return res.status(400).send({ message: 'Email already registered' });
+        }
+
+        // Get a new userID
         const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
         const userID = userIDResult.recordset[0].userID;
 
+        // Insert the new user
         await sql.query`INSERT INTO users_data (userID, firstName, lastName, userName, birthday, email, password, createdAt) 
             VALUES (${userID}, ${firstName}, ${lastName}, ${username}, ${birthday}, ${email}, ${password}, ${createdAt})`;
         res.status(201).send({ message: 'Registration successful' });
@@ -74,6 +87,7 @@ app.post('/register', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
 
 // Password reset endpoint
 app.post('/resetPassword', async (req, res) => {
@@ -171,17 +185,6 @@ app.get('/api/user-data/:username', async (req, res) => {
         }
     } catch (err) {
         console.error('Error fetching user data:', err);
-        res.status(500).send({ message: 'An error occurred', error: err.message });
-    }
-});
-
-// Add endpoint to fetch all songs
-app.get('/api/songs', async (req, res) => {
-    try {
-        const result = await sql.query`SELECT trackId, trackName, artistName FROM songs_data`;
-        res.status(200).json(result.recordset);
-    } catch (err) {
-        console.error('Error fetching songs:', err);
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
@@ -374,14 +377,29 @@ app.post('/api/leave-group', async (req, res) => {
 });
 
 app.get('/find-groups', async (req, res) => {
+    const { username } = req.query; // Get the username from the query parameters
+
     try {
+        // Find the user ID based on the provided username
+        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${username}`;
+        
+        if (userResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const userID = userResult.recordset[0].userID;
+
+        // Fetch groups where the user is not already a member
         const result = await sql.query`
             SELECT g.*, COUNT(gu.userID) AS userCount
             FROM groups_data g
             JOIN group_user gu ON g.groupID = gu.groupID
+            LEFT JOIN group_user ug ON g.groupID = ug.groupID AND ug.userID = ${userID}
+            WHERE ug.userID IS NULL
             GROUP BY g.groupID, g.groupName, g.groupDescription, g.createdAt
             HAVING COUNT(gu.userID) > 0
         `;
+        
         res.status(200).send({ groups: result.recordset });
     } catch (err) {
         console.error('Error finding groups:', err);
@@ -613,7 +631,7 @@ app.get('/userPlaylist/:userID', async (req, res) => {
 
         // Fetch trackName and artistName based on trackIds from songs_data table
         const songsResult = await sql.query`
-            SELECT trackName, artistName 
+            SELECT trackName, artistName, trackId
             FROM songs_data 
             WHERE trackId IN (${trackIds})
         `;
@@ -621,6 +639,7 @@ app.get('/userPlaylist/:userID', async (req, res) => {
         const songs = songsResult.recordset.map(song => ({
             name: song.trackName,
             artist: song.artistName,
+            trackId : song.trackId,
         }));
 
         res.status(200).send({ songs });
@@ -657,6 +676,68 @@ app.get('/checkUserSongs', async (req, res) => {
     }
 });
 
+// Delete a song from playlist
+app.delete('/deleteSong/:userID/:trackId', async (req, res) => {
+    const { userID, trackId } = req.params;
+
+    try {
+        const result = await sql.query`DELETE FROM user_song WHERE userId = ${userID} AND trackId = ${trackId}`;
+        res.status(200).send({ message: 'Song deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting song:', error);
+        res.status(500).send({ message: 'Error deleting song' });
+    }
+});
+
+// Fetch songs by a specific artist
+app.get('/songsBySinger/:artistName', async (req, res) => {
+    const { artistName } = req.params;
+
+    try {
+        const result = await sql.query`SELECT * FROM songs_data WHERE artistName = ${artistName}`;
+        res.status(200).json({ songs: result.recordset });
+    } catch (error) {
+        console.error('Error fetching songs:', error);
+        res.status(500).send({ message: 'Error fetching songs' });
+    }
+});
+
+// Function to escape special characters for SQL LIKE queries
+const escapeStringForSQLLike = (str) => {
+    return str.replace(/[%_]/g, '\\$&'); // Escape % and _ characters
+  };
+
+// Endpoint to search for an artist by name
+app.get('/searchArtist/:searchTerm', async (req, res) => {
+    const { searchTerm } = req.params;
+    const escapedSearchTerm = escapeStringForSQLLike(searchTerm);
+  
+    try {
+      const result = await sql.query`
+        SELECT DISTINCT artistName
+        FROM songs_data
+        WHERE artistName LIKE ${'%' + escapedSearchTerm + '%'}
+        ORDER BY artistName
+      `;
+      res.status(200).json({ artists: result.recordset });
+    } catch (err) {
+      console.error('Error searching for artist:', err);
+      res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+  });
+
+ // Add a song to playlist
+app.post('/addSong/:userID/:trackId', async (req, res) => {
+    const { userID, trackId } = req.params;
+
+    try {
+        const result = await sql.query`INSERT INTO user_song (userId, trackId) VALUES (${userID}, ${trackId})`;
+        res.status(200).send({ message: 'Song added successfully' });
+    } catch (error) {
+        console.error('Error adding song:', error);
+        res.status(500).send({ message: 'Error adding song' });
+    }
+});
 
 app.get('/test', async (req, res) => {
     return res.json("test")

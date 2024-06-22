@@ -145,7 +145,7 @@ const GroupDetails = () => {
     };
 
     const handleQuestions = () => {
-        navigate(`/Question`);
+        navigate(`/Questions`);
     };
 
 
