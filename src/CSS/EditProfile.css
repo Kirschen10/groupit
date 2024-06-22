@@ -1,7 +1,7 @@
 /* EditProfile.css */
 
 .info-container-edit {
-    background-color: rgba(255, 255, 255, 0.1); /* White background with opacity */
+    background-color: rgba(255, 255, 255, 0); /* White background with opacity */
     border-radius: 3px; /* Rounded corners */
     padding: 20px; /* Padding inside the container */
     position: absolute; /* Position absolutely at the top */
@@ -9,16 +9,16 @@
     width: 100%; /* Adjust width as needed */
     max-width: 900px; /* Max width */
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 300px 300px 30px;
     gap: 20px;
     column-gap: 30px;
     align-items: start;
-    left: 50%;
+    left: 58%;
     transform: translateX(-50%); /* Adjust position to center horizontally */
 }
 
 .info-container-edit h2 {
-    grid-column: span 3; /* Make the heading span all columns */
+    grid-column: span 2; /* Make the heading span all columns */
     color: white; /* text color */
     margin: 20px 0; /* Adjust margins */
     font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
@@ -30,10 +30,11 @@
 
 .info-container-edit .buttons {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     gap: 10px; /* Space between buttons */
     margin-top: 50px; /* Add margin to the top */
-    margin-left: 30px;
+    margin-left: 20px;
     grid-column: 3; /* Position in the third column */
     justify-self: start; /* Align to the start of the column */
 }
@@ -47,12 +48,15 @@
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s; /* Transition for background color */
     display: flex;
+    text-align: center; /* Center the text inside the button */
     align-items: center; /* Center icon and text vertically */
+    justify-content: center;
     gap: 5px; /* Space between icon and text */
     height: 35px; /* Set button height */
     width: 100px; /* Set button width */
     font-family: Calibri; /* Specify Calibri as the preferred font */
     font-size: 15px;
+    font-weight: bold; /* Make the text bold */
 }
 
 .info-container-edit button img {
@@ -74,11 +78,11 @@
 }
 
 .info-content-edit input {
-    margin: 5px 0; /* Adjust margins */
     color: white; /* Make text color white */
     padding: 10px; /* Adjust padding as needed */
     border-radius: 5px; /* Rounded corners */
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    height: 0px;
 }
 
 .info-content-edit div {
@@ -106,7 +110,4 @@
     font-family: "Calibri Light"; /* Specify Calibri as the preferred font */
 }
 
-.info-container-edit form {
-    width: 100%;
-}
 
