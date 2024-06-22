@@ -71,7 +71,7 @@ function Profile() {
     };
 
     const handleEdit = () => {
-        setEditMode(true);
+        navigate('/EditProfile')
     };
 
     const handleSignOut = () => {

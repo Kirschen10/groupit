@@ -1,3 +1,21 @@
+.background-join {
+    background-image: url('/public/Images/Home Page Background.svg');
+    background-size: cover; /* Adjusts the background size to be responsive */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    width: 100%; /* Full width of the viewport */
+    min-height: 100vh;
+    overflow: hidden; /* Prevents overflow issues */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the start of the container */
+    align-items: center;
+    text-align: center;
+    position: relative; /* Allows positioning of the logo */
+    padding-top: 50px; /* Add padding to move content down a bit */
+    padding-bottom: 50px; /* Add padding to move content down a bit */
+}
+
 .join-group-container {
     position: absolute;
     top: 50%;
@@ -9,8 +27,65 @@
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    font-family: 'Arial', sans-serif;
+    font-family: 'calibri', sans-serif;
     text-align: center;
+}
+
+.Home-page-button-join {
+    position: absolute; /* Positions the logo absolutely within the container */
+    top: 6%; /* Adjust as needed */
+    left: 3%; /* Adjust as needed */
+    z-index: 9999; /* Ensure the button appears above other content */
+    cursor: pointer; /* Show cursor as pointer on hover */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
+
+.Home-page-button-join img {
+    height: 70px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.Home-page-button-join:hover img {
+    transform: scale(1.1); /* Enlarge the logo image on hover */
+}
+
+.profile-button-join {
+    position: absolute; /* Positions the logo absolutely within the container */
+    top: 7%; /* Adjust as needed */
+    right: 3%; /* Adjust as needed */
+    z-index: 9999; /* Ensure the button appears above other content */
+    cursor: pointer; /* Show cursor as pointer on hover */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
+
+.profile-button-join img {
+    height: 60px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.profile-button-join:hover img {
+    transform: scale(1.1); /* Enlarge the logo image on hover */
+}
+
+.question-mark-button-join {
+    position: absolute; /* Positions the logo absolutely within the container */
+    top: 17%; /* Adjust as needed */
+    right: 3%; /* Adjust as needed */
+    z-index: 9999; /* Ensure the button appears above other content */
+    cursor: pointer; /* Show cursor as pointer on hover */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
+
+.question-mark-button-join img {
+    height: 60px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.question-mark-button-join:hover img {
+    transform: scale(1.1); /* Enlarge the logo image on hover */
 }
 
 .join-group-container h2 {

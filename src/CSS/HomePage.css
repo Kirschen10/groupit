@@ -19,8 +19,8 @@
 
 .profile-button {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 5%; /* Adjust as needed */
-    left: 4%; /* Adjust as needed */
+    top: 7%; /* Adjust as needed */
+    left: 3%; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
@@ -28,7 +28,7 @@
 }
 
 .profile-button img {
-    height: 50px;
+    height: 60px;
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
@@ -38,7 +38,7 @@
 
 .question-mark-button {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 5%; /* Adjust as needed */
+    top: 7%; /* Adjust as needed */
     right: 3%; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
@@ -47,7 +47,7 @@
 }
 
 .question-mark-button img {
-    height: 50px;
+    height: 60px;
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
@@ -56,7 +56,7 @@
 }
 
 .headline {
-    font-size: 80px;
+    font-size: 100px;
     font-weight: 900; /* Make the headline very bold */
     color: #fff;
     margin-bottom: 5%;
@@ -78,7 +78,7 @@
 }
 
 .create-group-button img {
-    height: 160px; /* Adjust the size of the button images */
+    height: 180px; /* Adjust the size of the button images */
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
@@ -93,7 +93,7 @@
 }
 
 .join-group-button img {
-    height: 160px; /* Adjust the size of the button images */
+    height: 180px; /* Adjust the size of the button images */
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
