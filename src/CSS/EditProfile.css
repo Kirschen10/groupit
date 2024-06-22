@@ -1,45 +1,7 @@
-/* Profile.css */
+/* EditProfile.css */
 
-.background-profile {
-    background-image: url('/public/Images/Profile background.svg');
-    background-size: cover; /* Adjusts the background size to be responsive */
-    background-position: center; /* Centers the image */
-    background-attachment: fixed; /* Keeps the background fixed during scrolling */
-    width: 100%; /* Full width of the viewport */
-    min-height: 100vh;
-    overflow: hidden; /* Prevents overflow issues */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Align items to the start of the container */
-    align-items: start;
-    text-align: center;
-    position: relative; /* Allows positioning of the logo */
-    padding-top: 50px; /* Add padding to move content down a bit */
-    padding-bottom: 50px; /* Add padding to move content down a bit */
-}
-
-
-.Home-page-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 6%; /* Adjust as needed */
-    left: 3%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.Home-page-button img {
-    height: 70px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.Home-page-button:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
-}
-
-.info-container {
-    background-color: rgba(255, 255, 255, 0); /* White background with opacity */
+.info-container-edit {
+    background-color: rgba(255, 255, 255, 0.1); /* White background with opacity */
     border-radius: 3px; /* Rounded corners */
     padding: 20px; /* Padding inside the container */
     position: absolute; /* Position absolutely at the top */
@@ -55,7 +17,7 @@
     transform: translateX(-50%); /* Adjust position to center horizontally */
 }
 
-.info-container h2 {
+.info-container-edit h2 {
     grid-column: span 3; /* Make the heading span all columns */
     color: white; /* text color */
     margin: 20px 0; /* Adjust margins */
@@ -66,16 +28,17 @@
     text-align: center; /* Center the text */
 }
 
-.info-container .buttons {
+.info-container-edit .buttons {
     display: flex;
     flex-direction: column;
     gap: 10px; /* Space between buttons */
+    margin-top: 50px; /* Add margin to the top */
+    margin-left: 30px;
     grid-column: 3; /* Position in the third column */
-    grid-column-end: span;
     justify-self: start; /* Align to the start of the column */
 }
 
-.info-container button {
+.info-container-edit button {
     background-color: mediumpurple; /* Button background color */
     color: white; /* Button text color */
     border: none; /* Remove border */
@@ -87,21 +50,22 @@
     align-items: center; /* Center icon and text vertically */
     gap: 5px; /* Space between icon and text */
     height: 35px; /* Set button height */
-    width: 120px; /* Set button width */
+    width: 100px; /* Set button width */
     font-family: Calibri; /* Specify Calibri as the preferred font */
     font-size: 15px;
 }
 
-.info-container button img {
+.info-container-edit button img {
     height: 30px; /* Adjust icon size */
     width: 30px; /* Adjust icon size */
 }
 
-.info-container button:hover {
+.info-container-edit button:hover {
     background-color: rebeccapurple; /* Darker background on hover */
 }
 
-.info-content {
+
+.info-content-edit {
     grid-column: span 2; /* Span two columns of the grid */
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two equal columns */
@@ -109,21 +73,20 @@
     column-gap: 30px;
 }
 
-.info-content input {
+.info-content-edit input {
     margin: 5px 0; /* Adjust margins */
     color: white; /* Make text color white */
     padding: 10px; /* Adjust padding as needed */
-    border: 2px solid white; /* Border around the text box */
     border-radius: 5px; /* Rounded corners */
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 }
 
-.info-content div {
+.info-content-edit div {
     position: relative;
     font-family: "Poor Richard";
 }
 
-.info-content div p {
+.info-content-edit div p {
     margin: 5px 0; /* Adjust margins */
     color: white; /* Make text color white */
     padding: 10px; /* Adjust padding as needed */
@@ -132,7 +95,7 @@
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 }
 
-.info-content div p span.label {
+.info-content-edit div p span.label {
     position: absolute;
     top: -10px;
     left: 10px;
@@ -143,26 +106,7 @@
     font-family: "Calibri Light"; /* Specify Calibri as the preferred font */
 }
 
-.content-container {
-    display: flex;
-    justify-content: space-around;
+.info-container-edit form {
     width: 100%;
-    margin-top: 300px; /* Adjust as needed */
-}
-
-.content-box {
-    background-color: rgba(255, 255, 255, 0.3); /* White background with opacity */
-    border-radius: 3px; /* Rounded corners */
-    width: 45%; /* Adjust width as needed */
-    padding: 20px; /* Padding inside the container */
-    text-align: center; /* Center the text */
-}
-
-.content-box h2 {
-    margin: 0 0 20px 0; /* Adjust margins */
-    color: mediumpurple; /* Text color */
-    font-family: "Poor Richard";
-    font-size: 40px;
-    letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
 }
 

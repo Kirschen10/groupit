@@ -1,6 +1,6 @@
-/* Profile.css */
+/* Questions.css */
 
-.background-profile {
+.faq_background-profile {
     background-image: url('/public/Images/Profile background.svg');
     background-size: cover; /* Adjusts the background size to be responsive */
     background-position: center; /* Centers the image */
@@ -18,123 +18,70 @@
     padding-bottom: 50px; /* Add padding to move content down a bit */
 }
 
-
-.info-container h2 {
-    grid-column: span 3; /* Make the heading span all columns */
-    color: white; /* text color */
-    margin: 20px 12% 0 0; /* Adjust margins */
-    font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
-    font-size: 40px;
-    font-weight: 900; /* Make the headline very bold */
-    letter-spacing: 0.2px; /* Add some letter spacing for emphasis */
+.faq_faq-section {
+    color: white; /* Set text color to white */
+    font-family: Calibri, sans-serif; /* Specify Calibri as the preferred font */
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
 }
 
-.profile-image {
-    position: absolute;
-    top: -90px; /* Adjust as needed */
-    left: 345px; /* Adjust as needed */
-    /*background-color: black;*/
-    border-radius: 50%; /* Make it circular */
-    width: 170px; /* Adjust as needed */
-    height: 170px; /* Adjust as needed */
-    /*border: 3px solid white; !* White border *!*/
-}
-
-.info-content {
-    grid-column: span 2; /* Span two columns of the grid */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
-    gap: 15px;
-    column-gap: 30px;
-}
-
-.info-content input {
-    margin: 5px 0; /* Adjust margins */
-    color: white; /* Make text color white */
-    padding: 10px; /* Adjust padding as needed */
-    border: 2px solid white; /* Border around the text box */
-    border-radius: 5px; /* Rounded corners */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-}
-
-.info-content div {
-    position: relative;
-    font-family: "Poor Richard";
-}
-
-.info-content div p {
-    margin: 5px 0; /* Adjust margins */
-    color: white; /* Make text color white */
-    padding: 10px; /* Adjust padding as needed */
-    border: 2px solid white; /* Border around the text box */
-    border-radius: 5px; /* Rounded corners */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-}
-
-.info-content div p span.label {
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    background-color: black;
-    color: white;
-    padding: 2px 5px;
-    font-size: 1em;
-    font-family: "Calibri Light"; /* Specify Calibri as the preferred font */
-}
-
-.info-container .buttons {
+.faq_faq-container {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between buttons */
-    margin-top: 50px; /* Add margin to the top */
-    margin-left: 30px;
+    gap: 10px;
 }
 
-.info-container button {
-    background-color: mediumpurple; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 3px 3px; /* Padding inside buttons */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Transition for background color */
-    display: flex;
-    align-items: center; /* Center icon and text vertically */
-    gap: 5px; /* Space between icon and text */
-    height: 35px; /* Set button height */
-    width: 100px; /* Set button width */
-    font-family: Calibri; /* Specify Calibri as the preferred font */
-    font-size: 15px;
+.faq_faq-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-.info-container button img {
-    height: 30px; /* Adjust icon size */
-    width: 30px; /* Adjust icon size */
+.faq_faq-card h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.info-container button:hover {
-    background-color: rebeccapurple; /* Darker background on hover */
+.faq_faq-card p {
+    margin: 10px 0 0;
+    font-size: 20px;
+    display: none;
 }
 
-.content-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 300px; /* Adjust as needed */
+.faq_faq-card.faq_active {
+    background-color: rgba(255, 255, 255, 0.3); /* Brighter background when active */
+    border-color: rgba(255, 255, 255, 0.5); /* Brighter border when active */
 }
 
-.content-box {
-    background-color: rgba(255, 255, 255, 0.3); /* White background with opacity */
-    border-radius: 3px; /* Rounded corners */
-    width: 45%; /* Adjust width as needed */
-    padding: 20px; /* Padding inside the container */
-    text-align: center; /* Center the text */
+.faq_faq-card.faq_active p {
+    display: block;
 }
 
-.content-box h2 {
-    margin: 0 0 20px 0; /* Adjust margins */
-    color: mediumpurple; /* Text color */
-    font-family: "Poor Richard";
-    font-size: 40px;
-    letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
+.faq_profile-button, .faq_Home-page-button {
+    cursor: pointer;
+}
+
+.faq_h2, .faq_h3 {
+    font-family: Calibri, sans-serif;
+}
+
+.faq_h2 {
+    color: white;
+    font-size: 22px;
+}
+
+.faq_h3 {
+    color: white;
+    margin-top: 20px;
+    font-size: 22px;
+}
+
+.faq_p {
+    color: white;
+    font-size: 22px;
 }

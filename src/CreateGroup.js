@@ -96,8 +96,13 @@ const CreateGroup = () => {
                 groupDescription,
                 users,
             });
-            alert('Group created successfully!');
-            navigate('/HomePage');
+            if (response.data) {
+                const { groupID, createdAt } = response.data;
+                alert('Group created successfully!');
+                navigate('/GroupDetails', { state: { group: { groupID, groupName, groupDescription, createdAt }, userID: user.userID } }); // Navigate to the group details page with state
+            } else {
+                throw new Error('Group creation response does not contain expected data.');
+            }
         } catch (error) {
             console.error('Error creating group:', error);
             alert('Failed to create group');
@@ -119,17 +124,17 @@ const CreateGroup = () => {
     return (
     <div className="background-CreateGroup">
          <div>
-            <span className="Home-page-button" onClick={handleHomePage}>
+            <span className="Home-page-button-create" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
         </div>
         <div>
-            <span className="profile-button" onClick={handleProfile}>
+            <span className="profile-button-create" onClick={handleProfile}>
                 <img src="/Images/user.svg" alt="Profile" />
             </span>
         </div>
         <div>
-            <span className="question-mark-button" onClick={handleQuestions}>
+            <span className="question-mark-button-create" onClick={handleQuestions}>
                 <img src="/Images/question.svg" alt="Question" />
             </span>
         </div>

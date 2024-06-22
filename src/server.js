@@ -63,6 +63,7 @@ app.post('/register', async (req, res) => {
 
     try {
         // Check if the username already exists
+
         const usernameResult = await sql.query`SELECT userName FROM users_data WHERE userName = ${username}`;
         if (usernameResult.recordset.length > 0) {
             return res.status(400).send({ message: 'Username already exists' });
@@ -75,6 +76,13 @@ app.post('/register', async (req, res) => {
         }
 
         // Get a new userID
+        const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
+        const userID = userIDResult.recordset[0].userID;
+        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${username}`;
+        if (userResult.recordset.length > 0) {
+            return res.status(400).send({ message: 'Username already exists' });
+        }
+        // Get the next userID
         const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
         const userID = userIDResult.recordset[0].userID;
 
@@ -203,7 +211,6 @@ app.post('/api/add-user-song', async (req, res) => {
 });
 
 
-
 // Fetch all users endpoint
 app.get('/usersList', async (req, res) => {
     try {
@@ -317,14 +324,15 @@ app.post('/create-group', async (req, res) => {
         // Save the group to the groups_data table
         const groupIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.GroupIDSequence AS groupID`;
         const groupID = groupIDResult.recordset[0].groupID;
-        await sql.query`INSERT INTO groups_data (groupID, groupName, groupDescription, createdAt) VALUES (${groupID}, ${groupName}, ${groupDescription}, GETDATE())`;
+        const createdAt = new Date().toISOString();
+        await sql.query`INSERT INTO groups_data (groupID, groupName, groupDescription, createdAt) VALUES (${groupID}, ${groupName}, ${groupDescription}, ${createdAt})`;
         console.log(users);
         // Save the users to the group_user table
         for (const user of users) {
             await sql.query`INSERT INTO group_user (userID, groupID) VALUES (${user.userID}, ${groupID})`;
         }
 
-         res.status(201).send({ message: 'Group created successfully', groupID: groupID });
+         res.status(201).send({ message: 'Group created successfully', groupID, createdAt});
     } catch (err) {
         console.error('Error creating group:', err);
         res.status(500).send({ message: 'An error occurred', error: err.message });

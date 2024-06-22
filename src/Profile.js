@@ -10,6 +10,7 @@ function Profile() {
     const { user, logout } = useUser();
     const [userID , setUserID] = useState('');
     const [userData, setUserData] = useState(null);
+    const [songs, setSongs] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -59,7 +60,7 @@ function Profile() {
     };
 
     const handleEdit = () => {
-        setEditMode(true);
+        navigate('/EditProfile')
     };
 
     const handleSignOut = () => {
@@ -255,7 +256,6 @@ function Profile() {
             <div className="content-container">
                 <div className="content-box">
                     <h2>My Favorite Music</h2>
-
                     <Playlist userID={userID}/>
                 </div>
                 <div className="content-box">

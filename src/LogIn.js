@@ -8,7 +8,7 @@ const LogIn = () => {
     const { login } = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false); // Remember me state
+    const [remember, setRemember] = useState(false);
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
