@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="userslist">
-      <change beforePath="$PROJECT_DIR$/src/CSS/JoinGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/JoinGroup.css" afterDir="false" />
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="danielle and ofek 29.06 18:05">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="daniv5" />
+        <entry key="$PROJECT_DIR$" value="daniv6" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -108,7 +108,21 @@
       <option name="project" value="LOCAL" />
       <updated>1719668215869</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="danielle and ofek 29.06 18:05">
+      <created>1719673508819</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1719673508819</updated>
+    </task>
+    <task id="LOCAL-00010" summary="danielle and ofek 29.06 18:05">
+      <created>1719673531359</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1719673531359</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -122,7 +136,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="daniv6" />
+                        <option value="daniv7" />
                       </list>
                     </value>
                   </entry>
@@ -154,6 +168,7 @@
     <MESSAGE value="commitdd" />
     <MESSAGE value="changes" />
     <MESSAGE value="userslist" />
-    <option name="LAST_COMMIT_MESSAGE" value="userslist" />
+    <MESSAGE value="danielle and ofek 29.06 18:05" />
+    <option name="LAST_COMMIT_MESSAGE" value="danielle and ofek 29.06 18:05" />
   </component>
 </project>
