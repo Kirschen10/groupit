@@ -52,7 +52,7 @@
     padding: 20px;
 }
 
-.song-item {
+.select-song-item {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -66,15 +66,15 @@
     position: relative;
 }
 
-.song-item:hover {
+.select-song-item:hover {
     background-color: #e0e0e0;
 }
 
-.song-item.selected {
+.select-song-item.selected {
     background-color: #f8f8f8;
 }
 
-.song-item.selected:hover {
+.select-song-item.selected:hover {
     background-color: #e0e0e0;
 }
 .song-name {
@@ -98,14 +98,14 @@
     width: 100%;
 }
 
-.actions {
+.select_song_actions {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
 }
 
-.button {
+.select_song_finish_button {
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
@@ -117,6 +117,6 @@
     transition: background-color 0.3s;
 }
 
-.button:hover {
+.select_song_finish_button:hover {
     opacity: 0.5;
 }

@@ -69,7 +69,7 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
             alert('An error occurred while adding the song.');
         }
     };
-    
+
 
     const handleArtistSearch = async () => {
         if (searchArtist.trim().length >= 2) {

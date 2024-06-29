@@ -99,7 +99,7 @@ function SelectSongs() {
                     <h2>Available Songs</h2>
                     <div className="songs-scroll">
                         {topSongs.map(song => (
-                            <div key={song.id} className="song-item" onClick={() => handleSelectSong(song)}>
+                            <div key={song.id} className="select-song-item" onClick={() => handleSelectSong(song)}>
                                 <div className="song-name">{song.name}</div>
                                 <div className="artist-name">{song.artistName}</div>
                             </div>
@@ -124,7 +124,7 @@ function SelectSongs() {
                     <h2>Selected Songs</h2>
                     <div className="songs-scroll">
                         {selectedSongs.map(song => (
-                            <div key={song.id} className="song-item selected" onClick={() => handleRemoveSong(song)}>
+                            <div key={song.id} className="select-song-item selected" onClick={() => handleRemoveSong(song)}>
                                 <div className="song-name">{song.name}</div>
                                 <div className="artist-name">{song.artistName}</div>
                             </div>
@@ -132,9 +132,9 @@ function SelectSongs() {
                     </div>
                 </div>
             </div>
-            <div className="actions">
+            <div className="select_song_actions">
                 {selectedSongs.length >= 10 && (
-                    <button className="button" onClick={handleCompletion}>Finish</button>
+                    <button className="select_song_finish_button" onClick={handleCompletion}>Finish</button>
                 )}
             </div>
         </div>

@@ -4,8 +4,6 @@ const sql = require('mssql');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-const EmailVerifier = require('email-verifier');
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -66,8 +64,7 @@ app.post('/register', async (req, res) => {
 
     try {
 
-        // Check if the username already exists
-
+        // Check if the username already registered
         const usernameResult = await sql.query`SELECT userName FROM users_data WHERE userName = ${username}`;
         if (usernameResult.recordset.length > 0) {
             return res.status(400).send({ message: 'Username already exists' });
@@ -82,10 +79,6 @@ app.post('/register', async (req, res) => {
         // Get a new userID
         const userIDResult = await sql.query`SELECT NEXT VALUE FOR dbo.UserIDSequence AS userID`;
         const userID = userIDResult.recordset[0].userID;
-        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${username}`;
-        if (userResult.recordset.length > 0) {
-            return res.status(400).send({ message: 'Username already exists' });
-        }
 
 
         // Insert the new user
@@ -318,6 +311,23 @@ app.post('/api/verify-user', async (req, res) => {
 });
 
 
+app.post('/get-group-details', async (req, res) => {
+    const { groupID } = req.body;
+
+    try {
+        const result = await sql.query`SELECT groupID, groupName, groupDescription, createdAt FROM groups_data WHERE groupID = ${groupID}`;
+        if (result.recordset.length > 0) {
+            res.status(200).send({ success: true, group: result.recordset[0] });
+        } else {
+            res.status(404).send({ success: false, message: 'Group not found' });
+        }
+    } catch (err) {
+        console.error('Error fetching group details:', err);
+        res.status(500).send({ success: false, message: 'An error occurred', error: err.message });
+    }
+});
+
+
 app.post('/create-group', async (req, res) => {
     const { groupName, groupDescription, users } = req.body;
     const groupID = sql.UniqueIdentifier();
@@ -337,6 +347,83 @@ app.post('/create-group', async (req, res) => {
          res.status(201).send({ message: 'Group created successfully', groupID, createdAt});
     } catch (err) {
         console.error('Error creating group:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.get('/find-groups', async (req, res) => {
+    const { username } = req.query;
+
+    try {
+        // Find the user ID based on the provided username
+        const userResult = await sql.query`SELECT userID FROM users_data WHERE userName = ${username}`;
+
+        if (userResult.recordset.length === 0) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        const userID = userResult.recordset[0].userID;
+
+        // Find the count of groups that each user shares with the current user
+        const sharedGroupsCountResult = await sql.query`
+            SELECT gu1.userID, COUNT(gu1.groupID) AS sharedCount
+            FROM group_user gu1
+            JOIN group_user gu2 ON gu1.groupID = gu2.groupID
+            WHERE gu2.userID = ${userID} and gu1.userID <> ${userID}
+            GROUP BY gu1.userID
+            ORDER BY sharedCount DESC
+            OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY
+        `;
+
+        if (sharedGroupsCountResult.recordset.length === 0) {
+            // Fallback to the most popular groups not joined by the current user
+            const popularGroupsResult = await sql.query`
+                SELECT g.*, COUNT(gu.userID) AS userCount
+                FROM groups_data g
+                JOIN group_user gu ON g.groupID = gu.groupID
+                LEFT JOIN group_user ug ON g.groupID = ug.groupID AND ug.userID = ${userID}
+                WHERE ug.userID IS NULL
+                GROUP BY g.groupID, g.groupName, g.groupDescription, g.createdAt
+                HAVING COUNT(gu.userID) > 0
+            `;
+
+            return res.status(200).send({ groups: popularGroupsResult.recordset });
+        }
+
+        const topUserIDs = sharedGroupsCountResult.recordset.map(row => row.userID);
+
+         // Create the parameterized query string
+        let userIDsParameter = '';
+        const userIDParams = {};
+        topUserIDs.forEach((id, index) => {
+            userIDsParameter += `@userID${index}, `;
+            userIDParams[`userID${index}`] = id;
+        });
+        userIDsParameter = userIDsParameter.slice(0, -2);  // Remove the trailing comma and space
+
+        // Find all the groups that the top users are in but the current user is not
+        const queryText = `
+            SELECT DISTINCT g.groupID, g.groupName, g.groupDescription, g.createdAt
+            FROM groups_data g
+            JOIN group_user gu ON g.groupID = gu.groupID
+            WHERE g.groupID NOT IN (
+                SELECT groupID
+                FROM group_user
+                WHERE userID = ${userID}
+            ) AND gu.userID IN (${userIDsParameter})
+        `;
+
+        const request = new sql.Request();
+        request.input('userID', sql.Int, userID);
+        topUserIDs.forEach((id, index) => {
+            request.input(`userID${index}`, sql.Int, id);
+        });
+
+        const groupsResult = await request.query(queryText);
+
+        return res.status(200).send({ groups: groupsResult.recordset });
+    } catch (err) {
+        console.error('Error finding groups:', err);
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
@@ -743,7 +830,7 @@ app.get('/searchArtist/:searchTerm', async (req, res) => {
     try {
         // First, check if the song already exists in the user's playlist
         const existsQuery = await sql.query`SELECT * FROM user_song WHERE userId = ${userID} AND trackId = ${trackId}`;
-        
+
         if (existsQuery.recordset.length > 0) {
             // If the song already exists, send a message back to the client
             res.status(409).send({ message: 'This song is already in your playlist.' });
