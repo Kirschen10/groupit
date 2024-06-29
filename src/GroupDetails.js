@@ -19,6 +19,7 @@ const GroupDetails = () => {
     const [countdown, setCountdown] = useState(5); // Countdown state
     const [playlist, setPlaylist] = useState([]); // State for playlist
     const [likedSongs, setLikedSongs] = useState({}); // State to track liked songs
+    const [unlikedSongs, setUnlikedSongs] = useState({}); // State to track unliked songs
     const [loading, setLoading] = useState(false); // State for loading indicator
 
     const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
@@ -26,6 +27,12 @@ const GroupDetails = () => {
     const [groupDescription, setGroupDescription] = useState(currentGroup.groupDescription); // State for group's description
     const [originalGroupName, setOriginalGroupName] = useState(currentGroup.groupName); // State to store original group's name
     const [originalGroupDescription, setOriginalGroupDescription] = useState(currentGroup.groupDescription); // State to store original group's description
+
+    const resetFeedbackMessage = () => {
+        setFeedbackMessage('');
+        setAllUsersErrorMessage('');
+        setErrorGroupUsersMessage('');
+    };
 
     useEffect(() => {
         // Fetch all users from the backend
@@ -85,7 +92,12 @@ const GroupDetails = () => {
                     acc[song.trackID] = song.isLiked;
                     return acc;
                 }, {});
+                const unlikedSongsMap = data.groupSongs.reduce((acc, song) => {
+                    acc[song.trackID] = song.isUnliked;
+                    return acc;
+                }, {});
                 setLikedSongs(likedSongsMap);
+                setUnlikedSongs(unlikedSongsMap);
                 setLoading(false); // Ensure loading is false after data is fetched
             })
             .catch(error => {
@@ -93,7 +105,11 @@ const GroupDetails = () => {
             });
     }, [currentGroup.groupID, userID]);
 
+   // Filter users who are not in the group
+    const availableUsers = allUsers.filter(user => !users.includes(user.label));
+
     const handleAddUser = () => {
+        resetFeedbackMessage();
         if (newUser) {
             fetch('http://localhost:8081/addUserByUserName', {
                 method: 'POST',
@@ -121,6 +137,7 @@ const GroupDetails = () => {
     };
 
     const handleLeaveGroup = () => {
+        resetFeedbackMessage();
         setShowModal(true);
     };
 
@@ -159,10 +176,12 @@ const GroupDetails = () => {
     };
 
     const cancelLeaveGroup = () => {
+        resetFeedbackMessage();
         setShowModal(false);
     };
 
     const handleGetPlaylist = () => {
+        resetFeedbackMessage();
         setLoading(true); // Set loading to true
         setPlaylist([]); // Clear current playlist
 
@@ -245,7 +264,7 @@ const GroupDetails = () => {
                 });
         } else {
             // If not liked, add feedback
-            fetch('http://localhost:8081/giveFeedback', {
+            fetch('http://localhost:8081/givePositiveFeedback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -258,6 +277,59 @@ const GroupDetails = () => {
                     if (data.message === 'Feedback recorded') {
                         setFeedbackMessage('Feedback recorded successfully.');
                         setLikedSongs({ ...likedSongs, [trackID]: true }); // Update the liked state
+                        setUnlikedSongs({ ...unlikedSongs, [trackID]: false }); // Ensure unlike is off
+                    } else {
+                        setFeedbackMessage(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error giving feedback:', error);
+                    setFeedbackMessage('An error occurred while giving feedback.');
+                });
+        }
+    };
+
+    const handleUnlikeClick = (trackID) => {
+        resetFeedbackMessage();
+        if (unlikedSongs[trackID]) {
+            // If already unliked, remove feedback
+            fetch('http://localhost:8081/removeFeedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userID, trackID, groupID: currentGroup.groupID }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from server:', data);
+                    if (data.message === 'Feedback removed') {
+                        setFeedbackMessage('Feedback removed successfully.');
+                        setUnlikedSongs({ ...unlikedSongs, [trackID]: false }); // Update the unliked state
+                    } else {
+                        setFeedbackMessage(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error removing feedback:', error);
+                    setFeedbackMessage('An error occurred while removing feedback.');
+                });
+        } else {
+            // If not unliked, add feedback
+            fetch('http://localhost:8081/giveNegativeFeedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userID, trackID, groupID: currentGroup.groupID }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from server:', data);
+                    if (data.message === 'Feedback recorded') {
+                        setFeedbackMessage('Feedback recorded successfully.');
+                        setUnlikedSongs({ ...unlikedSongs, [trackID]: true }); // Update the unliked state
+                        setLikedSongs({ ...likedSongs, [trackID]: false }); // Ensure like is off
                     } else {
                         setFeedbackMessage(`Error: ${data.message}`);
                     }
@@ -270,10 +342,12 @@ const GroupDetails = () => {
     };
 
     const handleEditClick = () => {
+        resetFeedbackMessage();
         setIsEditing(true);
     };
 
     const handleSaveClick = () => {
+        resetFeedbackMessage();
         fetch('http://localhost:8081/updateGroup', {
             method: 'POST',
             headers: {
@@ -305,6 +379,7 @@ const GroupDetails = () => {
     };
 
     const handleCancelClick = () => {
+        resetFeedbackMessage();
         setGroupName(originalGroupName);
         setGroupDescription(originalGroupDescription);
         setIsEditing(false);
@@ -373,15 +448,18 @@ const GroupDetails = () => {
                             <button onClick={handleCancelClick}>Cancel</button>
                         </>
                     ) : (
-                        <button onClick={handleEditClick}>Edit</button>
+                        <button className="maymay" onClick={handleEditClick}>Edit</button>
                     )}
                     <button onClick={handleLeaveGroup}>Leave Group</button>
                 </div>
                 <div className="add-user-input">
                     <Select
-                        options={allUsers}
+                        options={availableUsers}
                         value={newUser}
-                        onChange={setNewUser}
+                        onChange={(selectedOption) => {
+                            resetFeedbackMessage();
+                            setNewUser(selectedOption);
+                        }}
                         placeholder="Enter user name"
                         isClearable
                         className="add-user-select" // Apply custom CSS class
@@ -402,7 +480,7 @@ const GroupDetails = () => {
                 {loading && <div className="loading-indicator"><div className="spinner"></div></div>}
                 {playlist.length === 0 && !loading ? (
                     <div className="no-playlist-message">
-                        <p>No songs in the playlist. Please create one!</p>
+                        <p>This group don't have playlist. Fell free do generate one :)</p>
                     </div>
                 ) : (
                     <div className="play-list-container-gd">
@@ -415,6 +493,10 @@ const GroupDetails = () => {
                                         <span className="like-button" onClick={() => handleStarClick(song.trackID)}>
                                             <img src={likedSongs[song.trackID] ? "/Images/likeFill.png" : "/Images/like.png"}
                                                 alt="Like" />
+                                        </span>
+                                        <span className="unlike-button" onClick={() => handleUnlikeClick(song.trackID)}>
+                                            <img src={unlikedSongs[song.trackID] ? "/Images/unlikeFill.png" : "/Images/unlike.png"}
+                                                alt="Unlike" />
                                         </span>
                                     </div>
                                 </div>

@@ -308,6 +308,34 @@
     transform: scale(1.3); /* Enlarge the logo image on hover */
 }
 
+
+.unlike-button {
+    background: none;
+    border: none;
+    font-size: 24px; /* Adjust size as needed */
+    cursor: pointer;
+    color: #800000;
+    position: absolute;
+    transform: translateY(-50%);
+    left: 89%;
+    top: 50%;
+    padding: 0; /* Remove padding */
+    width: 24px; /* Adjust size as needed */
+    height: 24px; /* Adjust size as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.unlike-button img {
+    height: 30px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.unlike-button:hover img {
+    transform: scale(1.3); /* Enlarge the logo image on hover */
+}
+
+
 .loading-indicator {
     display: flex;
     justify-content: center;
@@ -377,4 +405,16 @@
 .song-artist-gd {
     font-size: 16px;
     color: #666;
+}
+
+.maymay {
+    background-color: pink;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 0 10px; /* Add margin between buttons */
 }
