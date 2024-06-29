@@ -1,22 +1,23 @@
-.background-join {
+/* General Styles */
+.background-joinGroup {
     background-image: url('/public/Images/Home Page Background.svg');
-    background-size: cover; /* Adjusts the background size to be responsive */
-    background-position: center; /* Centers the image */
-    background-attachment: fixed; /* Keeps the background fixed during scrolling */
-    width: 100%; /* Full width of the viewport */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
     min-height: 100vh;
-    overflow: hidden; /* Prevents overflow issues */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align items to the start of the container */
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
-    position: relative; /* Allows positioning of the logo */
-    padding-top: 50px; /* Add padding to move content down a bit */
-    padding-bottom: 50px; /* Add padding to move content down a bit */
+    position: relative;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
-.join-group-container {
+.container-joinGroup {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -31,76 +32,74 @@
     text-align: center;
 }
 
-.Home-page-button-join {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 6%; /* Adjust as needed */
-    left: 3%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
+/* Button Styles */
+.homeButton-joinGroup,
+.profileButton-joinGroup,
+.questionButton-joinGroup {
+    position: absolute;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    z-index: 9999;
 }
 
-.Home-page-button-join img {
+.homeButton-joinGroup {
+    top: 6%;
+    left: 3%;
+}
+
+.homeButton-joinGroup img {
     height: 70px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
+    transition: transform 0.3s ease-in-out;
 }
 
-.Home-page-button-join:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
+.homeButton-joinGroup:hover img {
+    transform: scale(1.1);
 }
 
-.profile-button-join {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 7%; /* Adjust as needed */
-    right: 8%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
+.profileButton-joinGroup {
+    top: 7%;
+    right: 8%;
 }
 
-.profile-button-join img {
+.profileButton-joinGroup img {
     height: 60px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
+    transition: transform 0.3s ease-in-out;
 }
 
-.profile-button-join:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
+.profileButton-joinGroup:hover img {
+    transform: scale(1.1);
 }
 
-.question-mark-button-join {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 7%; /* Adjust as needed */
-    right: 3%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
+.questionButton-joinGroup {
+    top: 7%;
+    right: 3%;
 }
 
-.question-mark-button-join img {
+.questionButton-joinGroup img {
     height: 60px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
+    transition: transform 0.3s ease-in-out;
 }
 
-.question-mark-button-join:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
+.questionButton-joinGroup:hover img {
+    transform: scale(1.1);
 }
 
-.join-group-container h2 {
+/* Join Group Styles */
+.container-joinGroup h2 {
     color: #333;
     margin-bottom: 20px;
     font-size: 24px;
 }
 
-.join-group-container h3 {
+.container-joinGroup h3 {
     color: #666;
     margin-bottom: 15px;
     font-size: 18px;
+    text-align: left;
 }
 
-.join-group-container input {
+.container-joinGroup input {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
@@ -109,7 +108,7 @@
     font-size: 16px;
 }
 
-.join-group-container button {
+.container-joinGroup button {
     width: 100%;
     padding: 12px;
     color: white;
@@ -118,88 +117,90 @@
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+    background-color: #8925C7;
 }
 
-.join-group-container button:hover {
-    opacity: 0.5;
+.container-joinGroup button:hover {
+    opacity: 0.8;
 }
 
-.join-group-container ul {
+/* Group List Styles */
+.groupList-joinGroup {
     list-style: none;
     padding: 0;
     margin: 20px 0 0;
-    max-height: 200px; /* Adjust height to show up to 4 groups */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 200px;
+    overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.join-group-container ul li {
+.groupListItem-joinGroup {
     background-color: #f9f9f9;
     padding: 10px 15px;
     border: 1px solid #eee;
     border-radius: 5px;
     margin-bottom: 10px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.group-header {
+.groupHeader-joinGroup {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     margin-bottom: 10px;
 }
 
-.group-name {
+.groupName-joinGroup {
     font-size: 18px;
     color: black;
+    font-weight: bold;
 }
 
-.group-id {
+.groupID-joinGroup {
     font-size: 14px;
     color: gray;
     margin-left: 10px;
 }
 
-.group-buttons {
+.groupButtons-joinGroup {
     display: flex;
     gap: 10px;
 }
 
-.info-button {
+.infoButton-joinGroup {
     padding: 6px 12px;
     font-size: 14px;
-    background-color: grey;
     border: none;
     border-radius: 5px;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
-    flex-shrink: 0;
-    align-items: center;
-    align-content: center;
     background-color: #bbb;
 }
 
-.join-button-JoinGroup {
+.joinButton-joinGroup {
     padding: 8px 16px;
-    font-size: 10px;
-    background-color: #34a853;
+    font-size: 14px;
     border: none;
     border-radius: 5px;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
-    flex-grow: 1;
-    background-color: #ADD8E6;
+    background-color: #34a853;
 }
 
-.join-button-JoinGroup:hover {
+.joinButton-joinGroup:hover {
     background-color: #2c8a42;
 }
 
-.group-details.joingroup {
-    display: none; /* Initially hidden */
+/* Group Details Styles */
+.groupDetails-joinGroup {
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -217,44 +218,47 @@
     border-color: #8925C7;
 }
 
-.group-details.joingroup .visible {
-    display: block; /* Show when visible class is added */
+.groupDetails-joinGroup.visible {
+    display: block;
 }
 
-.group-details.joingroup h3 {
+.groupDetails-joinGroup h3 {
     font-size: 22px;
     color: #333;
     margin-bottom: 10px;
     text-align: center;
 }
 
-.group-details.joingroup p {
+.groupDetails-joinGroup p {
     font-size: 16px;
     color: #666;
     margin-bottom: 10px;
 }
 
-.group-details.joingroup .detail-item.joingroup {
+.detailItem-joinGroup {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-.group-details.joingroup .detail-item.joingroup span {
+.detailItem-joinGroup span {
     font-weight: bold;
     color: #333;
 }
 
-.group-details.joingroup .detail-item.joingroup .value {
+.detailItem-joinGroup .value {
     color: #555;
 }
 
-.feedback-message-JoinGroup {
+/* Feedback Styles */
+.feedbackMessage-joinGroup {
     color: red;
     font-size: 14px;
     margin-top: 20px;
 }
-.modal-overlay-joingroup {
+
+/* Modal Styles */
+.modalOverlay-joinGroup {
     position: fixed;
     top: 0;
     left: 0;
@@ -267,7 +271,7 @@
     z-index: 1000;
 }
 
-.modal-content-joingroup {
+.modalContent-joinGroup {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -276,13 +280,13 @@
     width: 300px;
 }
 
-.modal-buttons-joingroup {
+.modalButtons-joinGroup {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
 }
 
-.modal-button-joingroup {
+.modalButton-joinGroup {
     padding: 10px 20px;
     background-color: #8925C7;
     color: white;
@@ -293,103 +297,14 @@
     margin-left: 10px;
 }
 
-.modal-button-joingroup:hover {
+.modalButton-joinGroup:hover {
     background-color: #6d1f99;
 }
 
-.modal-cancel-button-joingroup {
+.modalCancelButton-joinGroup {
     background-color: #ccc;
 }
 
-.modal-cancel-button-joingroup:hover {
+.modalCancelButton-joinGroup:hover {
     background-color: #aaa;
-}
-
-
-/* Add this to your existing JoinGroup.css file */
-
-.group-card-joingroup {
-    background-color: #282c34; /* Dark background to match your app */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    margin-bottom: 15px;
-    width: 93%; /* Make the card fill the container */
-    box-sizing: border-box;
-    transition: transform 0.2s, box-shadow 0.2s;
-    color: white;
-}
-
-.group-card-joingroup:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.group-card-joingroup .group-header-joingroup {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.group-card-joingroup .group-name-joingroup {
-    font-size: 22px;
-    font-weight: bold;
-    color: #61dafb; /* Light blue color for the group name */
-}
-
-.group-card-joingroup .group-id-joingroup {
-    font-size: 14px;
-    color: #cccccc; /* Light gray color for the group ID */
-}
-
-.group-card-joingroup .group-buttons-joingroup {
-    display: flex;
-    gap: 10px;
-}
-
-.group-card-joingroup .info-button-joingroup, .group-card-joingroup .join-button-joingroup {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.group-card-joingroup .info-button-joingroup {
-    background-color: #444;
-    color: white;
-}
-
-.group-card-joingroup .join-button-joingroup {
-    background-color: #61dafb; /* Lighter blue color for the join button */
-    color: #282c34; /* Dark color for the text on the join button */
-    flex-grow: 1;
-}
-
-.group-card-joingroup .info-button-joingroup:hover {
-    background-color: #555;
-}
-
-.group-card-joingroup .join-button-joingroup:hover {
-    background-color: #7ab8e1; /* Slightly darker light blue for hover effect */
-}
-
-.group-details-joingroup {
-    background-color: #f0f0f0; /* Light grey background for group details */
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    color: #bbb;
-}
-
-.detail-item-joingroup {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-}
-
-.detail-item-joingroup .value {
-    font-weight: bold;
 }
