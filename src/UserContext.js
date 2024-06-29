@@ -34,8 +34,21 @@ export const UserProvider = ({ children }) => {
         localStorage.removeItem('expiryDate');
     };
 
+     const updateUser = (updatedUserData) => {
+        setUser((prevUser) => ({
+            ...prevUser,
+            ...updatedUserData
+        }));
+
+        // Update localStorage if user data is stored there
+        const expiryDate = localStorage.getItem('expiryDate');
+        if (expiryDate) {
+            localStorage.setItem('user', JSON.stringify(updatedUserData));
+        }
+    };
+
     return (
-        <UserContext.Provider value={{ user, login, logout }}>
+        <UserContext.Provider value={{ user, login, logout, updateUser }}>
             {children}
         </UserContext.Provider>
     );
