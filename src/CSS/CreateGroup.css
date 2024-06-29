@@ -40,7 +40,7 @@
 .profile-button-create {
     position: absolute; /* Positions the logo absolutely within the container */
     top: 7%; /* Adjust as needed */
-    right: 3%; /* Adjust as needed */
+    right: 8%; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
@@ -58,7 +58,7 @@
 
 .question-mark-button-create {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 17%; /* Adjust as needed */
+    top: 7%; /* Adjust as needed */
     right: 3%; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */

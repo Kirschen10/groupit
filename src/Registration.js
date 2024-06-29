@@ -19,9 +19,26 @@ function Registration() {
         const minDate = new Date('1900-01-01');
         const maxDate = new Date();
         const enteredDate = new Date(birthday);
+        const enteredEmail = new String(email);
 
-        if (enteredDate < minDate || enteredDate > maxDate) {
-            setError('Birthday must be between January 1, 1900, and today.');
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        if (enteredDate < minDate) {
+            setError('Birthday must be after January 1st, 1900')
+            return;
+        } else if (enteredDate > maxDate) {
+            setError('Birthday cannot be in the future');
+            return;
+        }
+        if (!enteredEmail.match(
+                    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+                    ){
+            setError('email is not valid');
+            return;
+        }
+
+        if (!password.match(passwordRegex)) {
+            setError('Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
             return;
         }
 
@@ -38,7 +55,13 @@ function Registration() {
                 navigate('/SelectArtists', { state: { username } }); // Pass the username to SelectArtists
             } else {
                 console.error('Registration failed:', body.message);
-                setError('username is already taken');
+                if (body.message === 'Username already exists') {
+                    setError('Username is already taken');
+                } else if (body.message === 'Email already registered') {
+                    setError('Email has already been registered');
+                } else {
+                    setError('Registration failed');
+                }
             }
         })
         .catch(error => {
@@ -114,7 +137,7 @@ function Registration() {
                         </div>
                         <input
                             className="input-reg"
-                            type="email"
+                            type="text"
                             placeholder="Email"
                             value={email}
                             required
