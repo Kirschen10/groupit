@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const sql = require('mssql');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -883,10 +883,23 @@ app.post('/getPlaylist', async (req, res) => {
     }
 });
 
-app.post('/giveFeedback', async (req, res) => {
+app.post('/givePositiveFeedback', async (req, res) => {
     const { userID, trackID, groupID } = req.body;
     try {
+        await sql.query`DELETE FROM feedback_data WHERE userID = ${userID} AND trackID = ${trackID} AND groupID = ${groupID}`;
         await sql.query`INSERT INTO feedback_data (userID, groupID, trackID, isLiked) VALUES (${userID}, ${groupID} ,${trackID} ,'1' )`;
+        res.status(200).send({ message: 'Feedback recorded' });
+    } catch (err) {
+        console.error('Error recording feedback:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.post('/giveNegativeFeedback', async (req, res) => {
+    const { userID, trackID, groupID } = req.body;
+    try {
+        await sql.query`DELETE FROM feedback_data WHERE userID = ${userID} AND trackID = ${trackID} AND groupID = ${groupID}`;
+        await sql.query`INSERT INTO feedback_data (userID, groupID, trackID, isLiked) VALUES (${userID}, ${groupID} ,${trackID} ,'0' )`;
         res.status(200).send({ message: 'Feedback recorded' });
     } catch (err) {
         console.error('Error recording feedback:', err);
@@ -928,11 +941,12 @@ app.post('/getGroupSongs', async (req, res) => {
     const { groupID, userID } = req.body; // Include userID in the request
     try {
         const result = await sql.query`
-            SELECT gs.trackID, sd.trackName, sd.artistName,
-                   ISNULL(fd.isLiked, 0) AS isLiked
+             SELECT gs.trackID, sd.trackName, sd.artistName,
+                   CASE WHEN fd.isLiked = 1 THEN 1 ELSE 0 END AS isLiked,
+                   CASE WHEN fd.isLiked = 0 THEN 1 ELSE 0 END AS isUnliked
             FROM group_song gs
             JOIN songs_data sd ON gs.trackID = sd.trackID
-            LEFT JOIN feedback_data fd ON gs.trackID = fd.trackID AND fd.userID = ${userID}
+            LEFT JOIN feedback_data fd ON gs.trackID = fd.trackID AND fd.userID = ${userID} AND fd.groupID = ${groupID}
             WHERE gs.groupID = ${groupID}
             AND gs.playlistID = (
                 SELECT MAX(playlistID)
@@ -947,6 +961,33 @@ app.post('/getGroupSongs', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
+// Update group details endpoint
+app.post('/updateGroup', async (req, res) => {
+  const { groupID, newName, newDescription } = req.body;
+
+  if (!groupID || !newName || !newDescription) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  try {
+    const result = await sql.query`
+            UPDATE groups_data 
+            SET groupName = ${newName},
+                groupDescription = ${newDescription} 
+            WHERE groupID = ${groupID}`;
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Group not found' });
+    }
+
+    res.status(200).json({ message: 'Group updated successfully' });
+  } catch (error) {
+    console.error('Error updating group:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
