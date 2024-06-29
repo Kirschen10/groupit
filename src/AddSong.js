@@ -12,6 +12,7 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
     const [isTopArtists, setIsTopArtists] = useState(false);
     const [searchSong, setSearchSong] = useState('');
     const [selectedSong, setSelectedSong] = useState(null);
+    const [addSongError, setAddSongError] = useState('');
 
     useEffect(() => {
         if (isTopArtists) {
@@ -49,16 +50,26 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
     };
 
     const handleAddSong = async (songID) => {
+        setAddSongError('');
         try {
             const response = await fetch(`http://localhost:8081/addSong/${userID}/${songID}`, {
                 method: 'POST',
             });
+
             if (!response.ok) {
-                throw new Error(`Error adding song: ${response.statusText}`);
+                const body = await response.json();
+                console.error('Cannot Add Song To Playlist', body.message);
+                if (body.message === 'This song is already in your playlist') {
+                    setAddSongError('This song is already in your playlist');
+                }
+            } else if (response.ok) {
+                onAddSong(); // Callback to refresh the playlist in the parent component
+            } else {
+                throw new Error('Failed to add song to the playlist');
             }
-            onAddSong(); // Callback to refresh the playlist in the parent component
         } catch (error) {
-            console.error('Error adding song:', error);
+            setAddSongError('An error occurred while adding the song');
+            console.error('Error adding song:', error)
         }
     };
 
@@ -110,16 +121,16 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
                     <>
                         <div className="option-buttons">
                             <button
-                                className={`option-button ${isSearching ? 'active' : ''}`}
+                                className={`addsongs-option-button ${isSearching ? 'active' : ''}`}
                                 onClick={() => { setIsSearching(true); setIsTopArtists(false); setSearchResults([]); }}
                             >
-                                Search artist manually
+                                Search Artist Manually
                             </button>
                             <button
-                                className={`option-button ${isTopArtists ? 'active' : ''}`}
+                                className={`addsongs-option-button ${isTopArtists ? 'active' : ''}`}
                                 onClick={() => { setIsTopArtists(true); setIsSearching(false); setSearchResults([]); }}
                             >
-                                Choosing an artist from Top 100 list
+                                Search from Top 100 Artists
                             </button>
                         </div>
                         {isSearching && (
