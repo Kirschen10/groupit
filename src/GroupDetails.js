@@ -7,6 +7,7 @@ const GroupDetails = () => {
     const location = useLocation();
     const navigate = useNavigate(); // Initialize navigate
     const { group, userID } = location.state;
+    const [currentGroup, setCurrentGroup] = useState(group); // Initialize group state
     const [newUser, setNewUser] = useState(null);
     const [users, setUsers] = useState([]); // Initially empty
     const [allUsers, setAllUsers] = useState([]); // All users from DB
@@ -20,6 +21,11 @@ const GroupDetails = () => {
     const [likedSongs, setLikedSongs] = useState({}); // State to track liked songs
     const [loading, setLoading] = useState(false); // State for loading indicator
 
+    const [isEditing, setIsEditing] = useState(false); // State to toggle edit mode
+    const [groupName, setGroupName] = useState(currentGroup.groupName); // State for group's name
+    const [groupDescription, setGroupDescription] = useState(currentGroup.groupDescription); // State for group's description
+    const [originalGroupName, setOriginalGroupName] = useState(currentGroup.groupName); // State to store original group's name
+    const [originalGroupDescription, setOriginalGroupDescription] = useState(currentGroup.groupDescription); // State to store original group's description
 
     useEffect(() => {
         // Fetch all users from the backend
@@ -48,7 +54,7 @@ const GroupDetails = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ groupId: group.groupID }),
+            body: JSON.stringify({ groupId: currentGroup.groupID }),
         })
             .then(response => {
                 if (!response.ok) {
@@ -70,7 +76,7 @@ const GroupDetails = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ groupID: group.groupID, userID }), // Pass userID in the request
+            body: JSON.stringify({ groupID: currentGroup.groupID, userID }), // Pass userID in the request
         })
             .then(response => response.json())
             .then(data => {
@@ -85,7 +91,7 @@ const GroupDetails = () => {
             .catch(error => {
                 console.error('Error fetching group songs:', error);
             });
-    }, [group.groupID, userID]);
+    }, [currentGroup.groupID, userID]);
 
     const handleAddUser = () => {
         if (newUser) {
@@ -94,7 +100,7 @@ const GroupDetails = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userName: newUser.label, groupId: group.groupID }),
+                body: JSON.stringify({ userName: newUser.label, groupId: currentGroup.groupID }),
             })
                 .then(response => response.json())
                 .then(data => {
@@ -124,7 +130,7 @@ const GroupDetails = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userID, groupID: group.groupID }),
+            body: JSON.stringify({ userID, groupID: currentGroup.groupID }),
         })
             .then(response => response.json())
             .then(data => {
@@ -165,9 +171,9 @@ const GroupDetails = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ groupID: group.groupID }),
+            body: JSON.stringify({ groupID: currentGroup.groupID }),
         })
-        .then(response => {
+            .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -182,7 +188,7 @@ const GroupDetails = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ userID, groupID: group.groupID, trackIDs }),
+                    body: JSON.stringify({ userID, groupID: currentGroup.groupID, trackIDs }),
                 })
                     .then(response => response.json())
                     .then(feedbackData => {
@@ -214,54 +220,95 @@ const GroupDetails = () => {
     };
 
     const handleStarClick = (trackID) => {
-    if (likedSongs[trackID]) {
-        // If already liked, remove feedback
-        fetch('http://localhost:8081/removeFeedback', {
+        if (likedSongs[trackID]) {
+            // If already liked, remove feedback
+            fetch('http://localhost:8081/removeFeedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userID, trackID, groupID: currentGroup.groupID }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from server:', data);
+                    if (data.message === 'Feedback removed') {
+                        setFeedbackMessage('Feedback removed successfully.');
+                        setLikedSongs({ ...likedSongs, [trackID]: false }); // Update the liked state
+                    } else {
+                        setFeedbackMessage(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error removing feedback:', error);
+                    setFeedbackMessage('An error occurred while removing feedback.');
+                });
+        } else {
+            // If not liked, add feedback
+            fetch('http://localhost:8081/giveFeedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userID, trackID, groupID: currentGroup.groupID }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response from server:', data);
+                    if (data.message === 'Feedback recorded') {
+                        setFeedbackMessage('Feedback recorded successfully.');
+                        setLikedSongs({ ...likedSongs, [trackID]: true }); // Update the liked state
+                    } else {
+                        setFeedbackMessage(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error giving feedback:', error);
+                    setFeedbackMessage('An error occurred while giving feedback.');
+                });
+        }
+    };
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    const handleSaveClick = () => {
+        fetch('http://localhost:8081/updateGroup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userID, trackID, groupID: group.groupID }),
+            body: JSON.stringify({ groupID: currentGroup.groupID, newName: groupName, newDescription: groupDescription }),
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Response from server:', data);
-                if (data.message === 'Feedback removed') {
-                    setFeedbackMessage('Feedback removed successfully.');
-                    setLikedSongs({ ...likedSongs, [trackID]: false }); // Update the liked state
+                if (data.message === 'Group updated successfully') {
+                    setFeedbackMessage('Group details updated successfully.');
+                    setIsEditing(false);
+                    setOriginalGroupName(groupName);
+                    setOriginalGroupDescription(groupDescription);
+                    // Update the currentGroup object in the state to reflect the changes
+                    setCurrentGroup(prevGroup => ({
+                        ...prevGroup,
+                        groupName,
+                        groupDescription
+                    }));
                 } else {
                     setFeedbackMessage(`Error: ${data.message}`);
                 }
             })
             .catch(error => {
-                console.error('Error removing feedback:', error);
-                setFeedbackMessage('An error occurred while removing feedback.');
+                console.error('Error updating group details:', error);
+                setFeedbackMessage('An error occurred while updating the group details.');
             });
-    } else {
-        // If not liked, add feedback
-        fetch('http://localhost:8081/giveFeedback', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userID, trackID, groupID: group.groupID }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Response from server:', data);
-                if (data.message === 'Feedback recorded') {
-                    setFeedbackMessage('Feedback recorded successfully.');
-                    setLikedSongs({ ...likedSongs, [trackID]: true }); // Update the liked state
-                } else {
-                    setFeedbackMessage(`Error: ${data.message}`);
-                }
-            })
-            .catch(error => {
-                console.error('Error giving feedback:', error);
-                setFeedbackMessage('An error occurred while giving feedback.');
-            });
-    }
-};
+    };
+
+    const handleCancelClick = () => {
+        setGroupName(originalGroupName);
+        setGroupDescription(originalGroupDescription);
+        setIsEditing(false);
+    };
 
     return (
         <div className="background-group-details">
@@ -281,15 +328,53 @@ const GroupDetails = () => {
                 </span>
             </div>
             <div className="group-details-container">
-                <h1 className="group-header">{group.groupName}</h1>
+                <h1 className="group-header">
+                    {isEditing ? (
+                        <div className="edit-group-name">
+                            <label>Group name:</label>
+                            <input
+                                type="text"
+                                value={groupName}
+                                onChange={(e) => setGroupName(e.target.value)}
+                                className="edit-input"
+                            />
+                        </div>
+                    ) : (
+                        currentGroup.groupName
+                    )}
+                </h1>
                 <div className="group-info">
-                    <span>{group.groupDescription}</span>
+                    {isEditing ? (
+                        <div className="edit-group-description">
+                            <label>Group description:</label>
+                            <textarea
+                                value={groupDescription}
+                                onChange={(e) => setGroupDescription(e.target.value)}
+                                className="edit-textarea"
+                            />
+                        </div>
+                    ) : (
+                        <span>{currentGroup.groupDescription}</span>
+                    )}
                 </div>
+                {isEditing && (
+                    <div className="edit-info">
+                        <p>Editing Group's Name and Description</p>
+                    </div>
+                )}
                 <div className="group-info group-info-row">
-                    <span><strong>Group ID:</strong> {group.groupID}</span>
-                    <span><strong>Date of Formation:</strong> {new Date(group.createdAt).toLocaleDateString()}</span>
+                    <span><strong>Group ID:</strong> {currentGroup.groupID}</span>
+                    <span><strong>Date of Formation:</strong> {new Date(currentGroup.createdAt).toLocaleDateString()}</span>
                 </div>
                 <div className="group-actions">
+                    {isEditing ? (
+                        <>
+                            <button onClick={handleSaveClick}>Save</button>
+                            <button onClick={handleCancelClick}>Cancel</button>
+                        </>
+                    ) : (
+                        <button onClick={handleEditClick}>Edit</button>
+                    )}
                     <button onClick={handleLeaveGroup}>Leave Group</button>
                 </div>
                 <div className="add-user-input">
@@ -315,23 +400,28 @@ const GroupDetails = () => {
                 </div>
                 <h2>Group's Playlist</h2>
                 {loading && <div className="loading-indicator"><div className="spinner"></div></div>}
-                <div className="play-list-container-gd">
-                    <ul>
-                        {playlist.map((song, index) => (
-                    <div key={index} className="song-card-gd">
-                        <div className="song-info-gd">
-                            <span className="song-name-gd">{song.trackName}</span>
-                            <span className="song-artist-gd">{song.artistName}</span>
-                            <span className="like-button" onClick={() => handleStarClick(song.trackID)}>
-                                <img src={likedSongs[song.trackID] ? "/Images/likeFill.png" : "/Images/like.png"}
-                                alt="Like" />
-                </span>
-                                                    </div>
-
-                            </div>
-                        ))}
-                    </ul>
-                </div>
+                {playlist.length === 0 && !loading ? (
+                    <div className="no-playlist-message">
+                        <p>No songs in the playlist. Please create one!</p>
+                    </div>
+                ) : (
+                    <div className="play-list-container-gd">
+                        <ul>
+                            {playlist.map((song, index) => (
+                                <div key={index} className="song-card-gd">
+                                    <div className="song-info-gd">
+                                        <span className="song-name-gd">{song.trackName}</span>
+                                        <span className="song-artist-gd">{song.artistName}</span>
+                                        <span className="like-button" onClick={() => handleStarClick(song.trackID)}>
+                                            <img src={likedSongs[song.trackID] ? "/Images/likeFill.png" : "/Images/like.png"}
+                                                alt="Like" />
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 {feedbackMessage && <p className="feedback-message">{feedbackMessage}</p>}
                 <button className="get-playlist-btn" onClick={handleGetPlaylist}>Refresh Our Playlist</button>
             </div>
