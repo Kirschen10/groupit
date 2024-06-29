@@ -48,3 +48,56 @@
     display: block;
 }
 
+.modal-overlay-Playlist {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content-Playlist {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-buttons-Playlist {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-button-Playlist {
+    background-color: #4a148c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 0 10px; /* Add margin between buttons */
+}
+
+.modal-button-Playlist:hover {
+    background-color: #6a1b9a;
+}
+
+.modal-cancel-button-Playlist {
+    background-color: #ccc;
+    color: #333;
+}
+
+.modal-cancel-button-Playlist:hover {
+    background-color: #bbb;
+}
+

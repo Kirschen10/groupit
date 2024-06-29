@@ -9,7 +9,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-
 const connectionString = {
     user: 'groupit_admin',
     password: 'Group123it',
@@ -38,6 +37,7 @@ sql.connect(connectionString, err => {
     }
 });
 
+
 app.post('/login', async (req, res) => {
     const {username, password} = req.body;
 
@@ -57,7 +57,6 @@ app.post('/login', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
-
 
 app.post('/register', async (req, res) => {
     const { firstName, lastName, birthday, email, username, password } = req.body;
@@ -430,7 +429,6 @@ app.get('/find-groups', async (req, res) => {
 });
 
 
-/*
 app.post('/join-group', async (req, res) => {
     const { groupID, userName } = req.body; 
     console.log(userName);
@@ -460,7 +458,7 @@ app.post('/join-group', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
-*/
+
 
 
 app.post('/api/leave-group', async (req, res) => {
@@ -826,22 +824,27 @@ app.get('/searchArtist/:searchTerm', async (req, res) => {
   });
 
  // Add a song to playlist
-app.post('/addSong/:userID/:trackId', async (req, res) => {
+ app.post('/addSong/:userID/:trackId', async (req, res) => {
     const { userID, trackId } = req.params;
 
     try {
-         // Check if the trackID already in userID's playlist
-        const songInPlaylistResult = await sql.query`SELECT userID FROM user_song WHERE userID = ${userID} AND trackId = ${trackId}`;
-        if (songInPlaylistResult.recordset.length > 0) {
-            return res.status(400).send({ message: 'This song is already in your playlist' });
+        // First, check if the song already exists in the user's playlist
+        const existsQuery = await sql.query`SELECT * FROM user_song WHERE userId = ${userID} AND trackId = ${trackId}`;
+
+        if (existsQuery.recordset.length > 0) {
+            // If the song already exists, send a message back to the client
+            res.status(409).send({ message: 'This song is already in your playlist.' });
+        } else {
+            // If the song does not exist, insert it into the database
+            const insertQuery = await sql.query`INSERT INTO user_song (userId, trackId) VALUES (${userID}, ${trackId})`;
+            res.status(200).send({ message: 'Song added successfully' });
         }
-        const result = await sql.query`INSERT INTO user_song (userId, trackId) VALUES (${userID}, ${trackId})`;
-        res.status(200).send({ message: 'Song added successfully' });
     } catch (error) {
-        console.error('Error adding song:', error);
+        console.error('Error processing your request:', error);
         res.status(500).send({ message: 'Error adding song' });
     }
 });
+
 
 app.post('/getPlaylist', async (req, res) => {
     const { groupID } = req.body;

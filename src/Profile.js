@@ -137,7 +137,7 @@ function Profile() {
                     <Playlist userID={userID}/>
                 </div>
                 <div className="content-box">
-                    <h2>My Group</h2>
+                    <h2>My Groups</h2>
                     <UserGroups userID={userID}/>
                 </div>
             </div>

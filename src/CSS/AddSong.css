@@ -14,23 +14,20 @@
     border: none;
     border-radius: 5px;
     margin-bottom: 20px;
-    width: 83%;
 }
 
 .add-song-content {
     margin-top: 20px;
-    width: 100%;
+    width: 80%;
 }
 
-.addsongs-option-buttons {
-    display: flex;
-    justify-content: space-around;
+.option-buttons-AddSong {
+    align-content: center;
     margin-bottom: 10px;
 }
 
-.addsongs-option-button {
+.option-button-AddSong {
     padding: 10px 20px;
-    width: 40%;
     font-size: 16px;
     cursor: pointer;
     background-color: grey;
@@ -38,14 +35,13 @@
     border: none;
     border-radius: 5px;
     margin-right: 10px; /* Add margin-right for spacing */
-    margin: 10px;
 }
 
-.addsongs-option-button:last-child {
+.option-button-AddSong:last-child {
     margin-right: 0; /* Remove margin-right from the last button */
 }
 
-.addsongs-option-button.active {
+.option-button-AddSong.active {
     opacity: 0.5;
 }
 
@@ -76,23 +72,19 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    width: 100%;
-
 }
 
 .search-artist input {
-    width: 300%;
+    width: 100%;
     padding: 10px;
     font-size: 16px;
     margin-right: 10px;
-    margin-left: 75px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .search-button {
-    padding: 10px 5px;
-    margin-right: 65px;
+    padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     background-color: mediumpurple;
@@ -137,7 +129,6 @@
 }
 
 .song-list {
-    width: 80%;
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #ccc;

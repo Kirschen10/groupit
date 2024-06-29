@@ -4,7 +4,6 @@
     flex-wrap: nowrap; /* Ensure no wrapping of group cards */
     justify-content: flex-start;
     padding: 20px;
-
     font-family: 'Arial', sans-serif;
     overflow-x: auto; /* Enable horizontal scrolling */
 }
