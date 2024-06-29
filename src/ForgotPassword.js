@@ -12,7 +12,7 @@ function ForgotPassword() {
     const [error, setError] = useState('');
 
 
-    const handleBackLogIn = (e) => {
+    const handleHomePage = (e) => {
         e.preventDefault();
         navigate(`/`);
     };
@@ -44,13 +44,12 @@ function ForgotPassword() {
 
     return (
         <div className="background-ForgotPassword">
-            <div className="forgot-password-form">
-                <div className="additional-options">
-                    <span onClick={handleBackLogIn}
-                          style={{fontFamily: "Calibri", fontSize:"15px"}}>Back to Login</span>
-                </div>
+            <span className="Home-page-button-ForgotPassword" onClick={handleHomePage}>
+                <img src="/Images/Logo.svg" alt="Logo" />
+            </span>
+            <div className="ForgotPassword-form">
                 <img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock"/>
-                <h2>Email Verification</h2>
+                <h2 className='h2-ForgotPassword'>Email Verification</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group-ForgotPassword">
                         <div className="icon-container-ForgotPassword">
@@ -62,7 +61,7 @@ function ForgotPassword() {
                             value={username}
                             required
                             onChange={(e) => setUsername(e.target.value)}
-                            className="input-with-icon-ForgotPassword"
+                            className="input-ForgotPassword"
                         />
                     </div>
                     <div className="form-group-ForgotPassword">
@@ -75,11 +74,11 @@ function ForgotPassword() {
                             value={email}
                             requierd
                             onChange={(e) => setEmail(e.target.value)}
-                            className="input-with-icon-ForgotPassword"
+                            className="input-ForgotPassword"
                         />
                     </div>
                     {error && <p className="error">{error}</p>}
-                    <button type="submit">Reset Password</button>
+                    <button type="submit" className="button-ForgotPassword" style={{ fontWeight: 'bold' }}>Reset Password</button>
                 </form>
             </div>
         </div>
