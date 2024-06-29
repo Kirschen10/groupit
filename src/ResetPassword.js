@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './CSS/ForgotPassword.css'; // Import CSS file
+import './CSS/ResetPassword.css'; // Import CSS file
 
 const ResetPassword = () => {
   const { username } = useParams();
@@ -12,12 +12,6 @@ const ResetPassword = () => {
   const [success, setSuccess] = useState('');
   const [countdown, setCountdown] = useState(5);
 
-  const backgroundStyle = {
-    backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    minHeight: '100vh', // Set minimum height to cover the entire viewport
-  };
 
   useEffect(() => {
     let timer;
@@ -60,47 +54,46 @@ const ResetPassword = () => {
 };
 
   return (
-    <div style={backgroundStyle}>
-      <div className="login-form-ForgotPassword">
-        <div className="additional-options-ForgotPassword">
-          <p style={{ fontFamily: "Calibri", fontSize: "15px" }}>Hello {username},</p>
-        </div>
+    <div className='background-ResetPassword'>
+      <div className="ResetPassword-form">
         <img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock" />
-        <h2>Reset Password</h2>
+        <h2 className='h2-ResetPassword'>{username}, Please Reset Your Password</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <div className="icon-container">
+          <div className="form-group-ResetPassword">
+            <div className="icon-container-ResetPassword">
               <img src="\Images\padlock.png" height={"20px"} alt="Password Icon" className="icon" />
             </div>
             <input
               type="password"
-              placeholder="password"
+              placeholder="Password"
               value={password}
               required
               onChange={(e) => setPassword(e.target.value)}
+              className="input-ResetPassword"
             />
           </div>
-          <div className="form-group">
-            <div className="icon-container">
+          <div className="form-group-ResetPassword">
+            <div className="icon-container-ResetPassword">
               <img src="\Images\padlock.png" height={"20px"} alt="Password Verification Icon" className="icon" />
             </div>
             <input
               type="password"
-              placeholder="password Verification"
+              placeholder="Password Verification"
               value={passwordVerification}
               required
               onChange={(e) => setPasswordVerification(e.target.value)}
+              className="input-ResetPassword"
             />
           </div>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {success && (
-            <p className="success-message">
+            <p className="success-message-ResetPassword">
               {success}
               <br />
               Redirecting in {countdown} seconds...
             </p>
           )}
-          <button type="submit">Reset Password</button>
+          <button type="submit" className='button-ResetPassword'>Reset Password</button>
         </form>
       </div>
     </div>

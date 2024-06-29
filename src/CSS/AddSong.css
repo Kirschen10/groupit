@@ -21,13 +21,12 @@
     width: 80%;
 }
 
-.option-buttons {
-    display: flex;
-    justify-content: space-around;
+.option-buttons-AddSong {
+    align-content: center;
     margin-bottom: 10px;
 }
 
-.option-button {
+.option-button-AddSong {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -38,11 +37,11 @@
     margin-right: 10px; /* Add margin-right for spacing */
 }
 
-.option-button:last-child {
+.option-button-AddSong:last-child {
     margin-right: 0; /* Remove margin-right from the last button */
 }
 
-.option-button.active {
+.option-button-AddSong.active {
     opacity: 0.5;
 }
 

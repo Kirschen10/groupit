@@ -28,9 +28,9 @@ function App() {
           <Route path="/SelectArtists" element={<SelectArtists />} />
           <Route path="/SelectSongs" element={<SelectSongs />} />
           <Route path="/Questions" element={<Questions />} />
+          <Route path="/ResetPassword/:username" element={<ResetPassword />} />
           <Route element={<PrivateRoute />}>
             <Route path="/HomePage" element={<HomePage />} />
-            <Route path="/ResetPassword/:username" element={<ResetPassword />} />
             <Route path="/CheckMail" element={<CheckMail />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/EditProfile" element={<EditProfile />} />
