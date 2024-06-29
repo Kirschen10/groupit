@@ -4,7 +4,6 @@ import './CSS/Registration.css'; // Import CSS file
 
 function Registration() {
     const navigate = useNavigate();
-
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthday, setBirthday] = useState('');

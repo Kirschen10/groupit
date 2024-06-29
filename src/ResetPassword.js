@@ -5,12 +5,41 @@ import './CSS/ResetPassword.css'; // Import CSS file
 const ResetPassword = () => {
   const { username } = useParams();
   const navigate = useNavigate();
-
   const [password, setPassword] = useState('');
   const [passwordVerification, setPasswordVerification] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [feedbackMessage, setFeedbackMessage] = useState('');
   const [countdown, setCountdown] = useState(5);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+    useEffect(() => {
+        if (feedbackMessage) {
+            setShowErrorMessage(true);
+            const timer = setTimeout(() => {
+                setShowErrorMessage(false);
+                setFeedbackMessage('');
+            }, 5000);
+
+            // Clear timeout if component is unmounted or message changes
+            return () => clearTimeout(timer);
+        }
+    }, [feedbackMessage]);
+
+    useEffect(() => {
+        const handleClick = () => {
+            setShowErrorMessage(false);
+            setFeedbackMessage('');
+        };
+
+        // Add event listener for all button clicks
+        document.addEventListener('click', handleClick);
+
+        // Cleanup event listener on component unmount
+        return () => {
+            document.removeEventListener('click', handleClick);
+        };
+    }, []);
 
 
   useEffect(() => {
@@ -24,10 +53,21 @@ const ResetPassword = () => {
   }, [countdown, success, navigate]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== passwordVerification) {
-        setError('Passwords do not match');
-    } else {
+      e.preventDefault();
+
+      if (password !== passwordVerification) {
+            setError('Passwords do not match');
+            setShowErrorMessage(true);
+            return;
+      }
+
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!password.match(passwordRegex) || !passwordVerification.match(passwordRegex)) {
+            setError('Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+            setShowErrorMessage(true)
+            return;
+        }
+
         setError('');
         fetch('http://localhost:8081/resetPassword', {
             method: 'POST',
@@ -42,22 +82,22 @@ const ResetPassword = () => {
                 console.log('Password reset successful');
             } else {
                 return response.json().then(data => {
-                    throw new Error(data.message || 'Failed to reset password');
+                throw new Error(data.message || 'Failed to reset password');
                 });
             }
         })
         .catch(err => {
             console.error('Error:', err);
             setError(err.message || 'An error occurred. Please try again.');
+            setShowErrorMessage(true);
         });
     }
-};
 
   return (
     <div className='background-ResetPassword'>
       <div className="ResetPassword-form">
         <img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock" />
-        <h2 className='h2-ResetPassword'>{username}, Please Reset Your Password</h2>
+        <h2 className='h2-ResetPassword'>{username}, Please Enter New Password</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group-ResetPassword">
             <div className="icon-container-ResetPassword">
@@ -85,7 +125,7 @@ const ResetPassword = () => {
               className="input-ResetPassword"
             />
           </div>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {error && <p className="error-message-ResetPassword">{error}</p>}
           {success && (
             <p className="success-message-ResetPassword">
               {success}
