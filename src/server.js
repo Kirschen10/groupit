@@ -988,6 +988,77 @@ app.post('/updateGroup', async (req, res) => {
   }
 });
 
+// Add endpoint to update user data
+app.post('/api/update-user', async (req, res) => {
+    const { userID, firstName, lastName, userName, email, password, birthday } = req.body;
+    console.log('user details', req.body);
+
+    try {
+        const existingUser = await sql.query`
+        SELECT *
+        FROM users_data 
+        WHERE userID = ${userID}`;
+        if (!existingUser.recordset || existingUser.recordset.length === 0) {
+            console.log('UserID:', userID);
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        // Prepare SQL query based on provided fields
+        const updateFields = [];
+        const queryParams = {};
+
+        if (firstName !== undefined && firstName !== existingUser.recordset[0].firstName) {
+            updateFields.push('firstName = firstName');
+            queryParams.firstName = firstName;
+        }
+        if (lastName !== undefined && lastName !== existingUser.recordset[0].lastName) {
+            updateFields.push('lastName = lastName');
+            queryParams.lastName = lastName;
+        }
+        if (userName !== undefined && userName !== existingUser.recordset[0].userName) {
+            updateFields.push('userName = userName');
+            queryParams.userName = userName;
+        }
+        if (email !== undefined && email !== existingUser.recordset[0].email) {
+            updateFields.push('email = email');
+            queryParams.email = email;
+        }
+        if (password !== undefined && password !== existingUser.recordset[0].password) {
+            updateFields.push('password = password');
+            queryParams.password = password;
+        }
+        if (birthday !== undefined && birthday !== existingUser.recordset[0].birthday) {
+            updateFields.push('birthday = birthday');
+            queryParams.birthday = birthday;
+        }
+
+        // Execute update only if there are fields to update
+        if (updateFields.length > 0) {
+            const updateQuery = `
+                UPDATE users_data
+                SET ${updateFields.join(', ')}
+                WHERE userID = ${userID}
+            `;
+
+            const updateResult = await sql.query(updateQuery, {
+                username: sql.VarChar(50),
+                ...queryParams
+            });
+
+            if (updateResult.rowsAffected[0] > 0) {
+                res.status(200).send({ message: 'User updated successfully' });
+            } else {
+                res.status(500).send({ message: 'Failed to update user' });
+            }
+        } else {
+            res.status(200).send({ message: 'No changes to update' });
+        }
+    } catch (err) {
+        console.error('Error updating user:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
