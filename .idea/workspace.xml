@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="daniv7 18:19 29.06">
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="final version of 29.06">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_6_22_2024_19_14_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_6_22_2024_19_14__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResetPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/EditProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/EditProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EditProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/EditProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1719674372315</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="final version of 29.06">
+      <created>1719691078244</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719691078245</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -179,6 +189,7 @@
     <MESSAGE value="userslist" />
     <MESSAGE value="danielle and ofek 29.06 18:05" />
     <MESSAGE value="daniv7 18:19 29.06" />
-    <option name="LAST_COMMIT_MESSAGE" value="daniv7 18:19 29.06" />
+    <MESSAGE value="final version of 29.06" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version of 29.06" />
   </component>
 </project>

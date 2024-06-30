@@ -473,6 +473,8 @@ app.post('/api/leave-group', async (req, res) => {
     }
 });
 
+
+/*
 app.get('/find-groups', async (req, res) => {
     const { username } = req.query; // Get the username from the query parameters
 
@@ -503,8 +505,69 @@ app.get('/find-groups', async (req, res) => {
         res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+*/
 
+app.get('/api/check-username/:username', async (req, res) => {
+    const { username } = req.params;
 
+    try {
+        const result = await sql.query`SELECT userName FROM users_data WHERE userName = ${username}`;
+        res.status(200).send({ exists: result.recordset.length > 0 });
+    } catch (err) {
+        console.error('Error checking username:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.get('/api/check-email/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const result = await sql.query`SELECT email FROM users_data WHERE email = ${email}`;
+        res.status(200).send({ exists: result.recordset.length > 0 });
+    } catch (err) {
+        console.error('Error checking email:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
+app.put('/api/update-user/:userID', async (req, res) => {
+    const { userID } = req.params;
+    const { firstName, lastName, email, password, birthday, userName } = req.body;
+
+    try {
+        let query = `
+            UPDATE users_data
+            SET firstName = @firstName, lastName = @lastName,
+                email = @Email, birthday = @Birthday, userName = @userName
+        `;
+
+        if (password) {
+            query += `, password = @Password`;
+        }
+
+        query += ` WHERE userID = @UserID`;
+
+        const request = new sql.Request()
+            .input('firstName', sql.VarChar, firstName)
+            .input('lastName', sql.VarChar, lastName)
+            .input('email', sql.VarChar, email)
+            .input('birthday', sql.Date, birthday)
+            .input('userName', sql.VarChar, userName)
+            .input('userID', sql.Int, userID);
+
+        if (password) {
+            request.input('password', sql.VarChar, password);
+        }
+
+        await request.query(query);
+
+        res.status(200).send({ message: 'User updated successfully' });
+    } catch (err) {
+        console.error('Error updating user:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
 
 // Fetch the groups a user belongs to along with user counts
 app.get('/user-groups/:userID', async (req, res) => {
