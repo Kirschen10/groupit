@@ -1008,27 +1008,27 @@ app.post('/api/update-user', async (req, res) => {
         const queryParams = {};
 
         if (firstName !== undefined && firstName !== existingUser.recordset[0].firstName) {
-            updateFields.push('firstName = firstName');
+            updateFields.push('firstName = @firstName');
             queryParams.firstName = firstName;
         }
         if (lastName !== undefined && lastName !== existingUser.recordset[0].lastName) {
-            updateFields.push('lastName = lastName');
+            updateFields.push('lastName = @lastName');
             queryParams.lastName = lastName;
         }
         if (userName !== undefined && userName !== existingUser.recordset[0].userName) {
-            updateFields.push('userName = userName');
+            updateFields.push('userName = @userName');
             queryParams.userName = userName;
         }
         if (email !== undefined && email !== existingUser.recordset[0].email) {
-            updateFields.push('email = email');
+            updateFields.push('email = @email');
             queryParams.email = email;
         }
         if (password !== undefined && password !== existingUser.recordset[0].password) {
-            updateFields.push('password = password');
+            updateFields.push('password = @password');
             queryParams.password = password;
         }
         if (birthday !== undefined && birthday !== existingUser.recordset[0].birthday) {
-            updateFields.push('birthday = birthday');
+            updateFields.push('birthday = @birthday');
             queryParams.birthday = birthday;
         }
 
@@ -1037,16 +1037,23 @@ app.post('/api/update-user', async (req, res) => {
             const updateQuery = `
                 UPDATE users_data
                 SET ${updateFields.join(', ')}
-                WHERE userID = ${userID}
+                WHERE userID = @userID
             `;
 
-            const updateResult = await sql.query(updateQuery, {
-                username: sql.VarChar(50),
-                ...queryParams
+            queryParams.userID = userID;
+            const request = new sql.Request();
+            Object.keys(queryParams).forEach(param => {
+                request.input(param, queryParams[param]);
             });
 
+            const updateResult = await request.query(updateQuery);
+
+
             if (updateResult.rowsAffected[0] > 0) {
-                res.status(200).send({ message: 'User updated successfully' });
+                const updatedUserResult = await sql.query`SELECT * FROM users_data WHERE userID = ${userID}`;
+                const updatedUser = updatedUserResult.recordset[0];
+
+                res.status(200).send({ message: 'User updated successfully' , updatedUser});
             } else {
                 res.status(500).send({ message: 'Failed to update user' });
             }

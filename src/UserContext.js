@@ -28,6 +28,14 @@ export const UserProvider = ({ children }) => {
         }
     };
 
+    const updateUser = (userData) => {
+        setUser(userData);
+        const expiryDate = localStorage.getItem('expiryDate');
+        if (expiryDate) {
+            localStorage.setItem('user', JSON.stringify(userData));
+        }
+    };
+
     const logout = () => {
         setUser(null);
         localStorage.removeItem('user');
@@ -35,7 +43,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, login, logout }}>
+        <UserContext.Provider value={{ user, login, updateUser, logout }}>
             {children}
         </UserContext.Provider>
     );
