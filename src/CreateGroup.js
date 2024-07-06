@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import './CSS/CreateGroup.css';
 
-const CreateGroup = () => {
+const CreateGroup = message => {
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
     const [error, setError] = useState(''); // State for error message
@@ -13,6 +13,8 @@ const CreateGroup = () => {
     const [allUsers, setAllUsers] = useState([]);
     const [newUser, setNewUser] = useState(null);
     const navigate = useNavigate();
+    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
     const { user } = useUser();
 
@@ -33,8 +35,39 @@ const CreateGroup = () => {
             }
         };
 
+        const checkNotifications = async () => {
+            try {
+                const response = await fetch(`http://localhost:8081/check_notification`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: user.username })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.hasPendingNotifications) {
+                        setNotificationImage('/Images/notifications-on.jpg');
+                        setShowNotificationPopup(true);
+                        setTimeout(() => {
+                            setShowNotificationPopup(false);
+                        }, 5000);
+
+                    } else {
+                        setNotificationImage('/Images/notifications.jpeg');
+                    }
+                } else {
+                    console.error('Error checking notifications:', data.message);
+                }
+            } catch (err) {
+                console.error('Error checking notifications:', err);
+            }
+        };
+
         if (user) {
             fetchUserData();
+            checkNotifications();
         }
     }, [user]);
 
@@ -94,14 +127,17 @@ const CreateGroup = () => {
             const response = await axios.post('http://localhost:8081/create-group', {
                 groupName,
                 groupDescription,
+                userName: user.username, // Send userName instead of userID
                 users,
             });
-            if (response.data) {
+            console.log(response)
+            if (response.status === 201) {
                 const { groupID, createdAt } = response.data;
                 alert('Group created successfully!');
                 navigate('/GroupDetails', { state: { group: { groupID, groupName, groupDescription, createdAt }, userID: user.userID } }); // Navigate to the group details page with state
             } else {
-                throw new Error('Group creation response does not contain expected data.');
+                console.error('Group creation response:', response.data);
+                alert('Failed to create group');
             }
         } catch (error) {
             console.error('Error creating group:', error);
@@ -121,9 +157,18 @@ const CreateGroup = () => {
         navigate(`/HomePage`);
     };
 
+    const handleNotification =() =>{
+        navigate('/Notifications')
+    }
+
     return (
     <div className="background-CreateGroup">
-         <div>
+        <div>
+            <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                <img src={notificationImage} alt="Notifications" />
+            </span>
+        </div>
+        <div>
             <span className="Home-page-button-create" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
@@ -159,7 +204,7 @@ const CreateGroup = () => {
                         onChange={(e) => setGroupDescription(e.target.value)}
                         required
                     ></textarea>
-<br />
+                <br />
                         <Select
                             options={allUsers}
                             value={newUser}

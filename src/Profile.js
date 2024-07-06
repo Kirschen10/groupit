@@ -19,6 +19,9 @@ function Profile() {
         password: ''
     });
     const [error, setError] = useState('');
+    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -44,8 +47,39 @@ function Profile() {
             }
         };
 
+         const checkNotifications = async () => {
+            try {
+                const response = await fetch(`http://localhost:8081/check_notification`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: user.username })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.hasPendingNotifications) {
+                        setNotificationImage('/Images/notifications-on.jpg');
+                        setShowNotificationPopup(true);
+                        setTimeout(() => {
+                            setShowNotificationPopup(false);
+                        }, 5000);
+
+                    } else {
+                        setNotificationImage('/Images/notifications.jpeg');
+                    }
+                } else {
+                    console.error('Error checking notifications:', data.message);
+                }
+            } catch (err) {
+                console.error('Error checking notifications:', err);
+            }
+        };
+
         if (user) {
             fetchUserData();
+            checkNotifications();
         }
     }, [user]);
 
@@ -67,6 +101,10 @@ function Profile() {
         navigate('/');
     };
 
+    const handleNotification =() =>{
+        navigate('/Notifications')
+    }
+
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
@@ -74,6 +112,11 @@ function Profile() {
 
     return (
         <div className="background-profile">
+            <div>
+                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                    <img src={notificationImage} alt="Notifications" />
+                </span>
+            </div>
             <div>
                 <span className="question-mark-button" onClick={handleQuestions}>
                     <img src="/Images/question.svg" alt="Question" />
