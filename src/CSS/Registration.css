@@ -93,6 +93,19 @@
     color: mediumpurple;
 }
 
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: lightgray;
+    font-family: Calibri;
+}
 
-
-
+.toggle-password:hover {
+    color: mediumpurple;
+}

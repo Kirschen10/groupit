@@ -1,5 +1,6 @@
-    import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useUser } from './UserContext';
 import Select from 'react-select';
 import './CSS/SelectSongs.css'; // Import the new CSS file
 
@@ -7,7 +8,8 @@ function SelectSongs() {
     const location = useLocation();
     const navigate = useNavigate();
     const { selectedArtists, username } = location.state || { selectedArtists: [], username };
-
+    const { login } = useUser();
+    const [remember, setRemember] = useState(false);
     const [allSongs, setAllSongs] = useState([]);
     const [topSongs, setTopSongs] = useState([]);
     const [selectedSongs, setSelectedSongs] = useState([]);
@@ -72,6 +74,7 @@ function SelectSongs() {
 
             const data = await response.json();
             if (data.message === 'Songs added to user successfully') {
+                login({ username }, remember); // Save user data in context
                 navigate('/profile');
             } else {
                 console.error('Error:', data.message);
