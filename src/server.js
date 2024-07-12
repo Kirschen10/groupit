@@ -251,8 +251,8 @@ app.post('/askUserByUserName', async (req, res) => {
         // Add a record to the notifications_data table
         const createdAt = new Date().toISOString();
         await sql.query`
-            INSERT INTO notifications_data (askedUser, askingUser, groupID, status, notificationDate)
-            VALUES (${askedUserId}, ${askingUserId}, ${groupId}, 'pending', ${createdAt})
+            INSERT INTO notifications_data (askedUser, askingUser, groupID, status, notificationTimestamp)
+            VALUES (${askedUserId}, ${askingUserId}, ${groupId}, 'pending', CURRENT_TIMESTAMP)
         `;
 
         res.status(201).send({ message: 'Notification sent successfully' });
@@ -351,6 +351,27 @@ app.post('/get-group-details', async (req, res) => {
     }
 });
 
+app.post('/check-group-membership', async (req, res) => {
+    const { userID, groupID } = req.body;
+
+    try {
+        const result = await sql.query`
+            SELECT COUNT(*) AS count
+            FROM group_user
+            WHERE userID = ${userID} AND groupID = ${groupID}
+        `;
+
+        if (result.recordset[0].count > 0) {
+            res.status(200).send({ isMember: true });
+        } else {
+            res.status(200).send({ isMember: false });
+        }
+    } catch (err) {
+        console.error('Error checking group membership:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
+    }
+});
+
 
 app.post('/create-group', async (req, res) => {
     const {groupName, groupDescription, userName, users} = req.body;
@@ -380,8 +401,8 @@ app.post('/create-group', async (req, res) => {
         for (const user of users) {
             if (user.userID !== userID) {
                 await sql.query`
-                    INSERT INTO notifications_data (askedUser, askingUser, groupID, status, notificationDate)
-                    VALUES (${user.userID}, ${userID}, ${groupID}, 'pending', ${createdAt})
+                    INSERT INTO notifications_data (askedUser, askingUser, groupID, status, notificationTimestamp)
+                    VALUES (${user.userID}, ${userID}, ${groupID}, 'pending', CURRENT_TIMESTAMP)
                 `;
             }
         }
@@ -1132,14 +1153,14 @@ app.post('/get_notifications', async (req, res) => {
                    n.askingUser,
                    n.groupID,
                    n.status,
-                   n.notificationDate,
+                   n.notificationTimestamp,
                    u1.userName AS askingUserName,
                    g.groupName
             FROM notifications_data n
                      JOIN users_data u1 ON n.askingUser = u1.userID
                      JOIN groups_data g ON n.groupID = g.groupID
             WHERE n.askedUser = ${userID}
-            ORDER BY n.notificationDate DESC
+            ORDER BY n.notificationTimestamp DESC
             OFFSET ${offset} ROWS FETCH NEXT ${itemsPerPage} ROWS ONLY`;
 
         const totalNotificationsResult = await sql.query`
