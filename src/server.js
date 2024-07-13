@@ -740,7 +740,7 @@ app.post('/top-songs-by-artists', async (req, res) => {
 
 // Endpoint to add user songs
 app.post('/add-user-songs', async (req, res) => {
-    const {username, songIDs} = req.body;
+    const { username, songIDs } = req.body;
 
     try {
         // Fetch user ID based on username
@@ -751,24 +751,34 @@ app.post('/add-user-songs', async (req, res) => {
         `;
 
         if (userResult.recordset.length === 0) {
-            return res.status(404).send({message: 'User not found'});
+            return res.status(404).send({ message: 'User not found' });
         }
 
         const userID = userResult.recordset[0].userID;
 
         for (const songID of songIDs) {
-            await sql.query`
-                INSERT INTO user_song (userID, trackId)
-                VALUES (${userID}, ${songID})
+            // Check if the song already exists for the user
+            const checkResult = await sql.query`
+                SELECT COUNT(*) as count
+                FROM user_song
+                WHERE userID = ${userID} AND trackId = ${songID}
             `;
+
+            if (checkResult.recordset[0].count === 0) {
+                await sql.query`
+                    INSERT INTO user_song (userID, trackId)
+                    VALUES (${userID}, ${songID})
+                `;
+            }
         }
 
-        res.status(200).send({message: 'Songs added to user successfully'});
+        res.status(200).send({ message: 'Songs added to user successfully' });
     } catch (err) {
         console.error('Error adding user songs:', err);
-        res.status(500).send({message: 'An error occurred', error: err.message});
+        res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
+
 
 // Endpoint to get playlist for a user
 app.get('/userPlaylist/:userID', async (req, res) => {

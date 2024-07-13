@@ -25,8 +25,9 @@ const CreateGroup = message => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    setUsers([...users, { username: data.userName, userID: data.userID }]);
-            
+                    if (users != []){
+                        setUsers([...users, { username: data.userName, userID: data.userID }]);
+                    }
                 } else {
                     console.error('Error fetching user data:', data.message);
                 }

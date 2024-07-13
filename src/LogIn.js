@@ -10,6 +10,7 @@ const LogIn = () => {
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -64,6 +65,10 @@ const LogIn = () => {
         navigate('/ForgotPassword');
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="background-login">
             <div className="login-form">
@@ -85,12 +90,19 @@ const LogIn = () => {
                             <img src="/Images/padlock.png" height="20px" alt="Password Icon" className="icon-login" />
                         </div>
                         <input
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="input-login"
                         />
+                        <button
+                            type="button"
+                            className="toggle-password"
+                            onClick={togglePasswordVisibility}
+                        >
+                            {showPassword ? 'Hide' : 'Show'}
+                        </button>
                     </div>
                     <div className="form-group-login">
                         <label className="remember-me-container">
