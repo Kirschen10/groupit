@@ -13,8 +13,7 @@ export const UserProvider = ({ children }) => {
         if (savedUser && expiryDate && new Date().getTime() < new Date(expiryDate).getTime()) {
             setUser(savedUser);
         } else {
-            localStorage.removeItem('user');
-            localStorage.removeItem('expiryDate');
+            logout(); // Clear user data from state and storage if session expired
         }
     }, []);
 
@@ -30,10 +29,10 @@ export const UserProvider = ({ children }) => {
 
     const updateUser = (userData) => {
         setUser(userData);
-        const expiryDate = localStorage.getItem('expiryDate');
-        if (expiryDate) {
-            localStorage.setItem('user', JSON.stringify(userData));
-        }
+        localStorage.setItem('user', JSON.stringify(userData));
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 1); // Set expiry date to 1 day from now
+        localStorage.setItem('expiryDate', expiryDate.toString());
     };
 
     const logout = () => {

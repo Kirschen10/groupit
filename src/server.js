@@ -4,7 +4,6 @@ const sql = require('mssql');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 
-
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -988,6 +987,30 @@ app.post('/updateGroup', async (req, res) => {
   }
 });
 
+// Add endpoint to check if email exists
+app.get('/api/check-email/:email', async (req, res) => {
+    const email = req.params.email;
+
+    try {
+        const result = await sql.query`
+            SELECT *
+            FROM users_data
+            WHERE email = ${email}
+        `;
+
+        if (result.recordset.length > 0) {
+            // Email already exists
+            res.json({ available: false });
+        } else {
+            // Email is available
+            res.json({ available: true });
+        }
+    } catch (err) {
+        console.error('Error checking email availability:', err);
+        res.status(500).json({ message: 'An error occurred', error: err.message });
+    }
+});
+
 // Add endpoint to update user data
 app.post('/api/update-user', async (req, res) => {
     const { userID, firstName, lastName, userName, email, password, birthday } = req.body;
@@ -1014,10 +1037,6 @@ app.post('/api/update-user', async (req, res) => {
         if (lastName !== undefined && lastName !== existingUser.recordset[0].lastName) {
             updateFields.push('lastName = @lastName');
             queryParams.lastName = lastName;
-        }
-        if (userName !== undefined && userName !== existingUser.recordset[0].userName) {
-            updateFields.push('userName = @userName');
-            queryParams.userName = userName;
         }
         if (email !== undefined && email !== existingUser.recordset[0].email) {
             updateFields.push('email = @email');

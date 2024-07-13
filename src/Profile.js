@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import Playlist from './Playlist';
 import UserGroups from './UserGroups';
-import './CSS/Profile.css'; // Import CSS file
+import './CSS/Profile.css';
 
 function Profile() {
     const navigate = useNavigate();
@@ -15,7 +14,6 @@ function Profile() {
     const [formData, setFormData] = useState({
         firstName: user.firstName,
         lastName: user.lastName,
-        userName: user.username,
         email: user.email,
         password: user.password,
         birthday: user.birthday
@@ -33,7 +31,6 @@ function Profile() {
                     setFormData({
                         firstName: data.firstName,
                         lastName: data.lastName,
-                        userName: data.userName,
                         email: data.email,
                         password: data.password, // Don't populate password field for security
                         birthday: Date(data.birthday) ? new Date(data.birthday).toISOString().split('T')[0] : ''
@@ -75,7 +72,6 @@ function Profile() {
         setFormData({
             firstName: userData.firstName,
             lastName: userData.lastName,
-            userName: userData.userName,
             email: userData.email,
             password: '', // Don't populate password field for security
             birthday: userData.birthday ? new Date(userData.birthday).toISOString().split('T')[0] : ''
@@ -85,6 +81,27 @@ function Profile() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        if (name === 'email') {
+            // Email validation
+            const isValidEmail = validateEmail(value);
+            if (!isValidEmail) {
+                setError('Invalid email address');
+            } else {
+                setError('');
+            }
+        }
+
+        if (name === 'password') {
+            // Password validation
+            const isValidPassword = validatePassword(value);
+            if (!isValidPassword) {
+                setError('Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+            } else {
+                setError('');
+            }
+        }
+
         setFormData({
             ...formData,
             [name]: value
@@ -96,30 +113,48 @@ function Profile() {
         return re.test(String(email).toLowerCase());
     };
 
+    const validatePassword = (password) => {
+        const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return re.test(String(password));
+    };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
-        // Validation
-        if (!validateEmail(formData.email)) {
-            setError('Invalid email address.');
+        const today = new Date();
+        const minDate = new Date('1900-01-01');
+
+        const birthdayDate = new Date(formData.birthday);
+        if (birthdayDate < minDate) {
+            setError('Birthday cannot be before January 1st, 1900.');
+            return;
+        }
+        if (birthdayDate > today) {
+            setError('Birthday cannot be in the future.');
             return;
         }
 
-        if (formData.userName !== userData.userName) {
-            try {
-                const checkResponse = await fetch(`http://localhost:8081/api/check-username/${formData.userName}`);
-                const checkData = await checkResponse.json();
+        // Check if email already exists
+        try {
+            const response = await fetch(`http://localhost:8081/api/check-email/${formData.email}`);
+            const data = await response.json();
 
-                if (!checkResponse.ok) {
-                    setError('Username is already taken.');
+            if (response.ok) {
+                if (!data.available) {
+                    setError('Email already in use. Please choose a different email');
                     return;
                 }
-            } catch (err) {
-                console.error('Error checking username:', err);
-                setError('Failed to check username availability.');
+            } else {
+                console.error('Error checking email availability:', data.message);
+                setError('Error checking email availability. Please try again');
                 return;
             }
+        } catch (err) {
+            console.error('Error checking email availability:', err);
+            setError('Failed to check email availability. Please try again');
+            return;
         }
 
         // Prepare updated data
@@ -149,13 +184,16 @@ function Profile() {
                     password: undefined // Securely update user data
                 });
                 updateUser({ ...user, ...updatedData });
+
+                navigate(`/Profile`);
+
             } else {
                 const data = await response.json();
                 setError(data.message || 'Error updating profile');
             }
         } catch (err) {
             console.error('Error updating user data:', err);
-            setError('Failed to update profile. Please try again.');
+            setError('Failed to update profile. Please try again');
         }
     };
 
@@ -176,7 +214,6 @@ function Profile() {
             </span>
             {editMode ? (
                 <form onSubmit={handleSubmit} className="info-container-edit">
-                    {error && <p className="error">{error}</p>}
                     <h2>Edit Personal Information</h2>
                     <div className="info-content-edit">
                         <div>
@@ -205,18 +242,6 @@ function Profile() {
                         </div>
                         <div>
                             <p>
-                                <span className="label">User Name:</span>
-                                <input
-                                    type="text"
-                                    name="userName"
-                                    value={formData.userName}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </p>
-                        </div>
-                        <div>
-                            <p>
                                 <span className="label">Email:</span>
                                 <input
                                     type="email"
@@ -224,17 +249,6 @@ function Profile() {
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
-                                />
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                <span className="label">Password:</span>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
                                 />
                             </p>
                         </div>
@@ -249,6 +263,18 @@ function Profile() {
                                 />
                             </p>
                         </div>
+                        <div>
+                            <p>
+                                <span className="label">Password:</span>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                />
+                            </p>
+                        </div>
+                        {error && <p className="error">{error}</p>}
                     </div>
                     <div className="buttons">
                         <button type="submit">Save</button>
