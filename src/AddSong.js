@@ -33,10 +33,20 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
         }
     }, [isTopArtists]);
 
+    useEffect(() => {
+        if (errorMessage) {
+            const timer = setTimeout(() => {
+                setErrorMessage('');
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [errorMessage]);
+
     const handleArtistSelect = async (artistName) => {
         setSelectedArtist(artistName);
         setSearchError('');
         setSearchArtist(''); // Reset search field
+        clearErrorMessage(); // Clear error message on new action
         try {
             const response = await fetch(`http://localhost:8081/songsBySinger/${artistName}`);
             if (!response.ok) {
@@ -50,6 +60,7 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
     };
 
     const handleAddSong = async (songID) => {
+        clearErrorMessage(); // Clear error message on new action
         try {
             const response = await fetch(`http://localhost:8081/addSong/${userID}/${songID}`, {
                 method: 'POST',
@@ -72,6 +83,7 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
 
 
     const handleArtistSearch = async () => {
+        clearErrorMessage();
         if (searchArtist.trim().length >= 2) {
             try {
                 const response = await fetch(`http://localhost:8081/searchArtist/${searchArtist}`);
@@ -98,11 +110,16 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
     };
 
     const handleReturn = () => {
+        clearErrorMessage();
         setSelectedArtist(null);
         setSongs([]);
         setSearchSong('');
         setSelectedSong(null);
         setSearchResults([]);
+    };
+
+    const clearErrorMessage = () => {
+        setErrorMessage('');
     };
 
     const filteredSongs = songs.filter(song =>

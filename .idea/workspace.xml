@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="daniv7 18:19 29.06">
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="edit profile (without edit userName)">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_6_22_2024_19_14_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_6_22_2024_19_14__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Registration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResetPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AddSong.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AddSong.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/CreateGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/CreateGroup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/Notifications.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Notifications.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Notifications.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="daniv6" />
+        <entry key="$PROJECT_DIR$" value="dani_with_noti_wo_edit" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -145,7 +151,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="daniv7" />
+                        <option value="dani_12.7_from_main" />
                       </list>
                     </value>
                   </entry>

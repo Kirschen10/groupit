@@ -15,8 +15,28 @@ const CreateGroup = message => {
     const navigate = useNavigate();
     const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [userID, setUserID] = useState(null);
 
     const { user } = useUser();
+
+    useEffect(() => {
+        const fetchUserID = async () => {
+            try {
+                const response = await axios.post('http://localhost:8081/api/verify-user', { username: user.username });
+                if (response.data.exists) {
+                    setUserID(response.data.userID);
+                } else {
+                    console.error('Error fetching user ID:', response.data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching user ID:', error);
+            }
+        };
+
+        if (user) {
+            fetchUserID();
+        }
+    }, [user]);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -74,25 +94,22 @@ const CreateGroup = message => {
 
     useEffect(() => {
         // Fetch all users from the backend
-        fetch('http://localhost:8081/usersList')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
+         const fetchAllUsers = async () => {
+            try {
+                const response = await fetch('http://localhost:8081/usersList');
+                const data = await response.json();
                 const usersOptions = data.map(user => ({
                     value: user.userID,
                     label: user.userName,
                 }));
                 setAllUsers(usersOptions);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching users:', error);
                 setError('Error fetching user list');
-            });
-    }, []);    
+            }
+        };
+        fetchAllUsers();
+    }, []);
 
     const handleAddUser = () => {
         if (newUser) {
@@ -107,8 +124,13 @@ const CreateGroup = message => {
         }
     };
 
+    const handleRemoveUser = (username) => {
+        const updatedUsers = users.filter(user => user.username !== username);
+        setUsers(updatedUsers);
+    };
 
     const handleCreateGroup = async () => {
+
         if (groupName === '') {
             setError("Please fill group name.");
             return;  // Stop further execution if group name is empty
@@ -135,7 +157,7 @@ const CreateGroup = message => {
             if (response.status === 201) {
                 const { groupID, createdAt } = response.data;
                 alert('Group created successfully!');
-                navigate('/GroupDetails', { state: { group: { groupID, groupName, groupDescription, createdAt }, userID: user.userID } }); // Navigate to the group details page with state
+                navigate('/GroupDetails', { state: { group: { groupID, groupName, groupDescription, createdAt }, userID } }); // Navigate to the group details page with state
             } else {
                 console.error('Group creation response:', response.data);
                 alert('Failed to create group');
@@ -161,6 +183,8 @@ const CreateGroup = message => {
     const handleNotification =() =>{
         navigate('/Notifications')
     }
+
+    const availableUsers = allUsers.filter(user => !users.some(selectedUser => selectedUser.userID === user.value));
 
     return (
     <div className="background-CreateGroup">
@@ -207,7 +231,7 @@ const CreateGroup = message => {
                     ></textarea>
                 <br />
                         <Select
-                            options={allUsers}
+                            options={availableUsers}
                             value={newUser}
                             onChange={setNewUser}
                             placeholder="Enter user name"
@@ -220,7 +244,10 @@ const CreateGroup = message => {
                     <h4>Added Users:</h4>
                     <ul>
                         {users.map((user, index) => (
-                            <li key={index}>{user.username}</li>
+                            <li key={index}>
+                                {user.username}
+                                <button type="button" className="remove-user-creategroup-button" onClick={() => handleRemoveUser(user.username)}>x</button>
+                            </li>
                         ))}
                     </ul>
                 </div>
