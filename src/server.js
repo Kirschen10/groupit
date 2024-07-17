@@ -4,7 +4,6 @@ const sql = require('mssql');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 
-
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -1109,6 +1108,104 @@ app.post('/updateGroup', async (req, res) => {
     } catch (error) {
         console.error('Error updating group:', error);
         res.status(500).json({message: 'Internal server error'});
+    }
+});
+
+// Add endpoint to check if email exists
+app.get('/api/check-email/:email', async (req, res) => {
+    const email = req.params.email;
+
+    try {
+        const result = await sql.query`
+            SELECT *
+            FROM users_data
+            WHERE email = ${email}
+        `;
+
+        if (result.recordset.length > 0) {
+            // Email already exists
+            res.json({ available: false });
+        } else {
+            // Email is available
+            res.json({ available: true });
+        }
+    } catch (err) {
+        console.error('Error checking email availability:', err);
+        res.status(500).json({ message: 'An error occurred', error: err.message });
+    }
+});
+
+// Add endpoint to update user data
+app.post('/api/update-user', async (req, res) => {
+    const { userID, firstName, lastName, userName, email, password, birthday } = req.body;
+    console.log('user details', req.body);
+
+    try {
+        const existingUser = await sql.query`
+        SELECT *
+        FROM users_data 
+        WHERE userID = ${userID}`;
+        if (!existingUser.recordset || existingUser.recordset.length === 0) {
+            console.log('UserID:', userID);
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        // Prepare SQL query based on provided fields
+        const updateFields = [];
+        const queryParams = {};
+
+        if (firstName !== undefined && firstName !== existingUser.recordset[0].firstName) {
+            updateFields.push('firstName = @firstName');
+            queryParams.firstName = firstName;
+        }
+        if (lastName !== undefined && lastName !== existingUser.recordset[0].lastName) {
+            updateFields.push('lastName = @lastName');
+            queryParams.lastName = lastName;
+        }
+        if (email !== undefined && email !== existingUser.recordset[0].email) {
+            updateFields.push('email = @email');
+            queryParams.email = email;
+        }
+        if (password !== undefined && password !== existingUser.recordset[0].password) {
+            updateFields.push('password = @password');
+            queryParams.password = password;
+        }
+        if (birthday !== undefined && birthday !== existingUser.recordset[0].birthday) {
+            updateFields.push('birthday = @birthday');
+            queryParams.birthday = birthday;
+        }
+
+        // Execute update only if there are fields to update
+        if (updateFields.length > 0) {
+            const updateQuery = `
+                UPDATE users_data
+                SET ${updateFields.join(', ')}
+                WHERE userID = @userID
+            `;
+
+            queryParams.userID = userID;
+            const request = new sql.Request();
+            Object.keys(queryParams).forEach(param => {
+                request.input(param, queryParams[param]);
+            });
+
+            const updateResult = await request.query(updateQuery);
+
+
+            if (updateResult.rowsAffected[0] > 0) {
+                const updatedUserResult = await sql.query`SELECT * FROM users_data WHERE userID = ${userID}`;
+                const updatedUser = updatedUserResult.recordset[0];
+
+                res.status(200).send({ message: 'User updated successfully' , updatedUser});
+            } else {
+                res.status(500).send({ message: 'Failed to update user' });
+            }
+        } else {
+            res.status(200).send({ message: 'No changes to update' });
+        }
+    } catch (err) {
+        console.error('Error updating user:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
 

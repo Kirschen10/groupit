@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="13.07 Update Profile Edit">
     <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="edit profile (without edit userName)">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_6_22_2024_19_14_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_6_22_2024_19_14__Changes_.xml" beforeDir="false" />
@@ -30,6 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+        <entry key="$PROJECT_DIR$" value="Stav_v2" />
         <entry key="$PROJECT_DIR$" value="dani_with_noti_wo_edit" />
       </map>
     </option>
@@ -40,17 +42,19 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2i6X2bNZubxJzTo10uJCiH29w0c" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -59,6 +63,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1718811793926</updated>
+      <workItem from="1719768557400" duration="1382000" />
+      <workItem from="1720850832882" duration="8451000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1718965041377</created>
@@ -138,7 +144,17 @@
       <updated>1719674372315</updated>
     </task>
     <option name="localTasksCounter" value="12" />
+    <task id="LOCAL‎00011" summary="13.07 Update Profile Edit">
+      <created>1720859435247</created>
+      <option name="number" value="LOCAL‎00011" />
+      <option name="presentableId" value="LOCAL‎00011" />
+      <updated>1720859435247</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -177,6 +193,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit" />
@@ -186,5 +203,19 @@
     <MESSAGE value="danielle and ofek 29.06 18:05" />
     <MESSAGE value="daniv7 18:19 29.06" />
     <option name="LAST_COMMIT_MESSAGE" value="daniv7 18:19 29.06" />
+    <MESSAGE value="13.07 Update Profile Edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="13.07 Update Profile Edit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/server.js</url>
+          <line>945</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
