@@ -27,12 +27,12 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
           <Route path="/SelectArtists" element={<SelectArtists />} />
           <Route path="/SelectSongs" element={<SelectSongs />} />
-          <Route path="/Questions" element={<Questions />} />
           <Route path="/ResetPassword/:username" element={<ResetPassword />} />
-          <Route path="/Notifications" element={<Notifications />} />
+          <Route path="/CheckMail" element={<CheckMail />} />
           <Route element={<PrivateRoute />}>
+            <Route path="/Questions" element={<Questions />} />
+            <Route path="/Notifications" element={<Notifications />} />
             <Route path="/HomePage" element={<HomePage />} />
-            <Route path="/CheckMail" element={<CheckMail />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/CreateGroup" element={<CreateGroup />} />
             <Route path="/JoinGroup" element={<JoinGroup />} />

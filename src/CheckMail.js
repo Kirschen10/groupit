@@ -4,7 +4,7 @@ import './CSS/CheckMail.css';
 
 const CheckMail = () => {
     const navigate = useNavigate();
-    const [countdown, setCountdown] = useState(5);
+    const [countdown, setCountdown] = useState(10);
 
     const backgroundStyle = {
         backgroundImage: `url('/Images/BackgroundWithlogo.svg')`,

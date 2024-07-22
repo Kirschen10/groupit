@@ -265,6 +265,10 @@ const GroupDetails = () => {
         setLoading(true); // Set loading to true
         setPlaylist([]); // Clear current playlist
 
+        // Clear liked and unliked songs states
+        setLikedSongs({});
+        setUnlikedSongs({});
+
         fetch('http://localhost:8081/getPlaylist', {
             method: 'POST',
             headers: {
@@ -291,14 +295,27 @@ const GroupDetails = () => {
                 })
                     .then(response => response.json())
                     .then(feedbackData => {
-                        console.log('Fetched feedback:', feedbackData);
-                        const updatedLikedSongs = feedbackData.feedbackTrackIDs.reduce((acc, trackID) => {
-                            acc[trackID] = true;
-                            return acc;
-                        }, {});
-                        setLikedSongs(updatedLikedSongs);
-                        setLoading(false); // Set loading to false after all operations are done
+                        if (feedbackData && feedbackData.feedbackTrackIDs) {
+                            console.log('Fetched feedback:', feedbackData); // Debug log
+                            const updatedLikedSongs = {};
+                            const updatedUnlikedSongs = {};
+                            feedbackData.feedbackTrackIDs.forEach(feedback => {
+                                updatedLikedSongs[feedback.trackID] = feedback.isLiked;
+                                updatedUnlikedSongs[feedback.trackID] = feedback.isUnliked;
+                            });
+
+                            setLikedSongs(updatedLikedSongs);
+                            setUnlikedSongs(updatedUnlikedSongs);
+                        } else {
+                            console.error('Feedback data is not in the expected format:', feedbackData);
+                        }
+                    setLoading(false); // Set loading to false after all operations are done
+
                     })
+                    .catch(error => {
+                        console.error('Error processing feedback data:', error);
+                        setLoading(false); // Set loading to false in case of error
+                    });
             })
             .catch(error => {
                 console.error('Error fetching playlist:', error);
