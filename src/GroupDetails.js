@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
-import './CSS/GroupDetails.css'; // Import CSS file
+import './CSS/GroupDetails.css';
+import {useUser} from "./UserContext";
 
 const GroupDetails = () => {
     const location = useLocation();
     const navigate = useNavigate(); // Initialize navigate
+    const { user } = useUser();
     const { group, userID } = location.state;
     const [currentGroup, setCurrentGroup] = useState(group); // Initialize group state
     const [newUser, setNewUser] = useState(null);
     const [users, setUsers] = useState([]); // Initially empty
+    const [pendingUsers, setPendingUsers] = useState([]);
     const [allUsers, setAllUsers] = useState([]); // All users from DB
     const [showModal, setShowModal] = useState(false); // State for showing modal
     const [showSuccessModal, setShowSuccessModal] = useState(false); // State for showing success modal
@@ -30,6 +33,8 @@ const GroupDetails = () => {
     const [groupDescription, setGroupDescription] = useState(currentGroup.groupDescription); // State for group's description
     const [originalGroupName, setOriginalGroupName] = useState(currentGroup.groupName); // State to store original group's name
     const [originalGroupDescription, setOriginalGroupDescription] = useState(currentGroup.groupDescription); // State to store original group's description
+    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
     const resetFeedbackMessage = () => {
         setFeedbackMessage('');
@@ -80,6 +85,28 @@ const GroupDetails = () => {
                 setErrorWithTimeout(setErrorGroupUsersMessage, 'Error fetching group members');
             });
 
+        // Fetch pending users from the backend
+        fetch('http://localhost:8081/pendingUsers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ groupId: currentGroup.groupID }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setPendingUsers(data);
+            })
+            .catch(error => {
+                console.error('Error fetching pending users:', error);
+                setErrorWithTimeout(setErrorGroupUsersMessage, 'Error fetching pending users');
+            });
+
         // Fetch group songs on component mount
         fetch('http://localhost:8081/getGroupSongs', {
             method: 'POST',
@@ -108,33 +135,76 @@ const GroupDetails = () => {
             });
     }, [currentGroup.groupID, userID]);
 
-   // Filter users who are not in the group
-    const availableUsers = allUsers.filter(user => !users.includes(user.label));
+    useEffect(() => {
+         const checkNotifications = async () => {
+            try {
+                const response = await fetch(`http://localhost:8081/check_notification`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: user.username })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.hasPendingNotifications) {
+                        setNotificationImage('/Images/notifications-on.jpg');
+                        setShowNotificationPopup(true);
+                        setTimeout(() => {
+                            setShowNotificationPopup(false);
+                        }, 5000);
+
+                    } else {
+                        setNotificationImage('/Images/notifications.jpeg');
+                    }
+                } else {
+                    console.error('Error checking notifications:', data.message);
+                }
+            } catch (err) {
+                console.error('Error checking notifications:', err);
+            }
+        };
+
+        if (user) {
+            checkNotifications();
+        }
+    }, [user]);
+
+    // Filter users who are not in the group and not pending
+    const availableUsers = allUsers.filter(user =>
+        !users.includes(user.label) &&
+        !pendingUsers.includes(user.label)
+    );
 
     const handleAddUser = () => {
     resetFeedbackMessage();
     if (newUser) {
-        fetch('http://localhost:8081/addUserByUserName', {
+        fetch('http://localhost:8081/askUserByUserName', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userName: newUser.label, groupId: currentGroup.groupID }),
+            body: JSON.stringify({
+                userName: newUser.label,
+                groupId: currentGroup.groupID,
+                askingUserName: user.username
+            }),
         })
             .then(response => response.json())
             .then(data => {
-                if (data.message === 'User added to group successfully') {
-                    setUsers([...users, newUser.label]);
+                if (data.message === 'Notification sent successfully') {
+                    setPendingUsers([...pendingUsers, newUser.label]);
                     setNewUser(null);
-                    setErrorWithTimeout(setAddUserFeedbackMessage, 'User added to group successfully.');
+                    setErrorWithTimeout(setAddUserFeedbackMessage, 'The user got a request to join the group');
                     setErrorWithTimeout(setAddUserErrorMessage, ``);
                 } else {
                     setErrorWithTimeout(setAddUserErrorMessage, `Error: ${data.message}`);
                 }
             })
             .catch(error => {
-                console.error('Error adding user to group:', error);
-                setErrorWithTimeout(setAddUserErrorMessage, 'An error occurred while adding the user to the group.');
+                console.error('Error asking the user to join the group:', error);
+                setErrorWithTimeout(setAddUserErrorMessage, 'An error occurred while asking the user to join the group.');
             });
     }
 };
@@ -248,6 +318,9 @@ const GroupDetails = () => {
         navigate(`/Questions`);
     };
 
+    const handleNotification =() =>{
+        navigate('/Notifications')
+    }
     const handleStarClick = (trackID) => {
         if (likedSongs[trackID]) {
             // If already liked, remove feedback
@@ -398,17 +471,22 @@ const GroupDetails = () => {
 return (
     <div className="background-group-details">
         <div>
-            <span className="Home-page-button-group-details" onClick={handleHomePage}>
+            <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                <img src={notificationImage} alt="Notifications" />
+            </span>
+        </div>
+        <div>
+            <span className="Home-page-button" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
         </div>
         <div>
-            <span className="profile-button-group-details" onClick={handleProfile}>
+            <span className="profile-button" onClick={handleProfile}>
                 <img src="/Images/user.svg" alt="Profile" />
             </span>
         </div>
         <div>
-            <span className="question-mark-button-group-details" onClick={handleQuestions}>
+            <span className="question-mark-button" onClick={handleQuestions}>
                 <img src="/Images/question.svg" alt="Question" />
             </span>
         </div>
@@ -489,6 +567,16 @@ return (
                     ))}
                 </ul>
             </div>
+
+            <div className="user-list">
+                <h2>Waiting for Response</h2>
+                <ul>
+                    {pendingUsers.map((user, index) => (
+                        <li key={index}>{user}</li>
+                    ))}
+                </ul>
+            </div>
+
             <div className="all-users">
                 {errorAllUsersMessage && <p className="error-message">{errorAllUsersMessage}</p>}
             </div>

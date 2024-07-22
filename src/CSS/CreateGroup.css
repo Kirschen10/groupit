@@ -192,3 +192,23 @@
     flex: 1 1 20%; /* Allow up to 5 items per row, adjust as needed */
     max-width: 23%; /* Ensure items wrap correctly */
 }
+
+/* Other existing styles */
+
+/* Remove user button styles */
+.remove-user-creategroup-button {
+    background: none;
+    border: none;
+    color: grey;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.remove-user-creategroup-button:hover {
+    color: red;
+}
+
+.added-users li:hover .remove-user-creategroup-button {
+    visibility: visible;
+}

@@ -4,13 +4,13 @@ import './CSS/Registration.css'; // Import CSS file
 
 function Registration() {
     const navigate = useNavigate();
-
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [birthday, setBirthday] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');  // State variable for error message
 
     const handleSubmit = (e) => {
@@ -75,6 +75,10 @@ function Registration() {
         navigate(`/`);
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="background-Registration">
             <div className="registration-form">
@@ -124,12 +128,19 @@ function Registration() {
                         </div>
                         <input
                             className="input-reg"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
                             value={password}
                             required
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        <button
+                            type="button"
+                            className="toggle-password"
+                            onClick={togglePasswordVisibility}
+                        >
+                            {showPassword ? 'Hide' : 'Show'}
+                        </button>
                     </div>
                     <div className="form-group-reg">
                         <div className="icon-container-reg">

@@ -97,8 +97,26 @@
 }
 
 .remember-me-container input[type="checkbox"] {
-    transform: scale(2); /* Change the scale to adjust size */}
+    transform: scale(2); /* Change the scale to adjust size */
+}
 
 .remember-me-container span {
     margin-left: 10px; /* Add a margin to separate checkbox and text */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: lightgray;
+    font-family: Calibri;
+}
+
+.toggle-password:hover {
+    color: mediumpurple;
 }

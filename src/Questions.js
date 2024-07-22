@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import './CSS/Questions.css';
@@ -7,7 +7,44 @@ function Questions() {
     const navigate = useNavigate();
     const { user, logout } = useUser();
     const [activeIndex, setActiveIndex] = useState(null);
+    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
+     useEffect(() => {
+         const checkNotifications = async () => {
+            try {
+                const response = await fetch(`http://localhost:8081/check_notification`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: user.username })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.hasPendingNotifications) {
+                        setNotificationImage('/Images/notifications-on.jpg');
+                        setShowNotificationPopup(true);
+                        setTimeout(() => {
+                            setShowNotificationPopup(false);
+                        }, 5000);
+
+                    } else {
+                        setNotificationImage('/Images/notifications.jpeg');
+                    }
+                } else {
+                    console.error('Error checking notifications:', data.message);
+                }
+            } catch (err) {
+                console.error('Error checking notifications:', err);
+            }
+        };
+
+        if (user) {
+            checkNotifications();
+        }
+    }, [user]);
     const handleHomePage = () => {
         navigate(`/HomePage`);
     };
@@ -19,6 +56,10 @@ function Questions() {
     const toggleAnswer = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
     };
+
+    const handleNotification =() =>{
+        navigate('/Notifications')
+    }
 
     const faqItems = [
         {
@@ -57,6 +98,11 @@ function Questions() {
 
     return (
         <div className="background-faq">
+            <div>
+                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                    <img src={notificationImage} alt="Notifications" />
+                </span>
+            </div>
             <div>
                 <span className="profile-button-faq" onClick={handleProfile}>
                     <img src="/Images/user.svg" alt="Profile" />

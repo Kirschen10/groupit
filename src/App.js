@@ -14,6 +14,7 @@ import CreateGroup from './CreateGroup';
 import JoinGroup from './JoinGroup';
 import PrivateRoute from './PrivateRoute';
 import Questions from './Questions';
+import Notifications from './Notifications';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/SelectSongs" element={<SelectSongs />} />
           <Route path="/Questions" element={<Questions />} />
           <Route path="/ResetPassword/:username" element={<ResetPassword />} />
+          <Route path="/Notifications" element={<Notifications />} />
           <Route element={<PrivateRoute />}>
             <Route path="/HomePage" element={<HomePage />} />
             <Route path="/CheckMail" element={<CheckMail />} />

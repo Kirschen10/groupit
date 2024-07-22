@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import './CSS/CreateGroup.css';
 
-const CreateGroup = () => {
+const CreateGroup = message => {
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setGroupDescription] = useState('');
     const [error, setError] = useState(''); // State for error message
@@ -13,8 +13,30 @@ const CreateGroup = () => {
     const [allUsers, setAllUsers] = useState([]);
     const [newUser, setNewUser] = useState(null);
     const navigate = useNavigate();
+    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [userID, setUserID] = useState(null);
 
     const { user } = useUser();
+
+    useEffect(() => {
+        const fetchUserID = async () => {
+            try {
+                const response = await axios.post('http://localhost:8081/api/verify-user', { username: user.username });
+                if (response.data.exists) {
+                    setUserID(response.data.userID);
+                } else {
+                    console.error('Error fetching user ID:', response.data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching user ID:', error);
+            }
+        };
+
+        if (user) {
+            fetchUserID();
+        }
+    }, [user]);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -23,8 +45,9 @@ const CreateGroup = () => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    setUsers([...users, { username: data.userName, userID: data.userID }]);
-            
+                    if (users != []){
+                        setUsers([...users, { username: data.userName, userID: data.userID }]);
+                    }
                 } else {
                     console.error('Error fetching user data:', data.message);
                 }
@@ -33,32 +56,60 @@ const CreateGroup = () => {
             }
         };
 
+        const checkNotifications = async () => {
+            try {
+                const response = await fetch(`http://localhost:8081/check_notification`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username: user.username })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.hasPendingNotifications) {
+                        setNotificationImage('/Images/notifications-on.jpg');
+                        setShowNotificationPopup(true);
+                        setTimeout(() => {
+                            setShowNotificationPopup(false);
+                        }, 5000);
+
+                    } else {
+                        setNotificationImage('/Images/notifications.jpeg');
+                    }
+                } else {
+                    console.error('Error checking notifications:', data.message);
+                }
+            } catch (err) {
+                console.error('Error checking notifications:', err);
+            }
+        };
+
         if (user) {
             fetchUserData();
+            checkNotifications();
         }
     }, [user]);
 
     useEffect(() => {
         // Fetch all users from the backend
-        fetch('http://localhost:8081/usersList')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
+         const fetchAllUsers = async () => {
+            try {
+                const response = await fetch('http://localhost:8081/usersList');
+                const data = await response.json();
                 const usersOptions = data.map(user => ({
                     value: user.userID,
                     label: user.userName,
                 }));
                 setAllUsers(usersOptions);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching users:', error);
                 setError('Error fetching user list');
-            });
-    }, []);    
+            }
+        };
+        fetchAllUsers();
+    }, []);
 
     const handleAddUser = () => {
         if (newUser) {
@@ -73,8 +124,13 @@ const CreateGroup = () => {
         }
     };
 
+    const handleRemoveUser = (username) => {
+        const updatedUsers = users.filter(user => user.username !== username);
+        setUsers(updatedUsers);
+    };
 
     const handleCreateGroup = async () => {
+
         if (groupName === '') {
             setError("Please fill group name.");
             return;  // Stop further execution if group name is empty
@@ -94,14 +150,17 @@ const CreateGroup = () => {
             const response = await axios.post('http://localhost:8081/create-group', {
                 groupName,
                 groupDescription,
+                userName: user.username, // Send userName instead of userID
                 users,
             });
-            if (response.data) {
+            console.log(response)
+            if (response.status === 201) {
                 const { groupID, createdAt } = response.data;
                 alert('Group created successfully!');
-                navigate('/GroupDetails', { state: { group: { groupID, groupName, groupDescription, createdAt }, userID: user.userID } }); // Navigate to the group details page with state
+                navigate('/GroupDetails', { state: { group: { groupID, groupName, groupDescription, createdAt }, userID } }); // Navigate to the group details page with state
             } else {
-                throw new Error('Group creation response does not contain expected data.');
+                console.error('Group creation response:', response.data);
+                alert('Failed to create group');
             }
         } catch (error) {
             console.error('Error creating group:', error);
@@ -121,9 +180,20 @@ const CreateGroup = () => {
         navigate(`/HomePage`);
     };
 
+    const handleNotification =() =>{
+        navigate('/Notifications')
+    }
+
+    const availableUsers = allUsers.filter(user => !users.some(selectedUser => selectedUser.userID === user.value));
+
     return (
     <div className="background-CreateGroup">
-         <div>
+        <div>
+            <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                <img src={notificationImage} alt="Notifications" />
+            </span>
+        </div>
+        <div>
             <span className="Home-page-button-create" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
@@ -159,9 +229,9 @@ const CreateGroup = () => {
                         onChange={(e) => setGroupDescription(e.target.value)}
                         required
                     ></textarea>
-<br />
+                <br />
                         <Select
-                            options={allUsers}
+                            options={availableUsers}
                             value={newUser}
                             onChange={setNewUser}
                             placeholder="Enter user name"
@@ -174,7 +244,10 @@ const CreateGroup = () => {
                     <h4>Added Users:</h4>
                     <ul>
                         {users.map((user, index) => (
-                            <li key={index}>{user.username}</li>
+                            <li key={index}>
+                                {user.username}
+                                <button type="button" className="remove-user-creategroup-button" onClick={() => handleRemoveUser(user.username)}>x</button>
+                            </li>
                         ))}
                     </ul>
                 </div>
