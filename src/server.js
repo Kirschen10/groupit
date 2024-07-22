@@ -988,14 +988,18 @@ app.post('/updateGroup', async (req, res) => {
 });
 
 // Add endpoint to check if email exists
-app.get('/api/check-email/:email', async (req, res) => {
-    const email = req.params.email;
+app.get('/api/check-email/:email/:userName', async (req, res) => {
+    const { email, userName} = req.body;
+    // const email = req.params.email;
+    // const userName = req.params.userName;
+
+    console.log('Received userName:', userName);
 
     try {
         const result = await sql.query`
             SELECT *
             FROM users_data
-            WHERE email = ${email}
+            WHERE email = ${email} and userName != ${userName}
         `;
 
         if (result.recordset.length > 0) {

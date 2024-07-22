@@ -73,7 +73,7 @@ function Profile() {
             firstName: userData.firstName,
             lastName: userData.lastName,
             email: userData.email,
-            password: '', // Don't populate password field for security
+            password: userData.password, // Don't populate password field for security
             birthday: userData.birthday ? new Date(userData.birthday).toISOString().split('T')[0] : ''
         });
         setError('');
@@ -138,7 +138,7 @@ function Profile() {
 
         // Check if email already exists
         try {
-            const response = await fetch(`http://localhost:8081/api/check-email/${formData.email}`);
+            const response = await fetch(`http://localhost:8081/api/check-email/${formData.email}/${user.userName}`);
             const data = await response.json();
 
             if (response.ok) {
@@ -181,7 +181,7 @@ function Profile() {
                 setUserData({
                     ...userData,
                     ...updatedData,
-                    password: undefined // Securely update user data
+                    // password: undefined // Securely update user data
                 });
                 updateUser({ ...user, ...updatedData });
 
@@ -244,7 +244,7 @@ function Profile() {
                             <p>
                                 <span className="label">Email:</span>
                                 <input
-                                    type="email"
+                                    type="text"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
