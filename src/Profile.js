@@ -4,6 +4,7 @@ import { useUser } from './UserContext';
 import Playlist from './Playlist';
 import UserGroups from './UserGroups';
 import './CSS/Profile.css';
+import axios from "axios";
 
 function Profile() {
     const navigate = useNavigate();
@@ -111,7 +112,7 @@ function Profile() {
             firstName: userData.firstName,
             lastName: userData.lastName,
             email: userData.email,
-            password: '', // Don't populate password field for security
+            password: userData.password, // Don't populate password field for security
             birthday: userData.birthday ? new Date(userData.birthday).toISOString().split('T')[0] : ''
         });
         setError('');
@@ -176,17 +177,10 @@ function Profile() {
 
         // Check if email already exists
         try {
-            const response = await fetch(`http://localhost:8081/api/check-email/${formData.email}`);
-            const data = await response.json();
+            const response = await axios.post(`http://localhost:8081/api/check-email`, { email:formData.email, user:user.username});
 
-            if (response.ok) {
-                if (!data.available) {
-                    setError('Email already in use. Please choose a different email');
-                    return;
-                }
-            } else {
-                console.error('Error checking email availability:', data.message);
-                setError('Error checking email availability. Please try again');
+            if (response.data.exists) {
+                setError('Email already in use. Please choose a different email');
                 return;
             }
         } catch (err) {
@@ -219,7 +213,7 @@ function Profile() {
                 setUserData({
                     ...userData,
                     ...updatedData,
-                    password: undefined // Securely update user data
+                    // password: undefined // Securely update user data
                 });
                 updateUser({ ...user, ...updatedData });
 
@@ -287,7 +281,7 @@ function Profile() {
                             <p>
                                 <span className="label">Email:</span>
                                 <input
-                                    type="email"
+                                    type="text"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}

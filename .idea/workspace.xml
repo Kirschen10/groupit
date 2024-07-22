@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="13.07 Update Profile Edit">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="edit profile (without edit userName)">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_6_22_2024_19_14_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_6_22_2024_19_14__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AddSong.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AddSong.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/CreateGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/CreateGroup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/Notifications.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Notifications.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Notifications.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +25,6 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="Stav_v2" />
-        <entry key="$PROJECT_DIR$" value="dani_with_noti_wo_edit" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -136,21 +128,19 @@
       <option name="project" value="LOCAL" />
       <updated>1719673531359</updated>
     </task>
-    <task id="LOCAL-00011" summary="daniv7 18:19 29.06">
-      <created>1719674372315</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1719674372315</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
     <task id="LOCAL‎00011" summary="13.07 Update Profile Edit">
       <created>1720859435247</created>
       <option name="number" value="LOCAL‎00011" />
       <option name="presentableId" value="LOCAL‎00011" />
       <updated>1720859435247</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL‎00012" summary="22.07 20:10">
+      <created>1721668250015</created>
+      <option name="number" value="LOCAL‎00012" />
+      <option name="presentableId" value="LOCAL‎00012" />
+      <updated>1721668250015</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,7 +157,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="dani_12.7_from_main" />
+                        <option value="daniv7" />
                       </list>
                     </value>
                   </entry>
@@ -201,18 +191,16 @@
     <MESSAGE value="changes" />
     <MESSAGE value="userslist" />
     <MESSAGE value="danielle and ofek 29.06 18:05" />
-    <MESSAGE value="daniv7 18:19 29.06" />
-    <option name="LAST_COMMIT_MESSAGE" value="daniv7 18:19 29.06" />
     <MESSAGE value="13.07 Update Profile Edit" />
-    <option name="LAST_COMMIT_MESSAGE" value="13.07 Update Profile Edit" />
+    <MESSAGE value="22.07 20:10" />
+    <option name="LAST_COMMIT_MESSAGE" value="22.07 20:10" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/server.js</url>
-          <line>945</line>
-          <properties lambdaOrdinal="-1" />
+          <line>1068</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

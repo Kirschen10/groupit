@@ -1112,23 +1112,28 @@ app.post('/updateGroup', async (req, res) => {
 });
 
 // Add endpoint to check if email exists
-app.get('/api/check-email/:email', async (req, res) => {
-    const email = req.params.email;
+app.post('/api/check-email', async (req, res) => {
+    const { email, user} = req.body;
+    // const email = req.params.email;
+    // const userName = req.params.userName;
+
+    console.log('Received userName:', user);
 
     try {
         const result = await sql.query`
             SELECT *
             FROM users_data
-            WHERE email = ${email}
+            WHERE email = ${email} and userName != ${user}
         `;
 
         if (result.recordset.length > 0) {
             // Email already exists
-            res.json({ available: false });
+            res.status(200).send({exists: true });
         } else {
             // Email is available
-            res.json({ available: true });
+            res.status(200).send({exists: false});
         }
+
     } catch (err) {
         console.error('Error checking email availability:', err);
         res.status(500).json({ message: 'An error occurred', error: err.message });
