@@ -1039,21 +1039,23 @@ app.post('/removeFeedback', async (req, res) => {
 });
 
 app.post('/getFeedbackForTracks', async (req, res) => {
-    const {userID, groupID, trackIDs} = req.body;
+    const { userID, groupID, trackIDs } = req.body;
     try {
         const result = await sql.query`
-            SELECT trackID
+            SELECT trackID,
+                   CASE WHEN isLiked = 1 THEN 1 ELSE 0 END AS isLiked,
+                   CASE WHEN isLiked = 0 THEN 1 ELSE 0 END AS isUnliked
             FROM feedback_data
             WHERE userID = ${userID}
               AND groupID = ${groupID}
               AND trackID IN (${trackIDs})
         `;
-
-        const feedbackTrackIDs = result.recordset.map(row => row.trackID);
-        res.status(200).send({feedbackTrackIDs});
+        const feedbackData = result.recordset;
+        console.log(feedbackData)
+        res.status(200).send({ feedbackData });
     } catch (err) {
-        console.error('Error fetching feedback:', err);
-        res.status(500).send({message: 'An error occurred', error: err.message});
+        console.error('Error fetching feedback for tracks:', err);
+        res.status(500).send({ message: 'An error occurred', error: err.message });
     }
 });
 
