@@ -295,11 +295,11 @@ const GroupDetails = () => {
                 })
                     .then(response => response.json())
                     .then(feedbackData => {
-                        if (feedbackData && feedbackData.feedbackTrackIDs) {
+                        if (feedbackData && feedbackData.feedbackData) {
                             console.log('Fetched feedback:', feedbackData); // Debug log
                             const updatedLikedSongs = {};
                             const updatedUnlikedSongs = {};
-                            feedbackData.feedbackTrackIDs.forEach(feedback => {
+                            feedbackData.feedbackData.forEach(feedback => {
                                 updatedLikedSongs[feedback.trackID] = feedback.isLiked;
                                 updatedUnlikedSongs[feedback.trackID] = feedback.isUnliked;
                             });
