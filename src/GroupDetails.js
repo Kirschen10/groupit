@@ -33,7 +33,7 @@ const GroupDetails = () => {
     const [groupDescription, setGroupDescription] = useState(currentGroup.groupDescription); // State for group's description
     const [originalGroupName, setOriginalGroupName] = useState(currentGroup.groupName); // State to store original group's name
     const [originalGroupDescription, setOriginalGroupDescription] = useState(currentGroup.groupDescription); // State to store original group's description
-    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
     const resetFeedbackMessage = () => {
@@ -149,14 +149,14 @@ const GroupDetails = () => {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/notifications-on.jpg');
+                        setNotificationImage('/Images/Notifications on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);
                         }, 5000);
 
                     } else {
-                        setNotificationImage('/Images/notifications.jpeg');
+                        setNotificationImage('/Images/Notification.svg');
                     }
                 } else {
                     console.error('Error checking notifications:', data.message);
@@ -569,7 +569,7 @@ return (
                     }}
                     placeholder="Enter user name"
                     isClearable
-                    className="add-user-select" // Apply custom CSS class
+                    className="add-user-select-GD" // Apply custom CSS class
                 />
                 <button onClick={handleAddUser}>Add User</button>
                 {addUserErrorMessage && <p className="error-message">{addUserErrorMessage}</p>}
@@ -612,11 +612,11 @@ return (
                                     <span className="song-name-gd">{song.trackName}</span>
                                     <span className="song-artist-gd">{song.artistName}</span>
                                     <span className="like-button" onClick={() => handleStarClick(song.trackID)}>
-                                        <img src={likedSongs[song.trackID] ? "/Images/likeFill.png" : "/Images/like.png"}
+                                        <img src={likedSongs[song.trackID] ? "/Images/like.svg" : "/Images/empty like.svg"}
                                             alt="Like" />
                                     </span>
                                     <span className="unlike-button" onClick={() => handleUnlikeClick(song.trackID)}>
-                                        <img src={unlikedSongs[song.trackID] ? "/Images/unlikeFill.png" : "/Images/unlike.png"}
+                                        <img src={unlikedSongs[song.trackID] ? "/Images/unlike.png" : "/Images/empty unlike.svg"}
                                             alt="Unlike" />
                                     </span>
                                 </div>

@@ -7,7 +7,7 @@ import {useUser} from "./UserContext";
 function HomePage() {
     const navigate = useNavigate();
     const { user } = useUser();
-    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
     useEffect(() => {
@@ -24,14 +24,14 @@ function HomePage() {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/notifications-on.jpg');
+                        setNotificationImage('/Images/Notification on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);
                         }, 5000);
 
                     } else {
-                        setNotificationImage('/Images/notifications.jpeg');
+                        setNotificationImage('/Images/Notification.svg');
                     }
                 } else {
                     console.error('Error checking notifications:', data.message);
@@ -83,7 +83,7 @@ function HomePage() {
                     <img src="/Images/question.svg" alt="Question" />
                 </span>
             </div>
-            <h1 className="headline">What do you<br />wanna do today?</h1>
+            <h1 className="headline-home-page">What do you<br />wanna do today?</h1>
             <div className="button-container">
                 <button className="create-group-button" onClick={handleCreateGroup}>
                     <img src="/Images/Create Group Button.svg" alt="Create Group" />

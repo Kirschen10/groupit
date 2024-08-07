@@ -9,8 +9,7 @@
     height: 100vh; /* Full height of the viewport */
     overflow: hidden; /* Prevents overflow issues */
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Align items to the start of the container */
+    justify-content: center; /* Center the content vertically */
     align-items: center;
     text-align: center;
     position: relative; /* Allows positioning of the logo */
@@ -18,27 +17,57 @@
     padding: 0; /* Ensure there is no padding around the element */
 }
 
+.back-to-login-button {
+    position: absolute;
+    top: 20px;
+    left: 40%;
+    cursor: pointer;
+    z-index: 9999; /* Ensure the button appears above other content */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
+
+
+.back-to-login-button img {
+    height: 150px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.back-to-login-button:hover img {
+    transform: scale(1.1); /* Enlarge the logo image on hover */
+}
+
+
 .registration-form {
     background-color: rgba(255, 255, 255, 0); /* Transparent background */
-    position: absolute;
-    top: 15%;
-    right: 10%;
-    border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 350px;
+    transform: translateX(75%); /* Move the form 50px to the right */
+}
+
+
+.Create-new-account h2 {
+    font-size: 30px;
+    font-weight: 800; /* Make the headline very bold */
+    color: #fff;
+    margin-bottom: 5%;
+    margin-top: 0%; /* Remove any top margin */
+    font-family: Montserrat, sans-serif; /* Specify Calibri as the preferred font */
+    line-height: 1.2; /* Adjust line height if needed */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* White shadow with 80% opacity */
 }
 
 .form-group-reg {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     width: 100%; /* Ensure the form group takes up the full width */
 }
 
 .input-reg {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 50px;
     padding-left: 50px; /* Adjust for icon */
     font-family: Calibri;
     font-size: 19px;
@@ -48,7 +77,8 @@
 .button-reg {
     width: 100%;
     padding: 15px;
-    background-color: mediumpurple;
+    background-color: #82CBDF;
+    border-radius: 50px;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -93,7 +123,7 @@
     color: mediumpurple;
 }
 
-.toggle-password {
+.toggle-password-reg {
     position: absolute;
     right: 15px;
     top: 50%;
@@ -106,6 +136,22 @@
     font-family: Calibri;
 }
 
-.toggle-password:hover {
+.toggle-password-reg:hover {
     color: mediumpurple;
 }
+
+/*.back-to-login-button {*/
+/*    background-color: #82CBDF;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    border-radius: 50px;*/
+/*    padding: 10px 20px;*/
+/*    cursor: pointer;*/
+/*    font-family: Calibri;*/
+/*    font-size: 16px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.back-to-login-button:hover {*/
+/*    background-color: #66A3D3;*/
+/*}*/

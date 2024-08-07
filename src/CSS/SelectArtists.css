@@ -60,7 +60,7 @@
     background-color: #ccc; /* Lighter color when button is disabled */
   }
 
-  h2 {
+  h2-select-artists {
     font-size: 40px; /* Adjust font size as needed */
     font-weight: bold; /* Make the text bold */
     color: #ffffff; /* Set the text color */

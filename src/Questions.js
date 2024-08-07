@@ -7,7 +7,7 @@ function Questions() {
     const navigate = useNavigate();
     const { user, logout } = useUser();
     const [activeIndex, setActiveIndex] = useState(null);
-    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
      useEffect(() => {
@@ -24,14 +24,14 @@ function Questions() {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/notifications-on.jpg');
+                        setNotificationImage('/Images/Notifications on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);
                         }, 5000);
 
                     } else {
-                        setNotificationImage('/Images/notifications.jpeg');
+                        setNotificationImage('/Images/Notification.svg');
                     }
                 } else {
                     console.error('Error checking notifications:', data.message);
@@ -99,12 +99,12 @@ function Questions() {
     return (
         <div className="background-faq">
             <div>
-                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                <span className={`notification-button-faq ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
                     <img src={notificationImage} alt="Notifications" />
                 </span>
             </div>
             <div>
-                <span className="profile-button-faq" onClick={handleProfile}>
+                <span className="profile-button" onClick={handleProfile}>
                     <img src="/Images/user.svg" alt="Profile" />
                 </span>
             </div>

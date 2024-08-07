@@ -81,7 +81,16 @@ function Registration() {
 
     return (
         <div className="background-Registration">
+
+            <div>
+                <span className="back-to-login-button" onClick={handleBackLogIn}>
+                    <img src="/Images/Back.png" alt="Back to Login" />
+                </span>
+            </div>
             <div className="registration-form">
+                <div className="Create-new-account">
+                    <h2>Create new account</h2>
+                </div>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group-reg">
                         <div className="icon-container-reg">
@@ -136,10 +145,10 @@ function Registration() {
                         />
                         <button
                             type="button"
-                            className="toggle-password"
+                            className="toggle-password-reg"
                             onClick={togglePasswordVisibility}
                         >
-                            {showPassword ? 'Hide' : 'Show'}
+                            <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
                         </button>
                     </div>
                     <div className="form-group-reg">
@@ -171,9 +180,6 @@ function Registration() {
                     {error && <p className="error">{error}</p>}
                     <button className={"button-reg"} type="submit" style={{ fontWeight: "bold" }}>Let's tune into your taste!</button>
                 </form>
-                <div className="additional-options-reg">
-                    <span onClick={handleBackLogIn}>Back to Login</span>
-                </div>
             </div>
         </div>
     );
