@@ -99,11 +99,9 @@
 .group-details-container {
     background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent to see the background */
     border-radius: 10px;
-    position: absolute;
-    top: 20px; /* Adjust as needed */
-    padding: 20px;
+    padding: 30px;
     width: 100%; /* Adjust the width as needed */
-    max-width: 900px;
+    max-width: 1000px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;  /* Center text inside the container */
     display: flex;
@@ -112,26 +110,28 @@
 }
 
 .group-header {
-    margin-bottom: 20px;
-    color: mediumpurple;
-    font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
+    color: mediumpurple; /* text color */
+    margin: 20px 10px 0 0; /* Adjust margins */
+    font-family: mon, sans-serif;
     font-size: 40px;
     font-weight: 900; /* Make the headline very bold */
     text-align: center; /* Center the text */
-
 }
 
 .group-info {
     display: grid;
     grid-template-columns: 1fr;
+    width: 100%;  /* Ensure grid spans full width of the container */
     gap: 20px;
     margin-bottom: 20px;
-    text-align: left;  /* Align text to the left inside the grid */
-    width: 100%;  /* Ensure grid spans full width of the container */
+    font-family: Calibri, sans-serif; /* Specify Calibri as the preferred font */
+    text-align: center;
+
 }
 
 .group-info span {
-    font-size: 18px;
+    margin-top: 10px;
+    font-size: 20px;
     color: #333;
 }
 
