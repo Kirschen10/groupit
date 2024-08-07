@@ -1,8 +1,8 @@
 .play-list-container {
-    max-height: 55vh; /* Adjust this value as needed to limit the visible height */
+    max-height: 65vh; /* Adjust this value as needed to limit the visible height */
     overflow-y: auto;
     padding: 20px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Calibri', sans-serif;
 }
 
 .song-card {
@@ -14,7 +14,7 @@
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     text-align: left;
     position: relative;
 }
@@ -25,13 +25,13 @@
 }
 
 .song-name {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: #333;
 }
 
 .song-artist {
-    font-size: 16px;
+    font-size: 17px;
     color: #666;
 }
 
@@ -40,12 +40,17 @@
     height: 20px;
     cursor: pointer;
     position: absolute;
-    right: 10px;
+    right: 15px;
     display: none;
+    transition: color 0.3s ease; /* Add transition for smooth color change */
 }
 
 .song-card:hover .trash-can-icon {
     display: block;
+}
+
+.trash-can-icon:hover {
+    transform: scale(1.1); /* Enlarge the logo image on hover */
 }
 
 .modal-overlay-Playlist {

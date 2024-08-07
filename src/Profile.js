@@ -20,7 +20,7 @@ function Profile() {
         birthday: user.birthday
     });
     const [error, setError] = useState('');
-    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
 
 
@@ -61,14 +61,14 @@ function Profile() {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/notifications-on.jpg');
+                        setNotificationImage('/Images/Notifications on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);
                         }, 5000);
 
                     } else {
-                        setNotificationImage('/Images/notifications.jpeg');
+                        setNotificationImage('/Images/Notification.svg');
                     }
                 } else {
                     console.error('Error checking notifications:', data.message);
@@ -237,16 +237,16 @@ function Profile() {
     return (
         <div className="background-profile">
             <div>
-                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                <span className={`notification-button-profile ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
                     <img src={notificationImage} alt="Notifications" />
                 </span>
             </div>
             <div>
-                <span className="question-mark-button" onClick={handleQuestions}>
+                <span className="question-mark-button-profile" onClick={handleQuestions}>
                     <img src="/Images/question.svg" alt="Question" />
                 </span>
             </div>
-            <span className="Home-page-button" onClick={handleHomePage}>
+            <span className="Home-page-button-profile" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
             {editMode ? (
@@ -375,7 +375,7 @@ function Profile() {
                     <Playlist userID={userID} />
                 </div>
                 <div className="content-box">
-                    <h2>My Group</h2>
+                    <h2>My Groups</h2>
                     <UserGroups userID={userID} />
                 </div>
             </div>

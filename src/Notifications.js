@@ -212,7 +212,7 @@ function Notifications() {
 
 
     return (
-        <div className="background-profile">
+        <div className="background-faq">
             <div>
                 <span className="Home-page-button" onClick={handleHomePage}>
                     <img src="/Images/Logo.svg" alt="Logo" />

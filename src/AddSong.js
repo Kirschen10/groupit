@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { debounce } from 'lodash';
 import './CSS/AddSong.css';
 
 const AddSong = ({ userID, onAddSong, onCancel }) => {
@@ -13,6 +14,7 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
     const [searchSong, setSearchSong] = useState('');
     const [selectedSong, setSelectedSong] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (isTopArtists) {
@@ -81,12 +83,12 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
         }
     };
 
-
-    const handleArtistSearch = async () => {
+    const handleArtistSearch = useCallback(debounce(async (query) => {
         clearErrorMessage();
-        if (searchArtist.trim().length >= 2) {
+        setLoading(true);
+        if (query.trim().length >= 2) {
             try {
-                const response = await fetch(`http://localhost:8081/searchArtist/${searchArtist}`);
+                const response = await fetch(`http://localhost:8081/searchArtist/${query}`);
                 if (!response.ok) {
                     throw new Error(`Error searching for artist: ${response.statusText}`);
                 }
@@ -107,6 +109,12 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
             setSearchError('Please enter at least 2 characters');
             setSearchResults([]);
         }
+        setLoading(false); // End loading
+    }, 300), []);
+
+    const handleSearchInputChange = (e) => {
+        setSearchArtist(e.target.value);
+        handleArtistSearch(e.target.value);
     };
 
     const handleReturn = () => {
@@ -128,11 +136,13 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
 
     return (
         <div className="add-song-container">
-            <button onClick={onCancel} className="add-song-button">
-                Back to playlist
-            </button>
             <div className="add-song-content">
-                {!selectedArtist ? (
+                {loading && (
+                    <div className="loading-container">
+                        <div className="loading-dots">...</div>
+                    </div>
+                )}
+                {!selectedArtist && (
                     <>
                         <div className="option-buttons-AddSong">
                             <button
@@ -154,10 +164,17 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
                                     type="text"
                                     placeholder="Enter artist name..."
                                     value={searchArtist}
-                                    onChange={(e) => setSearchArtist(e.target.value)}
+                                    onChange={handleSearchInputChange}
                                 />
-                                <button onClick={handleArtistSearch} className="search-button">Search</button>
-                                {searchError && <div className="error-message">{searchError}</div>}
+                                {searchError === 'Please enter at least 2 characters' && (
+                                    <div className="search-error">{searchError}</div>
+                                )}
+                                {searchError === 'No artist found' && (
+                                    <div className="no-artist-found">
+                                        {searchError}
+                                        <img src="/Images/not fount.svg" alt="Sad Smiley" />
+                                    </div>
+                                )}
                             </div>
                         )}
                         {isTopArtists && (
@@ -187,7 +204,8 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
                             </div>
                         )}
                     </>
-                ) : (
+                )}
+                {selectedArtist && !loading && (
                     <div className="songs-section">
                         <h3>The songs of {selectedArtist}</h3>
                         <div className="song-search-container">
@@ -221,6 +239,9 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
                     </div>
                 )}
             </div>
+            <button onClick={onCancel} className="add-song-button">
+                Back to playlist
+            </button>
         </div>
     );
 };

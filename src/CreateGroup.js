@@ -13,7 +13,7 @@ const CreateGroup = message => {
     const [allUsers, setAllUsers] = useState([]);
     const [newUser, setNewUser] = useState(null);
     const navigate = useNavigate();
-    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
     const [userID, setUserID] = useState(null);
 
@@ -45,7 +45,7 @@ const CreateGroup = message => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    if (users != []){
+                    if (users !== []){
                         setUsers([...users, { username: data.userName, userID: data.userID }]);
                     }
                 } else {
@@ -69,14 +69,14 @@ const CreateGroup = message => {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/notifications-on.jpg');
+                        setNotificationImage('/Images/Notification on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);
                         }, 5000);
 
                     } else {
-                        setNotificationImage('/Images/notifications.jpeg');
+                        setNotificationImage('/Images/Notification.svg');
                     }
                 } else {
                     console.error('Error checking notifications:', data.message);
@@ -194,17 +194,17 @@ const CreateGroup = message => {
             </span>
         </div>
         <div>
-            <span className="Home-page-button-create" onClick={handleHomePage}>
+            <span className="Home-page-button" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
         </div>
         <div>
-            <span className="profile-button-create" onClick={handleProfile}>
+            <span className="profile-button" onClick={handleProfile}>
                 <img src="/Images/user.svg" alt="Profile" />
             </span>
         </div>
         <div>
-            <span className="question-mark-button-create" onClick={handleQuestions}>
+            <span className="question-mark-button" onClick={handleQuestions}>
                 <img src="/Images/question.svg" alt="Question" />
             </span>
         </div>
@@ -229,29 +229,35 @@ const CreateGroup = message => {
                         onChange={(e) => setGroupDescription(e.target.value)}
                         required
                     ></textarea>
-                <br />
-                        <Select
-                            options={availableUsers}
-                            value={newUser}
-                            onChange={setNewUser}
-                            placeholder="Enter user name"
-                            isClearable
-                            className="add-user-select"
-                        />
-                        <button type="button" className="add-user-button" onClick={handleAddUser}>Add</button>
                 </div>
-                <div className="added-users">
-                    <h4>Added Users:</h4>
-                    <ul>
-                        {users.map((user, index) => (
-                            <li key={index}>
-                                {user.username}
-                                <button type="button" className="remove-user-creategroup-button" onClick={() => handleRemoveUser(user.username)}>x</button>
-                            </li>
-                        ))}
-                    </ul>
+                <div className="user-add-container">
+                    <Select
+                        options={availableUsers}
+                        value={newUser}
+                        onChange={setNewUser}
+                        placeholder="Enter user name"
+                        isClearable
+                        className="react-select"
+                        classNamePrefix="react-select"
+                    />
+                    <button type="button" className="add-user-button" onClick={handleAddUser}>Add</button>
                 </div>
-                <button className={"button-CreateGroup"} type="button" onClick={handleCreateGroup}>Create Group</button>
+                <div className="user-add-container">
+                    <div className="added-users">
+                        <h4>Added Users:</h4>
+                        <ul>
+                            {users.map((user, index) => (
+                                <li key={index}>
+                                    {user.username}
+                                    <button type="button" className="remove-user-creategroup-button" onClick={() => handleRemoveUser(user.username)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+                <button className={"button-CreateGroup"} onClick={handleCreateGroup}>
+                    <img src="/Images/Create Group.svg" alt="Create Group" />
+                </button>
                 {error && <p className="error-message">{error}</p>}
             </form>
         </div>
@@ -260,3 +266,4 @@ const CreateGroup = message => {
 };
 
 export default CreateGroup;
+

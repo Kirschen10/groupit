@@ -4,10 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="13.07 Update Profile Edit">
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="07/08 21:10">
+      <change afterPath="$PROJECT_DIR$/public/Images/Back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/Background with logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/Create + Join Grop Backround.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/Create Group.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/Notification on.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/Notification.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/Play.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/empty like.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/empty unlike.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/like fill.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/like.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/unlike.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/GroupDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/GroupDetails.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +35,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Stav_v2" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,6 +53,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -57,6 +69,13 @@
       <updated>1718811793926</updated>
       <workItem from="1719768557400" duration="1382000" />
       <workItem from="1720850832882" duration="8451000" />
+      <workItem from="1722012981120" duration="3071000" />
+      <workItem from="1722090001225" duration="5637000" />
+      <workItem from="1722103554778" duration="3320000" />
+      <workItem from="1722756390794" duration="11013000" />
+      <workItem from="1722792482306" duration="4595000" />
+      <workItem from="1722961113163" duration="12898000" />
+      <workItem from="1723044264920" duration="12622000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1718965041377</created>
@@ -140,7 +159,19 @@
       <option name="presentableId" value="LOCAL‎00012" />
       <updated>1721668250015</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL‎00013" summary="22.07 20:43">
+      <created>1721670240527</created>
+      <option name="number" value="LOCAL‎00013" />
+      <option name="presentableId" value="LOCAL‎00013" />
+      <updated>1721670240527</updated>
+    </task>
+    <task id="LOCAL‎00014" summary="07/08 21:10">
+      <created>1723054260239</created>
+      <option name="number" value="LOCAL‎00014" />
+      <option name="presentableId" value="LOCAL‎00014" />
+      <updated>1723054260239</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +217,7 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="commit" />
     <MESSAGE value="commitdd" />
     <MESSAGE value="changes" />
@@ -193,17 +225,8 @@
     <MESSAGE value="danielle and ofek 29.06 18:05" />
     <MESSAGE value="13.07 Update Profile Edit" />
     <MESSAGE value="22.07 20:10" />
-    <option name="LAST_COMMIT_MESSAGE" value="22.07 20:10" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/server.js</url>
-          <line>1068</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="22.07 20:43" />
+    <MESSAGE value="07/08 21:10" />
+    <option name="LAST_COMMIT_MESSAGE" value="07/08 21:10" />
   </component>
 </project>

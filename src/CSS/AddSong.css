@@ -3,38 +3,56 @@
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
+    height: 62vh; /* Full viewport height */
+    justify-content: space-between; /* Space between items */
 }
 
 .add-song-button {
     padding: 10px 20px;
-    font-size: 16px;
     cursor: pointer;
     background-color: mediumpurple;
     color: white;
     border: none;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-bottom: -10px; /* Distance from the bottom of the container */
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+
+.add-song-button:hover {
+    background-color: rebeccapurple; /* Darker background on hover */
 }
 
 .add-song-content {
     margin-top: 20px;
-    width: 80%;
+    width: 82%;
 }
 
+
 .option-buttons-AddSong {
-    align-content: center;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: row; /* Align buttons horizontally */
+    justify-content: space-between; /* Space buttons evenly */
+    width: 100%; /* Full width of the parent container */
     margin-bottom: 10px;
 }
 
 .option-button-AddSong {
     padding: 10px 20px;
-    font-size: 16px;
     cursor: pointer;
-    background-color: grey;
+    background-color: #888;
     color: white;
     border: none;
     border-radius: 5px;
     margin-right: 10px; /* Add margin-right for spacing */
+    font-family: 'Calibri', sans-serif;
+    font-size: 18px;
+}
+
+.option-button-AddSong:hover {
+    background-color: #666;
 }
 
 .option-button-AddSong:last-child {
@@ -52,12 +70,17 @@
     border-radius: 5px;
     padding: 10px;
     background-color: white;
+    font-family: 'Calibri', sans-serif;
+    font-size: 18px;
+    width: 100%;
 }
 
 .artist-item {
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
+    font-family: 'Calibri', sans-serif;
+    font-size: 18px;
 }
 
 .artist-item:hover {
@@ -70,27 +93,62 @@
 
 .search-artist {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: center; /* Align items to the start */
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .search-artist input {
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.search-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: mediumpurple;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.search-error {
+    color: #888; /* Change the color as needed */
+    margin-top: 5px;
+    font-size: 17px; /* Adjust font size if necessary */
+    font-family: 'Calibri', sans-serif;
+    display: block;
+}
+
+.no-artist-found {
+    color: #82CBDF; /* Orange color */
+    font-size: 22px;
+    margin-top: 80px;
+    font-family: 'Calibri', sans-serif;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text horizontally */
+}
+
+.no-artist-found img {
+    margin-top: -10px;
+    height: 100px; /* Adjust the height as needed */
+    width: 100px; /* Adjust the width as needed */
+}
+
+.loading-container {
+    position: absolute; /* Overlay other content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #333; /* Optional semi-transparent background */
+    z-index: 100; /* Ensure it is above other content */
+    top: 60%;
+    left: 18%;
+    width: 200px;
+    height: 200px;
+}
+
+.loading-dots {
+    margin-top: 5px;
+    font-size: 100px; /* Adjust size if necessary */
+    color: #82CBDF; /* Adjust color if necessary */
 }
 
 .songs-section {
@@ -165,4 +223,5 @@
 .error-message {
     color: red;
     margin-top: 10px;
+    display: block;
 }

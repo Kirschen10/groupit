@@ -12,7 +12,7 @@ function ForgotPassword() {
     const [error, setError] = useState('');
 
 
-    const handleHomePage = (e) => {
+    const handleBackLogIn = (e) => {
         e.preventDefault();
         navigate(`/`);
     };
@@ -44,12 +44,16 @@ function ForgotPassword() {
 
     return (
         <div className="background-ForgotPassword">
-            <span className="Home-page-button-ForgotPassword" onClick={handleHomePage}>
-                <img src="/Images/Logo.svg" alt="Logo" />
-            </span>
+            <div>
+                <span className="back-to-login-button" onClick={handleBackLogIn}>
+                    <img src="/Images/Back.png" alt="Back to Login" />
+                </span>
+            </div>
             <div className="ForgotPassword-form">
-                <img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock"/>
-                <h2 className='h2-ForgotPassword'>Email Verification</h2>
+                {/*<img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock"/>*/}
+                <div className="h2-ForgotPassword">
+                    <h2>Email Verification</h2>
+                </div>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group-ForgotPassword">
                         <div className="icon-container-ForgotPassword">

@@ -19,22 +19,60 @@
 }
 
 
-.Home-page-button {
+.Home-page-button-profile {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 6%; /* Adjust as needed */
-    left: 3%; /* Adjust as needed */
+    top: 4%; /* Adjust as needed */
+    left: 2%; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
     padding: 0; /* Remove padding */
 }
 
-.Home-page-button img {
+.Home-page-button-profile img {
     height: 70px;
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
-.Home-page-button:hover img {
+.Home-page-button-profile:hover img {
+    transform: scale(1.1); /* Enlarge the logo image on hover */
+}
+
+.question-mark-button-profile {
+    position: absolute; /* Positions the logo absolutely within the container */
+    top: 5%; /* Adjust as needed */
+    right: 2%; /* Adjust as needed */
+    z-index: 9999; /* Ensure the button appears above other content */
+    cursor: pointer; /* Show cursor as pointer on hover */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
+
+.question-mark-button-profile img {
+    height: 60px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.question-mark-button-profile:hover img {
+    transform: scale(1.1); /* Enlarge the logo image on hover */
+}
+
+.notification-button-profile {
+    position: absolute; /* Positions the logo absolutely within the container */
+    top: 5%; /* Adjust as needed */
+    right: 7%; /* Adjust as needed */
+    z-index: 9999; /* Ensure the button appears above other content */
+    cursor: pointer; /* Show cursor as pointer on hover */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
+
+.notification-button-profile img {
+    height: 60px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.notification-button-profile:hover img {
     transform: scale(1.1); /* Enlarge the logo image on hover */
 }
 
@@ -81,7 +119,7 @@
     background-color: mediumpurple; /* Button background color */
     color: white; /* Button text color */
     border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 50px; /* Rounded corners */
     padding: 3px 3px; /* Padding inside buttons */
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s; /* Transition for background color */
@@ -131,19 +169,19 @@
     color: white; /* Make text color white */
     padding: 10px; /* Adjust padding as needed */
     border: 2px solid white; /* Border around the text box */
-    border-radius: 5px; /* Rounded corners */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border-radius: 50px; /* Rounded corners */
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
 }
 
 .info-content div p span.label {
     position: absolute;
     top: -10px;
-    left: 10px;
-    background-color: black;
+    left: 15px;
+    background-color: #0d1015;
     color: white;
     padding: 2px 5px;
     font-size: 1em;
-    font-family: "Calibri Light"; /* Specify Calibri as the preferred font */
+    font-family: "Calibri Light";
 }
 
 .content-container {
@@ -154,7 +192,7 @@
 }
 
 .content-box {
-    background-color: rgba(255, 255, 255, 0.3); /* White background with opacity */
+    background-color: rgba(255, 255, 255, 0.2); /* White background with opacity */
     border-radius: 3px; /* Rounded corners */
     width: 45%; /* Adjust width as needed */
     padding: 20px; /* Padding inside the container */
@@ -163,10 +201,15 @@
 
 .content-box h2 {
     margin: 0 0 20px 0; /* Adjust margins */
-    color: mediumpurple; /* Text color */
+    color: #82CBDF; /* Text color */
     font-family: "Poor Richard";
-    font-size: 40px;
+    font-size: 45px;
     letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
+     /*text-shadow:*/
+     /*   -0.5px -0.5px 0 rebeccapurple,*/
+     /*    0.5px -0.5px 0 rebeccapurple,*/
+     /*   -0.5px  0.5px 0 rebeccapurple,*/
+     /*    0.5px  0.5px 0 rebeccapurple; !* Adjust shadow positions and color to create border effect *!*/
 }
 
 .info-container-edit h2 {

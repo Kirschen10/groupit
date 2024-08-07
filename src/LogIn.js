@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import './CSS/LogIn.css'; // Import CSS file
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const LogIn = () => {
     const navigate = useNavigate();
@@ -98,10 +100,10 @@ const LogIn = () => {
                         />
                         <button
                             type="button"
-                            className="toggle-password"
+                            className="toggle-password-login"
                             onClick={togglePasswordVisibility}
                         >
-                            {showPassword ? 'Hide' : 'Show'}
+                            <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
                         </button>
                     </div>
                     <div className="form-group-login">
@@ -110,7 +112,9 @@ const LogIn = () => {
                                 type="checkbox"
                                 checked={remember}
                                 onChange={(e) => setRemember(e.target.checked)}
+                                className="custom-checkbox"
                             />
+                            <span className="custom-checkbox-span"></span>
                             <span>Remember Me</span>
                         </label>
                     </div>

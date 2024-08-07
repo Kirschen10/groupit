@@ -4,9 +4,51 @@
     flex-wrap: nowrap; /* Ensure no wrapping of group cards */
     justify-content: flex-start;
     padding: 20px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Calibri', sans-serif;
     overflow-x: auto; /* Enable horizontal scrolling */
 }
+
+/* Custom scrollbar styles for WebKit browsers (e.g., Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 1vw; /* Width of the vertical scrollbar */
+    height: 1vw; /* Height of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: white; /* Background of the scrollbar track */
+    border-radius: 50px; /* Rounding the corners of the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: mediumpurple; /* Color of the scrollbar thumb */
+    border: 0.15em solid white;
+    border-radius: 50px; /* Rounding the corners of the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rebeccapurple; /* Color of the scrollbar thumb when hovered */
+}
+
+/*body*/
+/* Custom scrollbar styles for WebKit browsers (e.g., Chrome, Safari) */
+body::-webkit-scrollbar {
+    width: 1.5vw; /* Width of the vertical scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent; /* Background of the scrollbar track */
+    border-radius: 50px; /* Rounding the corners of the track */
+}
+
+body::-webkit-scrollbar-thumb {
+    background: mediumpurple; /* Color of the scrollbar thumb */
+    border-radius: 50px; /* Rounding the corners of the thumb */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: rebeccapurple; /* Color of the scrollbar thumb when hovered */
+}
+
 
 /* Style for each group card */
 .group-card {
@@ -17,10 +59,10 @@
     width: 280px;
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
-    border-radius: 15px;
+    border-radius: 30px;
     margin: 15px;
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
 }
@@ -28,19 +70,20 @@
 /* Hover effect for the group card */
 .group-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 16px #82CBDF;
 }
 
 /* Image or icon for the group */
 .group-image {
     width: 100px;
     height: 100px;
-    background-color: #8925C7;
+    background: linear-gradient(135deg, #a4dceb, mediumpurple); /* Adjust colors for the ombre effect */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2em;
+    font-size: 60px;
+    font-weight: bold;
     color: white;
     margin-bottom: 15px;
 }
@@ -52,39 +95,48 @@
 
 /* Style for group name */
 .group-name {
-    font-size: 1.5em;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Calibri', sans-serif;
+    font-size: 23px;
 }
 
 /* Style for group description */
 .group-description {
-    font-size: 1em;
     color: #666;
     margin-bottom: 15px;
+    text-align: center;
+    font-family: 'Calibri', sans-serif;
+    font-size: 20px;
 }
 
 /* Style for created at date and user count */
 .group-details {
-    font-size: 0.9em;
     color: #999;
     margin-bottom: 5px;
+    text-align: center;
+    font-family: 'Calibri', sans-serif;
+    font-size: 18px;
 }
 
 /* Style for the edit button */
 .edit-button {
     padding: 10px 20px;
-    background-color: #8925C7;
+    background-color: mediumpurple;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
 }
 
 .edit-button:hover {
-    opacity: 0.7;
+    background-color: rebeccapurple; /* Darker background on hover */
 }
 
 /* Error message styling */
