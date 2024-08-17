@@ -1,142 +1,133 @@
-/* General Styles */
-.background-joinGroup {
-    background-image: url('/public/Images/Home Page Background.svg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
+.background-CreateGroup {
+    background-color: #f4f4f9;
+    height: 100vh;
+    padding: 20px;
     position: relative;
-    padding-top: 50px;
-    padding-bottom: 50px;
 }
 
 .container-joinGroup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 500px;
-    padding: 40px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    font-family: 'calibri', sans-serif;
+    position: fixed;
+    top: 10%;
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0); /* Transparent background */
     text-align: center;
 }
 
-/* Button Styles */
-.homeButton-joinGroup,
-.profileButton-joinGroup,
-.questionButton-joinGroup {
-    position: absolute;
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    z-index: 9999;
-}
-
-.homeButton-joinGroup {
-    top: 6%;
-    left: 3%;
-}
-
-.homeButton-joinGroup img {
-    height: 70px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.homeButton-joinGroup:hover img {
-    transform: scale(1.1);
-}
-
-.profileButton-joinGroup {
-    top: 7%;
-    right: 8%;
-}
-
-.profileButton-joinGroup img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.profileButton-joinGroup:hover img {
-    transform: scale(1.1);
-}
-
-.questionButton-joinGroup {
-    top: 7%;
-    right: 3%;
-}
-
-.questionButton-joinGroup img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.questionButton-joinGroup:hover img {
-    transform: scale(1.1);
-}
-
-/* Join Group Styles */
 .container-joinGroup h2 {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 40px;
+    font-weight: 800; /* Make the headline very bold */
+    color: #fff;
+    margin-top: 0%; /* Remove any top margin */
+    font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
+    line-height: 1.2; /* Adjust line height if needed */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* White shadow with 80% opacity */
 }
 
 .container-joinGroup h3 {
-    color: #666;
-    margin-bottom: 15px;
-    font-size: 18px;
-    text-align: left;
+    font-size: 42px;
+    font-weight: 2000; /* Make the headline very bold */
+    color: #a0d0dd;
+    font-family: "Calibri";
+    text-align: center;
 }
 
-.container-joinGroup input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+/*.sub-container-join-group {*/
+/*    background-color: rgba(255, 255, 255, 0.2); !* White background with opacity *!*/
+/*    border-radius: 3px; !* Rounded corners *!*/
+/*    width: 100%; !* Adjust width as needed *!*/
+/*    padding: 20px; !* Padding inside the container *!*/
+/*    text-align: center; !* Center the text *!*/
+/*    margin: 0 auto; !* Center horizontally within its parent *!*/
+/*}*/
+
+.option-buttons-joinGroup {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-.container-joinGroup button {
-    width: 100%;
+.bigButton-joinGroup {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.bigButton-joinGroup img {
+    height: 180px; /* Adjust the size of the button images */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.bigButton-joinGroup:hover img {
+    transform: scale(1.1); /* Enlarge the button image on hover */
+}
+
+.form-join-group-by-ID {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.form-join-group-by-ID input[type="text"] {
+    width: 15%;
     padding: 12px;
+    border: 2px solid white; /* Set the border color */
+    border-radius: 50px; /* Set the border radius to 50px */
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    text-align: center;
+    background-color: white; /* Set the background color */
+    color: #333; /* Set the text color */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Add transition effects */
+    margin: 0px;
+}
+
+.form-join-group-by-ID input:focus {
+    border-color: mediumpurple; /* Change border color on focus */
+}
+
+.form-join-group-by-ID button {
+    padding: 10px 20px;
+    background-color: mediumpurple;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 50px;
     cursor: pointer;
+    height: 50px;
     transition: background-color 0.3s;
-    background-color: #8925C7;
+    margin: 0px;
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
 }
 
-.container-joinGroup button:hover {
-    opacity: 0.8;
+
+.form-join-group-by-ID button:hover {
+    background-color: rebeccapurple;
 }
 
-/* Group List Styles */
+.content-box-joingroup {
+    background-color: rgba(255, 255, 255, 0.2); /* White background with opacity */
+    border-radius: 3px; /* Rounded corners */
+    width: 87%; /* Adjust width as needed */
+    padding: 20px; /* Padding inside the container */
+    text-align: center; /* Center the text */
+    margin: 0 auto; /* Center horizontally within its parent */
+    max-height: 50vh;
+}
+
 .groupList-joinGroup {
     list-style: none;
-    padding: 0;
-    margin: 20px 0 0;
-    max-height: 200px;
+    padding: 20px;
+    max-height: 40vh;
     overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 0;
 }
 
 .groupListItem-joinGroup {
-    background-color: #f9f9f9;
+    background-color: black;
     padding: 10px 15px;
     border: 1px solid #eee;
     border-radius: 5px;
@@ -147,17 +138,17 @@
     align-items: center;
 }
 
+/* Group List Styles */
 .groupHeader-joinGroup {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
     margin-bottom: 10px;
+    color: white;
 }
 
 .groupName-joinGroup {
     font-size: 18px;
-    color: black;
+    color: white;
     font-weight: bold;
 }
 
@@ -197,6 +188,79 @@
 .joinButton-joinGroup:hover {
     background-color: #2c8a42;
 }
+
+.group-info {
+    margin-bottom: 10px;
+}
+
+.group-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group-actions button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.group-actions button:hover {
+    background-color: #0056b3;
+}
+
+.hover-info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    margin-top: 20px;
+    color: red;
+    font-weight: bold;
+}
+
+
+/*OLD*/
+
+
+
 
 /* Group Details Styles */
 .groupDetails-joinGroup {

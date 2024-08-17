@@ -15,8 +15,9 @@ const JoinGroup = () => {
     const [userID, setUserID] = useState(null);
     const [groupDetails, setGroupDetails] = useState(null);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
-    const [notificationImage, setNotificationImage] = useState('/Images/notifications.jpeg');
+    const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [showJoinGroupByID, setShowJoinGroupByID] = useState(false);
 
     const navigate = useNavigate();
 
@@ -28,7 +29,6 @@ const JoinGroup = () => {
                 setFeedbackMessage('');
             }, 5000);
 
-            // Clear timeout if component is unmounted or message changes
             return () => clearTimeout(timer);
         }
     }, [feedbackMessage]);
@@ -39,17 +39,15 @@ const JoinGroup = () => {
             setFeedbackMessage('');
         };
 
-        // Add event listener for all button clicks
         document.addEventListener('click', handleClick);
 
-        // Cleanup event listener on component unmount
         return () => {
             document.removeEventListener('click', handleClick);
         };
     }, []);
 
-        useEffect(() => {
-         const checkNotifications = async () => {
+    useEffect(() => {
+        const checkNotifications = async () => {
             try {
                 const response = await fetch(`http://localhost:8081/check_notification`, {
                     method: 'POST',
@@ -62,14 +60,14 @@ const JoinGroup = () => {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/notifications-on.jpg');
+                        setNotificationImage('/Images/Notification on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);
                         }, 5000);
 
                     } else {
-                        setNotificationImage('/Images/notifications.jpeg');
+                        setNotificationImage('/Images/Notification.svg');
                     }
                 } else {
                     console.error('Error checking notifications:', data.message);
@@ -180,6 +178,14 @@ const JoinGroup = () => {
         }
     };
 
+    const getGroupInitials = (groupName) => {
+        const words = groupName.split(' ');
+        if (words.length > 1) {
+            return words[0].charAt(0) + words[1].charAt(0);
+        }
+        return groupName.charAt(0);
+    };
+
     const handleMouseEnter = (group) => {
         setHoveredGroup(group);
     };
@@ -194,13 +200,13 @@ const JoinGroup = () => {
 
     const handleGoToGroup = () => {
         if (userID && groupDetails) {
-            navigate('/GroupDetails', { state: { group: groupDetails, userID} });
+            navigate('/GroupDetails', { state: { group: groupDetails, userID } });
         } else {
-            setFeedbackMessage('something went wrong! please try again');
+            setFeedbackMessage('Something went wrong! Please try again.');
             setShowErrorMessage(true);
         }
     };
-  
+
     const handleQuestions = () => {
         navigate(`/Questions`);
     };
@@ -213,110 +219,118 @@ const JoinGroup = () => {
         navigate(`/HomePage`);
     };
 
-    const handleNotification =() =>{
+    const handleNotification = () => {
         navigate('/Notifications')
     }
 
+    const toggleJoinGroupByID = () => {
+        setShowJoinGroupByID(true);
+        setShowGroups(false);
+    };
+
+    const toggleExploreGroups = () => {
+        setShowJoinGroupByID(false);
+        handleToggleGroups();
+    };
+
     return (
-        <div className="background-joinGroup">
+        <div className="background-CreateGroup">
             <div>
                 <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
                     <img src={notificationImage} alt="Notifications" />
                 </span>
             </div>
             <div>
-                <span className="homeButton-joinGroup" onClick={handleHomePage}>
+                <span className="Home-page-button" onClick={handleHomePage}>
                     <img src="/Images/Logo.svg" alt="Logo" />
                 </span>
             </div>
             <div>
-                <span className="profileButton-joinGroup" onClick={handleProfile}>
+                <span className="profile-button" onClick={handleProfile}>
                     <img src="/Images/user.svg" alt="Profile" />
                 </span>
             </div>
             <div>
-                <span className="questionButton-joinGroup" onClick={handleQuestions}>
+                <span className="question-mark-button" onClick={handleQuestions}>
                     <img src="/Images/question.svg" alt="Question" />
                 </span>
             </div>
             <div className="container-joinGroup">
                 <h2>Join Group</h2>
-                <div>
-                    <h3>Join Group by Group ID:</h3>
-                    <input
-                        type="text"
-                        value={groupID}
-                        onChange={(e) => setGroupID(e.target.value)}
-                    />
-                    <button onClick={handleJoinGroupByID}>Join Group</button>
-                </div>
-                <div>
-                    <h3>Explore Groups with Similar Taste</h3>
-                    <button onClick={handleToggleGroups}>
-                        {showGroups ? 'Close' : 'Find Groups'}
-                    </button>
-                    {showGroups && foundGroups.length > 0 && (
-                        <ul className="groupList-joinGroup">
-                            {foundGroups.map((group) => (
-                                <li key={group.groupID} className="groupListItem-joinGroup">
-                                    <div className="groupHeader-joinGroup">
-                                        <span className="groupName-joinGroup">{group.groupName}</span>
-                                        <span className="groupID-joinGroup">(ID: {group.groupID})</span>
-                                    </div>
-                                    <div className="groupButtons-joinGroup">
-                                        <span
-                                            className="infoButton-joinGroup"
-                                            onMouseEnter={() => handleMouseEnter(group)}
-                                            onMouseLeave={handleMouseLeave}
-                                        >
-                                            Info
-                                        </span>
-                                        <button
-                                            className="joinButton-joinGroup"
-                                            onClick={() => handleJoinFoundGroup(group.groupID)}
-                                        >
-                                            Join Group
-                                        </button>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
+                <div className="sub-container-join-group">
+
+                    <div className="option-buttons-joinGroup">
+                        <button className="bigButton-joinGroup"
+                                onClick={toggleJoinGroupByID}
+                                style={{ opacity: showJoinGroupByID ? 1 : 0.3 }}
+                        >
+                            <img src="/Images/Join Group by ID.svg" alt="Join Group by ID" />
+                        </button>
+                        <h3>What do you prefer?</h3>
+                        <button className="bigButton-joinGroup"
+                                onClick={toggleExploreGroups}
+                                style={{ opacity: showJoinGroupByID ? 0.3 : 1 }}
+                        >
+                            <img src="/Images/Explore Groups.svg" alt="Explore Groups" />
+                        </button>
+                    </div>
+
+                    {showJoinGroupByID && (
+                        <div className="form-join-group-by-ID">
+                            <input
+                                type="text"
+                                maxLength="20"
+                                value={groupID}
+                                onChange={(e) => setGroupID(e.target.value)}
+                                placeholder="Enter Group ID"
+                            />
+                            <button onClick={handleJoinGroupByID}>Join Group</button>
+                        </div>
                     )}
-                    {showErrorMessage && feedbackMessage && <p className="feedbackMessage-joinGroup">{feedbackMessage}</p>}
-                </div>
-            </div>
-            {hoveredGroup && (
-                <div className="groupDetails-joinGroup visible">
-                    <h3>{hoveredGroup.groupName}</h3>
-                    <p>{hoveredGroup.groupDescription}</p>
-                    <div className="detailItem-joinGroup">
-                        <span>ID:</span>
-                        <span className="value">{hoveredGroup.groupID}</span>
-                    </div>
-                    <div className="detailItem-joinGroup">
-                        <span>Created At:</span>
-                        <span className="value">{new Date(hoveredGroup.createdAt).toLocaleDateString()}</span>
-                    </div>
-                    <div className="detailItem-joinGroup">
-                        <span>Group Members:</span>
-                        <span className="value">{hoveredGroup.userCount}</span>
-                    </div>
-                </div>
-            )}
-            {showSuccessModal && (
-                <div className="modalOverlay-joinGroup">
-                    <div className="modalContent-joinGroup">
-                        <h2>Successfully Joined the Group</h2>
-                        <p>Would you like to go to the group page or stay on this page?</p>
-                        <div className="modalButtons-joinGroup">
-                            <button className="modalButton-joinGroup" onClick={handleGoToGroup}>Go to Group Page</button>
-                            <button className="modalButton-joinGroup modalCancelButton-joinGroup" onClick={handleStay}>Stay on this Page</button>
+
+                    {showGroups && foundGroups.length > 0 && (
+                        <div className="content-box-joingroup">
+                            <div className="group-list-container">
+                                {foundGroups.map((group) => (
+                                <div key={group.groupID} className="group-card">
+                                    <div className="group-image">
+                                        <span>{getGroupInitials(group.groupName)}</span>
+                                    </div>
+                                    <div className="group-info">
+                                        <div className="group-name">{group.groupName}</div>
+                                        <div className="group-description">{group.groupDescription}</div>
+                                        <div className="group-details">Number of Users: {group.userCount}</div>
+                                        <div className="group-details">Created at: {new Date(group.createdAt).toLocaleDateString()}</div>
+                                        <button className="edit-button" onClick={() => handleJoinFoundGroup(group.groupID)}>Join Group</button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
+
+                    )}
+                    {showErrorMessage && feedbackMessage && <p className="feedbackMessage-joinGroup">{feedbackMessage}</p>}
+
+                    {showSuccessModal && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <h3>You have successfully joined the group!</h3>
+                                <button onClick={handleGoToGroup}>Go to Group</button>
+                                <button onClick={handleStay}>Stay</button>
+                            </div>
+                        </div>
+                    )}
+
+                    {showErrorMessage && (
+                        <div className="error-message">
+                            <p>{feedbackMessage}</p>
+                        </div>
+                    )}
                 </div>
-            )}
+            </div>
         </div>
     );
 };
 
 export default JoinGroup;
+

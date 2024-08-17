@@ -16,104 +16,57 @@
     padding-bottom: 50px; /* Add padding to move content down a bit */
 }
 
-.Home-page-button-group-details {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 4%; /* Adjust as needed */
-    left: 2%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.Home-page-button-group-details img {
-    height: 70px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.Home-page-button-group-details:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
-}
-
-.profile-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 5%; /* Adjust as needed */
-    right: 2%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.profile-button img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.profile-button:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
-}
-
-.question-mark-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 5%; /* Adjust as needed */
-    right: 7%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.question-mark-button img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.question-mark-button:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
-}
-
-.notification-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 5%; /* Adjust as needed */
-    right: 12%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.notification-button img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.notification-button:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
-}
-
-.notification-button.popup {
-    animation: popup-animation 5s forwards;
-}
-
 .group-details-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent to see the background */
-    border-radius: 10px;
-    padding: 30px;
+    background-color: transparent; /* Slightly transparent to see the background */
     width: 100%; /* Adjust the width as needed */
-    max-width: 1000px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    max-height: 0px;
     text-align: center;  /* Center text inside the container */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.group-details-container .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px; /* Add margin to the top */
+    justify-self: center; /* Align to the start of the column */
+}
+
+.group-details-container button {
+    background-color: mediumpurple; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 50px; /* Rounded corners */
+    padding: 3px 3px; /* Padding inside buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for background color */
+    display: flex;
+    align-items: center; /* Center icon and text vertically */
+    gap: 0px; /* Space between icon and text */
+    height: 35px; /* Set button height */
+    width: 120px; /* Set button width */
+    font-family: Calibri; /* Specify Calibri as the preferred font */
+    font-size: 15px;
+    font-weight: bold; /* Make the text bold */
+    line-height: 12px;
+}
+
+.group-details-container button img {
+    height: 30px; /* Adjust icon size */
+    width: 30px; /* Adjust icon size */
+}
+
+.group-details-container button:hover {
+    background-color: rebeccapurple; /* Darker background on hover */
+}
+
 .group-header {
     color: mediumpurple; /* text color */
-    margin: 20px 10px 0 0; /* Adjust margins */
     font-family: mon, sans-serif;
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 900; /* Make the headline very bold */
     text-align: center; /* Center the text */
 }
@@ -122,53 +75,31 @@
     display: grid;
     grid-template-columns: 1fr;
     width: 100%;  /* Ensure grid spans full width of the container */
-    gap: 20px;
-    margin-bottom: 20px;
     font-family: Calibri, sans-serif; /* Specify Calibri as the preferred font */
     text-align: center;
-
-}
-
-.group-info span {
-    margin-top: 10px;
-    font-size: 20px;
-    color: #333;
+    font-size: 24px;
+    color: white;
 }
 
 .group-info-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.group-actions {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+    grid-template-columns: auto auto;
+    gap: 30px;
+    font-family: Calibri, sans-serif;
+    font-size: 18px;
+    color: #999;
+    margin-top: 10px;
     margin-bottom: 20px;
-    width: 100%;
-}
-
-.group-actions button {
-    background-color: #4a148c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.group-actions button:hover {
-    background-color: #6a1b9a;
+    justify-content: center;
 }
 
 .add-user-input {
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    margin-top: 20px;
     width: 100%;
+    font-family: Calibri, sans-serif;
+    margin-bottom: 25px;
 }
 
 .add-user-input input {
@@ -178,27 +109,81 @@
     margin-right: 10px;
     font-size: 16px;
     width: 50%;
+    font-family: Calibri, sans-serif;
 }
 
 .add-user-input button {
-    background-color: #4a148c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    width: 50%;
+    background-color: mediumpurple;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
 }
 
 .add-user-input button:hover {
-    background-color: #6a1b9a;
+    background-color: rebeccapurple;
 }
 
+.add-user-select-GD {
+    width: 250px; /* Set the desired width */
+    border-radius: 50px;
+    padding: 0px 20px;
+    font-size: 17px;
+    height: 20px;
+    font-family: 'Calibri Light', sans-serif;
+}
+
+.add-user-select-GD
+.add-user-select-GD__control {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque background for better readability */
+    border: 1px solid #999; /* Match with your design palette */
+    border-radius: 50px;
+    color: black;
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    padding: 10px;
+    height: 20px;
+    align-content: center;
+}
+
+.add-user-select-GD
+.add-user-select-GD__indicator {
+    color: mediumpurple; /* Match the border or other design elements */
+}
+
+.add-user-select-GD
+.add-user-select-GD__menu {
+    background-color: #fff; /* Ensure good contrast with text */
+    border: 1px solid #7a77a2; /* Match with your design palette */
+}
+
+.add-user-select-GD
+.add-user-select-GD__option--is-focused {
+    background-color: #e0e0e0; /* Lighter color for focused state */
+    color: black;
+}
+
+.add-user-select-GD
+.add-user-select-GD__option--is-selected {
+    background-color: mediumpurple; /* Color when selected */
+    color: white;
+}
+
+
+
 .user-list {
-    margin-top: 20px;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 91%;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-family: 'Calibri', sans-serif;
+    margin: 0 auto; /* Center horizontally within its parent */
 }
 
 .user-list ul {
@@ -208,6 +193,9 @@
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;  /* Center list items */
+    font-family: 'Calibri';
+    color: black;
+    font-size: 18px;
 }
 
 .user-list li {
@@ -217,34 +205,28 @@
     padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;  /* Center text inside list items */
-    flex: 1 1 20%; /* Allow up to 5 items per row, adjust as needed */
-    max-width: 23%; /* Ensure items wrap correctly */
+    width: 150px; /* Fixed width for all items */
+    box-sizing: border-box; /* Include padding and border in the width */
+    font-family: 'Calibri', sans-serif;
+    font-size: 19px;
+    font-weight: bold;
 }
 
 .get-playlist-btn {
-    display: block;
-    margin: 20px auto;
-    background-color: #4a148c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    width: 50%;
+    background-color: mediumpurple;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    margin-top: 20px;
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    font-size: 17px;
 }
 
 .get-playlist-btn:hover {
-    background-color: #6a1b9a;
-}
-
-.add-user-select-GD {
-    width: 250px; /* Set the desired width */
-    border-radius: 5px;
-    padding: 0px 20px;
-    font-size: 16px;   
-    height: 20px;
+    background-color: rebeccapurple;
 }
 
 .modal-overlay {
@@ -316,7 +298,6 @@
     border: none;
     font-size: 24px; /* Adjust size as needed */
     cursor: pointer;
-    color: #800000;
     position: absolute;
     transform: translateY(-50%);
     left: 93%;
@@ -330,11 +311,12 @@
 }
 .like-button img {
     height: 30px;
-    transition: transform 0.2s ease-in-out; /* Add transition effect */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
 .like-button:hover img {
     transform: scale(1.1); /* Enlarge the logo image on hover */
+    opacity: 0.8;
 }
 
 
@@ -343,7 +325,6 @@
     border: none;
     font-size: 24px; /* Adjust size as needed */
     cursor: pointer;
-    color: #800000;
     position: absolute;
     transform: translateY(-50%);
     left: 86%;
@@ -357,11 +338,12 @@
 }
 .unlike-button img {
     height: 30px;
-    transition: transform 0.2s ease-in-out; /* Add transition effect */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
 .unlike-button:hover img {
     transform: scale(1.1); /* Enlarge the logo image on hover */
+    opacity: 0.8;
 }
 
 
@@ -373,11 +355,11 @@
 }
 
 .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #09f;
+    border: 8px solid rgba(0, 0, 0, 0.2);
+    border-left-color: #82CBDF;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
+    width: 55px;
+    height: 55px;
     animation: spin 1s linear infinite;
 }
 
@@ -394,16 +376,17 @@
     max-height: 20vh; /* Adjust this value as needed to limit the visible height */
     overflow-y: auto;
     padding: 20px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Calibri', sans-serif;
 }
 
 
 .play-list-container-gd {
-    max-height: 55vh; /* Adjust this value as needed to limit the visible height */
+    max-height: 30vh; /* Adjust this value as needed to limit the visible height */
     overflow-y: auto;
     padding: 20px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Calibri', sans-serif;
     width: 100%;
+    background-color: forestgreen;
 }
 
 .song-card-gd {
@@ -446,4 +429,21 @@
     font-size: 16px;
     transition: background-color 0.3s ease;
     margin: 0 10px; /* Add margin between buttons */
+}
+
+.no-playlist-found {
+    color: #82CBDF;
+    font-size: 22px;
+    margin-top: 80px;
+    font-family: 'Calibri', sans-serif;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text horizontally */
+}
+
+.no-playlist-found img {
+    margin-top: -10px;
+    height: 100px; /* Adjust the height as needed */
+    width: 100px; /* Adjust the width as needed */
 }

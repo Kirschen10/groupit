@@ -61,7 +61,7 @@ function Profile() {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/Notifications on.svg');
+                        setNotificationImage('/Images/Notification on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);

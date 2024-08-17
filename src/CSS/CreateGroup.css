@@ -20,8 +20,8 @@
 
 .Home-page-button {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 6%; /* Adjust as needed */
-    left: 2%; /* Adjust as needed */
+    top: 5.5vh; /* Adjust as needed */
+    left: 2vw; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
@@ -39,8 +39,8 @@
 
 .profile-button {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 7%; /* Adjust as needed */
-    right: 2%; /* Adjust as needed */
+    top: 7vh; /* Adjust as needed */
+    right: 2vw; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
@@ -58,8 +58,8 @@
 
 .question-mark-button {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 7%; /* Adjust as needed */
-    right: 7%; /* Adjust as needed */
+    top: 7vh; /* Adjust as needed */
+    right: 6vw; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
@@ -77,8 +77,8 @@
 
 .notification-button {
     position: absolute; /* Positions the logo absolutely within the container */
-    top: 7%; /* Adjust as needed */
-    right: 12%; /* Adjust as needed */
+    top: 7vh; /* Adjust as needed */
+    right: 10vw; /* Adjust as needed */
     z-index: 9999; /* Ensure the button appears above other content */
     cursor: pointer; /* Show cursor as pointer on hover */
     border: none; /* Remove border */
