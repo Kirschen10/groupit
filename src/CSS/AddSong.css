@@ -13,11 +13,12 @@
     background-color: mediumpurple;
     color: white;
     border: none;
-    border-radius: 5px;
-    margin-bottom: -10px; /* Distance from the bottom of the container */
+    border-radius: 50px;
+    margin-top: 20px;
     font-family: 'Calibri', sans-serif;
     font-weight: bold;
     font-size: 17px;
+    position: sticky;
 }
 
 
@@ -116,7 +117,7 @@
 }
 
 .no-artist-found {
-    color: #82CBDF; /* Orange color */
+    color: #82CBDF;
     font-size: 22px;
     margin-top: 80px;
     font-family: 'Calibri', sans-serif;

@@ -1,239 +1,214 @@
-/* General Styles */
-.background-joinGroup {
-    background-image: url('/public/Images/Home Page Background.svg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    width: 100%;
+.background-JoinGroup {
+    background-image: url('/public/Images/Create + Join Grop Backround.svg');
+    background-size: cover; /* Adjusts the background size to be responsive */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    width: 100%; /* Full width of the viewport */
     min-height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Prevents overflow issues */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center; /* Align items to the start of the container */
     align-items: center;
     text-align: center;
-    position: relative;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    position: relative; /* Allows positioning of the logo */
+    padding-top: 5vh; /* Add padding to move content down a bit */
+    padding-bottom: 5vh; /* Add padding to move content down a bit */
 }
 
 .container-joinGroup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 500px;
-    padding: 40px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    font-family: 'calibri', sans-serif;
+    position: relative;
+    top: 10%;
+    width: 65%;
+    background-color: rgba(255, 255, 255, 0); /* Transparent background */
     text-align: center;
+    min-height: 60vh;  /* Set a minimum height */
 }
 
-/* Button Styles */
-.homeButton-joinGroup,
-.profileButton-joinGroup,
-.questionButton-joinGroup {
-    position: absolute;
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    z-index: 9999;
-}
-
-.homeButton-joinGroup {
-    top: 6%;
-    left: 3%;
-}
-
-.homeButton-joinGroup img {
-    height: 70px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.homeButton-joinGroup:hover img {
-    transform: scale(1.1);
-}
-
-.profileButton-joinGroup {
-    top: 7%;
-    right: 8%;
-}
-
-.profileButton-joinGroup img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.profileButton-joinGroup:hover img {
-    transform: scale(1.1);
-}
-
-.questionButton-joinGroup {
-    top: 7%;
-    right: 3%;
-}
-
-.questionButton-joinGroup img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.questionButton-joinGroup:hover img {
-    transform: scale(1.1);
-}
-
-/* Join Group Styles */
 .container-joinGroup h2 {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 3vw;
+    font-weight: 800; /* Make the headline very bold */
+    color: #fff;
+    margin-top: -35px;
+    font-family: Montserrat, sans-serif;
+    line-height: 1.2; /* Adjust line height if needed */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* White shadow with 80% opacity */
 }
 
 .container-joinGroup h3 {
-    color: #666;
-    margin-bottom: 15px;
-    font-size: 18px;
-    text-align: left;
+    font-size: 42px;
+    font-weight: 2000; /* Make the headline very bold */
+    color: #a0d0dd;
+    font-family: "Calibri";
+    text-align: center;
+    line-height: 1; /* Adjust line height if needed */
 }
 
-.container-joinGroup input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+/*.sub-container-join-group {*/
+/*    background-color: rgba(255, 255, 255, 0.2); !* White background with opacity *!*/
+/*    border-radius: 3px; !* Rounded corners *!*/
+/*    width: 100%; !* Adjust width as needed *!*/
+/*    padding: 20px; !* Padding inside the container *!*/
+/*    text-align: center; !* Center the text *!*/
+/*    margin: 0 auto; !* Center horizontally within its parent *!*/
+/*}*/
+
+.option-buttons-joinGroup {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-.container-joinGroup button {
-    width: 100%;
+.bigButton-joinGroup {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.bigButton-joinGroup img {
+    height: 12vw; /* Adjust the size of the button images */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.bigButton-joinGroup:hover img {
+    transform: scale(1.1); /* Enlarge the button image on hover */
+}
+
+.form-join-group-by-ID {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.form-join-group-by-ID input[type="text"] {
+    width: 15%;
     padding: 12px;
+    border: 2px solid white; /* Set the border color */
+    border-radius: 50px; /* Set the border radius to 50px */
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    text-align: center;
+    background-color: white; /* Set the background color */
+    color: #333; /* Set the text color */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Add transition effects */
+    margin: 0px;
+}
+
+.form-join-group-by-ID input:focus {
+    border-color: mediumpurple; /* Change border color on focus */
+}
+
+.form-join-group-by-ID button {
+    padding: 10px 20px;
+    background-color: mediumpurple;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 50px;
     cursor: pointer;
+    height: 50px;
     transition: background-color 0.3s;
-    background-color: #8925C7;
-}
-
-.container-joinGroup button:hover {
-    opacity: 0.8;
-}
-
-/* Group List Styles */
-.groupList-joinGroup {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0;
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.groupListItem-joinGroup {
-    background-color: #f9f9f9;
-    padding: 10px 15px;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.groupHeader-joinGroup {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.groupName-joinGroup {
-    font-size: 18px;
-    color: black;
+    margin: 0px;
+    font-family: 'Calibri', sans-serif;
     font-weight: bold;
+    font-size: 17px;
 }
 
-.groupID-joinGroup {
-    font-size: 14px;
-    color: gray;
-    margin-left: 10px;
+.form-join-group-by-ID button:hover {
+    background-color: rebeccapurple;
 }
 
-.groupButtons-joinGroup {
-    display: flex;
-    gap: 10px;
+.content-box-joingroup {
+    background-color: rgba(255, 255, 255, 0.2); /* White background with opacity */
+    border-radius: 3px; /* Rounded corners */
+    width: 90%; /* Adjust width as needed */
+    padding: 20px; /* Padding inside the container */
+    text-align: center; /* Center the text */
+    margin: 0 auto; /* Center horizontally within its parent */
 }
 
-.infoButton-joinGroup {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    background-color: #bbb;
-}
 
-.joinButton-joinGroup {
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    background-color: #34a853;
-}
-
-.joinButton-joinGroup:hover {
-    background-color: #2c8a42;
-}
-
-/* Group Details Styles */
-.groupDetails-joinGroup {
-    display: none;
+.modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
+    background-color: white;
     padding: 20px;
-    border: 3px solid #eee;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
-    max-width: 80%;
-    width: 400px;
-    text-align: left;
-    font-family: 'Arial', sans-serif;
-    border-color: #8925C7;
 }
 
-.groupDetails-joinGroup.visible {
-    display: block;
-}
-
-.groupDetails-joinGroup h3 {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 10px;
+.modal-content {
     text-align: center;
 }
 
-.groupDetails-joinGroup p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 10px;
+.modal button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    margin-top: 20px;
+    color: red;
+    font-weight: bold;
+}
+
+
+/*OLD*/
+
+
+
+
+/*!* Group Details Styles *!*/
+/*.groupDetails-joinGroup {*/
+/*    display: none;*/
+/*    position: fixed;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    background-color: #ffffff;*/
+/*    padding: 20px;*/
+/*    border: 3px solid #eee;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);*/
+/*    z-index: 1000;*/
+/*    max-width: 80%;*/
+/*    width: 400px;*/
+/*    text-align: left;*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    border-color: #8925C7;*/
+/*}*/
+
+/*.groupDetails-joinGroup.visible {*/
+/*    display: block;*/
+/*}*/
+
+/*.groupDetails-joinGroup h3 {*/
+/*    font-size: 22px;*/
+/*    color: #333;*/
+/*    margin-bottom: 10px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.groupDetails-joinGroup p {*/
+/*    font-size: 16px;*/
+/*    color: #666;*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
 .detailItem-joinGroup {
     display: flex;

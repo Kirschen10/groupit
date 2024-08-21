@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import './CSS/GroupDetails.css';
 import {useUser} from "./UserContext";
+import Notifications from "./Notifications";
 
 const GroupDetails = () => {
     const location = useLocation();
@@ -35,6 +36,7 @@ const GroupDetails = () => {
     const [originalGroupDescription, setOriginalGroupDescription] = useState(currentGroup.groupDescription); // State to store original group's description
     const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
 
     const resetFeedbackMessage = () => {
         setFeedbackMessage('');
@@ -336,8 +338,13 @@ const GroupDetails = () => {
     };
 
     const handleNotification =() =>{
-        navigate('/Notifications')
-    }
+        setShowNotifications(true);
+    };
+
+    const closeNotificationPopup = () => {
+        setShowNotifications(false);
+    };
+
     const handleStarClick = (trackID) => {
         if (likedSongs[trackID]) {
             // If already liked, remove feedback
@@ -488,129 +495,96 @@ const GroupDetails = () => {
 return (
     <div className="background-group-details">
         <div>
-            <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
-                <img src={notificationImage} alt="Notifications" />
-            </span>
-        </div>
-        <div>
             <span className="Home-page-button" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
         </div>
-        <div>
-            <span className="profile-button" onClick={handleProfile}>
-                <img src="/Images/user.svg" alt="Profile" />
-            </span>
+        <div className="top-buttons-container">
+            <div>
+                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                    <img src={notificationImage} alt="Notifications" />
+                </span>
+            </div>
+            <div>
+                <span className="profile-button" onClick={handleProfile}>
+                    <img src="/Images/user.svg" alt="Profile" />
+                </span>
+            </div>
+            <div>
+                <span className="question-mark-button" onClick={handleQuestions}>
+                    <img src="/Images/question.svg" alt="Question" />
+                </span>
+            </div>
         </div>
-        <div>
-            <span className="question-mark-button" onClick={handleQuestions}>
-                <img src="/Images/question.svg" alt="Question" />
-            </span>
-        </div>
-        <div className="group-details-container">
-            <h1 className="group-header">
-                {isEditing ? (
-                    <div className="edit-group-name">
-                        <label>Group name:</label>
+        {isEditing ? (
+            <form onSubmit={handleSaveClick} className="info-container-edit">
+            <h2>Edit Group Information</h2>
+            <div className="info-content-edit">
+                <div>
+                    <p>
+                        <span className="label">Group Name:</span>
                         <input
                             type="text"
+                            name="groupName"
                             value={groupName}
                             onChange={(e) => setGroupName(e.target.value)}
-                            className="edit-input"
                         />
-                    </div>
-                ) : (
-                    currentGroup.groupName
-                )}
-            </h1>
-            <div className="group-info">
-                {isEditing ? (
-                    <div className="edit-group-description">
-                        <label>Group description:</label>
-                        <textarea
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <span className="label">Group Description:</span>
+                        <input
+                            type="text"
+                            name="groupDescription"
                             value={groupDescription}
                             onChange={(e) => setGroupDescription(e.target.value)}
-                            className="edit-textarea"
                         />
-                    </div>
-                ) : (
-                    <span>{currentGroup.groupDescription}</span>
-                )}
-            </div>
-            {isEditing && (
-                <div className="edit-info">
-                    <p>Editing Group's Name and Description</p>
+                    </p>
                 </div>
+                <div className="buttons">
+                        <button onClick={handleSaveClick} type="submit">Save</button>
+                        <button onClick={handleCancelClick} type="button">Cancel</button>
+                </div>
+            </div>
+            </form>
+        ) : (
+            <div className="group-details-container">
+                <span className="group-header"> {currentGroup.groupName} </span>
+                <span className="group-info">{currentGroup.groupDescription}</span>
+                <div className="group-info-row">
+                    <span><strong>Group ID:</strong> {currentGroup.groupID}</span>
+                    <span><strong>Date of Formation:</strong> {new Date(currentGroup.createdAt).toLocaleDateString()}</span>
+                </div>
+                <div className="buttons">
+                    <button onClick={handleEditClick}>
+                        <img src="/Images/edit icon.svg" alt="Edit" /> Edit
+                    </button>
+                    <button onClick={handleLeaveGroup}>
+                        <img src="/Images/sign out icon.svg" alt="Leave Group" /> Leave Group
+                    </button>
+                    {leaveGroupFeedbackMessage && <p className="feedback-message">{leaveGroupFeedbackMessage}</p>}
+                </div>
+            </div>
             )}
             {groupUpdateFeedbackMessage && <p className="feedback-message">{groupUpdateFeedbackMessage}</p>}
-            <div className="group-info group-info-row">
-                <span><strong>Group ID:</strong> {currentGroup.groupID}</span>
-                <span><strong>Date of Formation:</strong> {new Date(currentGroup.createdAt).toLocaleDateString()}</span>
-            </div>
-            <div className="group-actions">
-                {isEditing ? (
-                    <>
-                        <button onClick={handleSaveClick}>Save</button>
-                        <button onClick={handleCancelClick}>Cancel</button>
-                    </>
+
+        <div className="content-container">
+            <div className="content-box">
+                <h2>Group's Playlist</h2>
+                {loading && <div className="loading-indicator"><div className="spinner"></div></div>}
+                {playlist.length === 0 && !loading ? (
+                    <div className="no-playlist-found">
+                        <p>This group doesn't have a playlist yet. Feel free to generate one :)</p>
+                        <img src="/Images/not fount.svg" alt="Sad Smiley" />
+                    </div>
                 ) : (
-                    <button className="maymay" onClick={handleEditClick}>Edit</button>
-                )}
-                <button onClick={handleLeaveGroup}>Leave Group</button>
-                {leaveGroupFeedbackMessage && <p className="feedback-message">{leaveGroupFeedbackMessage}</p>}
-            </div>
-            <div className="add-user-input">
-                <Select
-                    options={availableUsers}
-                    value={newUser}
-                    onChange={(selectedOption) => {
-                        resetFeedbackMessage();
-                        setNewUser(selectedOption);
-                    }}
-                    placeholder="Enter user name"
-                    isClearable
-                    className="add-user-select-GD" // Apply custom CSS class
-                />
-                <button onClick={handleAddUser}>Add User</button>
-                {addUserErrorMessage && <p className="error-message">{addUserErrorMessage}</p>}
-                {addUserFeedbackMessage && <p className="feedback-message">{addUserFeedbackMessage}</p>}
-            </div>
-            <div className="user-list">
-                <h2>Group Members</h2>
-                {errorGroupUsersMessage && <p className="error-message">{errorGroupUsersMessage}</p>}
-                <ul>
-                    {users.map((user, index) => (
-                        <li key={index}>{user}</li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className="user-list">
-                <h2>Waiting for Response</h2>
-                <ul>
-                    {pendingUsers.map((user, index) => (
-                        <li key={index}>{user}</li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className="all-users">
-                {errorAllUsersMessage && <p className="error-message">{errorAllUsersMessage}</p>}
-            </div>
-            <h2>Group's Playlist</h2>
-            {loading && <div className="loading-indicator"><div className="spinner"></div></div>}
-            {playlist.length === 0 && !loading ? (
-                <div className="no-playlist-message">
-                    <p>This group doesn't have a playlist. Feel free to generate one :)</p>
-                </div>
-            ) : (
-                <div className="play-list-container-gd">
-                    <ul>
+                    <div className="play-list-container">
                         {playlist.map((song, index) => (
-                            <div key={index} className="song-card-gd">
-                                <div className="song-info-gd">
-                                    <span className="song-name-gd">{song.trackName}</span>
-                                    <span className="song-artist-gd">{song.artistName}</span>
+                            <div key={index} className="song-card">
+                                <div className="song-info">
+                                    <span className="song-name">{song.trackName}</span>
+                                    <span className="song-artist">{song.artistName}</span>
                                     <span className="like-button" onClick={() => handleStarClick(song.trackID)}>
                                         <img src={likedSongs[song.trackID] ? "/Images/like.svg" : "/Images/empty like.svg"}
                                             alt="Like" />
@@ -622,34 +596,79 @@ return (
                                 </div>
                             </div>
                         ))}
+                    </div>
+                )}
+                <button className="get-playlist-btn" onClick={handleGetPlaylist}>Refresh Our Playlist</button>
+            </div>
+            <div className="content-box">
+                <div className="user-list">
+                    <h2>Group Members</h2>
+                    {errorGroupUsersMessage && <p className="error-message">{errorGroupUsersMessage}</p>}
+                    <ul>
+                        {users.map((user, index) => (
+                            <li key={index}>{user}</li>
+                        ))}
                     </ul>
                 </div>
-            )}
-            <button className="get-playlist-btn" onClick={handleGetPlaylist}>Refresh Our Playlist</button>
-        </div>
+                <h3>Invite someone to join</h3>
+                <div className="add-user-input">
+                    <Select
+                        options={availableUsers}
+                        value={newUser}
+                        onChange={(selectedOption) => {
+                            resetFeedbackMessage();
+                            setNewUser(selectedOption);
+                        }}
+                        placeholder="Enter user name"
+                        isClearable
+                        className="add-user-select-GD" // Apply custom CSS class
+                        classNamePrefix="add-user-select-GD"
+                    />
+                    <button onClick={handleAddUser}>Add User</button>
+                    {addUserErrorMessage && <p className="error-message">{addUserErrorMessage}</p>}
+                    {addUserFeedbackMessage && <p className="feedback-message">{addUserFeedbackMessage}</p>}
+                </div>
+                <div className="user-list">
+                    <h2>Waiting for Response</h2>
+                    <ul>
+                        {pendingUsers.map((user, index) => (
+                            <li key={index}>{user}</li>
+                        ))}
+                    </ul>
+                </div>
 
+                <div className="all-users">
+                    {errorAllUsersMessage && <p className="error-message">{errorAllUsersMessage}</p>}
+                </div>
+            </div>
+        </div>
         {showModal && (
-            <div className="modal-overlay">
-                <div className="modal-content">
-                    <h2>Confirm Leave Group</h2>
-                    <p>Are you sure you want to leave the group?<br /> This action cannot be undone.</p>
-                    <div className="modal-buttons">
-                        <button className="modal-button modal-cancel-button" onClick={cancelLeaveGroup}>Cancel</button>
-                        <button className="modal-button" onClick={confirmLeaveGroup}>Confirm</button>
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Confirm Leave Group</h2>
+                        <p>Are you sure you want to leave the group?<br /> This action cannot be undone.</p>
+                        <div className="modal-buttons">
+                            <button className="modal-button modal-cancel-button" onClick={cancelLeaveGroup}>Cancel</button>
+                            <button className="modal-button" onClick={confirmLeaveGroup}>Confirm</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        )}
+            )}
 
-        {showSuccessModal && (
-            <div className="modal-overlay">
-                <div className="modal-content">
-                    <h2>Successfully Left the Group</h2>
-                    <p>You have been successfully removed from the group.</p>
-                    <p>Redirecting to profile page in <strong>{countdown}</strong></p>
+            {showSuccessModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Successfully Left the Group</h2>
+                        <p>You have been successfully removed from the group.</p>
+                        <p>Redirecting to profile page in <strong>{countdown}</strong></p>
+                    </div>
                 </div>
-            </div>
-        )}
+            )}
+        {showNotifications && (
+                <div className="popup-overlay">
+                    <Notifications onClose={closeNotificationPopup} /> {/* Render the Notifications component */}
+                </div>
+            )}
     </div>
 );
 

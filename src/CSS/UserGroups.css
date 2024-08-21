@@ -49,14 +49,15 @@ body::-webkit-scrollbar-thumb:hover {
     background: rebeccapurple; /* Color of the scrollbar thumb when hovered */
 }
 
-
 /* Style for each group card */
 .group-card {
+    position: relative;
     flex: 0 0 auto; /* Prevent flex items from shrinking or growing */
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 280px;
+    width: 270px;
+    height: 60vh;
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 30px;
@@ -65,6 +66,7 @@ body::-webkit-scrollbar-thumb:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    margin-top: -15px;
 }
 
 /* Hover effect for the group card */
@@ -91,6 +93,10 @@ body::-webkit-scrollbar-thumb:hover {
 /* Container for group information */
 .group-info {
     text-align: center;
+    flex-grow: 1; /* Allow it to take up remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space out content to prevent overlap */
 }
 
 /* Style for group name */
@@ -98,7 +104,6 @@ body::-webkit-scrollbar-thumb:hover {
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
-    text-align: center;
     font-family: 'Calibri', sans-serif;
     font-size: 23px;
 }
@@ -107,16 +112,20 @@ body::-webkit-scrollbar-thumb:hover {
 .group-description {
     color: #666;
     margin-bottom: 15px;
-    text-align: center;
     font-family: 'Calibri', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Show only 4 lines */
+    -webkit-box-orient: vertical;
 }
+
 
 /* Style for created at date and user count */
 .group-details {
     color: #999;
-    margin-bottom: 5px;
-    text-align: center;
+    margin-bottom: 40px;
     font-family: 'Calibri', sans-serif;
     font-size: 18px;
 }
@@ -127,12 +136,16 @@ body::-webkit-scrollbar-thumb:hover {
     background-color: mediumpurple;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: 'Calibri', sans-serif;
     font-weight: bold;
     font-size: 17px;
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center the button */
 }
 
 .edit-button:hover {

@@ -5,6 +5,7 @@ import Playlist from './Playlist';
 import UserGroups from './UserGroups';
 import './CSS/Profile.css';
 import axios from "axios";
+import Notifications from "./Notifications";
 
 function Profile() {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ function Profile() {
     const [error, setError] = useState('');
     const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
 
 
     useEffect(() => {
@@ -61,7 +63,7 @@ function Profile() {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/Notifications on.svg');
+                        setNotificationImage('/Images/Notification on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);
@@ -102,8 +104,12 @@ function Profile() {
     };
 
     const handleNotification =() =>{
-        navigate('/Notifications')
-    }
+        setShowNotifications(true);
+    };
+
+    const closeNotificationPopup = () => {
+        setShowNotifications(false);
+    };
 
     const handleCancel = () => {
         setEditMode(false);
@@ -236,19 +242,21 @@ function Profile() {
 
     return (
         <div className="background-profile">
-            <div>
-                <span className={`notification-button-profile ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
-                    <img src={notificationImage} alt="Notifications" />
-                </span>
-            </div>
-            <div>
-                <span className="question-mark-button-profile" onClick={handleQuestions}>
-                    <img src="/Images/question.svg" alt="Question" />
-                </span>
-            </div>
             <span className="Home-page-button-profile" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
+            <div className="top-buttons-container">
+                <div>
+                    <span className={`notification-button-profile ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                        <img src={notificationImage} alt="Notifications" />
+                    </span>
+                </div>
+                <div>
+                    <span className="question-mark-button-profile" onClick={handleQuestions}>
+                        <img src="/Images/question.svg" alt="Question" />
+                    </span>
+                </div>
+            </div>
             {editMode ? (
                 <form onSubmit={handleSubmit} className="info-container-edit">
                     <h2>Edit Personal Information</h2>
@@ -379,6 +387,11 @@ function Profile() {
                     <UserGroups userID={userID} />
                 </div>
             </div>
+            {showNotifications && (
+                <div className="popup-overlay">
+                    <Notifications onClose={closeNotificationPopup} /> {/* Render the Notifications component */}
+                </div>
+            )}
         </div>
     );
 }

@@ -63,7 +63,7 @@ const Playlist = ({ userID }) => {
             ) : (
                 <>
                     {songs.length === 0 ? (
-                        <div>No Songs found for this user.</div>
+                        <div>No Songs found for this user</div>
                     ) : (
                         songs.map((song, index) => (
                             <div
@@ -92,6 +92,7 @@ const Playlist = ({ userID }) => {
                     </button>
                 </>
             )}
+
             {showModal && (
                 <div className="modal-overlay-Playlist">
                     <div className="modal-content-Playlist">

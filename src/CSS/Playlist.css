@@ -3,6 +3,7 @@
     overflow-y: auto;
     padding: 20px;
     font-family: 'Calibri', sans-serif;
+    width: 91%;
 }
 
 .song-card {

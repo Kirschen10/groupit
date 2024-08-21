@@ -473,10 +473,10 @@ app.get('/find-groups', async (req, res) => {
             FROM groups_data g
                      JOIN group_user gu ON g.groupID = gu.groupID
             WHERE g.groupID NOT IN (
-                SELECT groupID
-                FROM group_user
-                WHERE userID = ${userID}
-            )
+                            SELECT groupID
+                            FROM group_user
+                            WHERE userID = ${userID}
+                        )
               AND gu.userID IN (${userIDsParameter})
         `;
 

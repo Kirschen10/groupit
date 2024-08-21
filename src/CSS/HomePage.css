@@ -13,69 +13,12 @@
     align-items: center;
     text-align: center;
     position: relative; /* Allows positioning of the logo */
-    margin: 0; /* Ensure there is no margin around the element */
-    padding: 0; /* Ensure there is no padding around the element */
+    padding-top: 0; /* Add padding to move content down a bit */
+    padding-bottom: 5vh; /* Add padding to move content down a bit */
 }
 
 body::-webkit-scrollbar {
     display: none;
-}
-
-.profile-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 7%; /* Adjust as needed */
-    right: 2%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.profile-button img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.profile-button:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
-}
-
-.question-mark-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 7%; /* Adjust as needed */
-    right: 7%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.question-mark-button img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.question-mark-button:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
-}
-
-.notification-button {
-    position: absolute; /* Positions the logo absolutely within the container */
-    top: 7%; /* Adjust as needed */
-    right: 12%; /* Adjust as needed */
-    z-index: 9999; /* Ensure the button appears above other content */
-    cursor: pointer; /* Show cursor as pointer on hover */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-}
-
-.notification-button img {
-    height: 60px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.notification-button:hover img {
-    transform: scale(1.1); /* Enlarge the logo image on hover */
 }
 
 .notification-button.popup {
@@ -95,7 +38,7 @@ body::-webkit-scrollbar {
 }
 
 .headline-home-page {
-    font-size: 100px;
+    font-size: 6vw;
     font-weight: 900; /* Make the headline very bold */
     color: #fff;
     margin-bottom: 5%;
@@ -103,7 +46,6 @@ body::-webkit-scrollbar {
     font-family: Montserrat, sans-serif;
     line-height: 1.2; /* Adjust line height if needed */
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* White shadow with 80% opacity */
-
 }
 
 .button-container {
@@ -119,7 +61,7 @@ body::-webkit-scrollbar {
 }
 
 .create-group-button img {
-    height: 180px; /* Adjust the size of the button images */
+    height: 10vw; /* Adjust the size of the button images */
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
@@ -134,10 +76,48 @@ body::-webkit-scrollbar {
 }
 
 .join-group-button img {
-    height: 180px; /* Adjust the size of the button images */
+    height: 10vw; /* Adjust the size of the button images */
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
 .join-group-button:hover img {
     transform: scale(1.1); /* Enlarge the button image on hover */
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: mediumpurple;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-family: Calibri, sans-serif;
+    font-weight: bold;
+    color: white;
 }

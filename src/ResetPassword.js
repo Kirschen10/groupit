@@ -63,7 +63,7 @@ const ResetPassword = () => {
 
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!password.match(passwordRegex) || !passwordVerification.match(passwordRegex)) {
-            setError('Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+            setError('Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character');
             setShowErrorMessage(true)
             return;
         }
@@ -94,10 +94,10 @@ const ResetPassword = () => {
     }
 
   return (
-    <div className='background-ResetPassword'>
+    <div className='background-Registration'>
       <div className="ResetPassword-form">
         <img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock" />
-        <h2 className='h2-ResetPassword'>{username}, Please Enter New Password</h2>
+          <h2 className='h2-ResetPassword'>Hi {username},<br></br> Please Enter New Password</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group-ResetPassword">
             <div className="icon-container-ResetPassword">
@@ -124,16 +124,16 @@ const ResetPassword = () => {
               onChange={(e) => setPasswordVerification(e.target.value)}
               className="input-ResetPassword"
             />
-          </div>
-          {error && <p className="error-message-ResetPassword">{error}</p>}
-          {success && (
+            </div>
+            <button type="submit" className='button-ResetPassword'>Reset Password</button>
+            {error && <p className="error-message-ResetPassword">{error}</p>}
+            {success && (
             <p className="success-message-ResetPassword">
               {success}
               <br />
               Redirecting in {countdown} seconds...
             </p>
-          )}
-          <button type="submit" className='button-ResetPassword'>Reset Password</button>
+            )}
         </form>
       </div>
     </div>
