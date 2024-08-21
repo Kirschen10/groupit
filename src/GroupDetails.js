@@ -506,13 +506,13 @@ return (
                 </span>
             </div>
             <div>
-                <span className="profile-button" onClick={handleProfile}>
-                    <img src="/Images/user.svg" alt="Profile" />
+                <span className="question-mark-button" onClick={handleQuestions}>
+                    <img src="/Images/question.svg" alt="Question" />
                 </span>
             </div>
             <div>
-                <span className="question-mark-button" onClick={handleQuestions}>
-                    <img src="/Images/question.svg" alt="Question" />
+                <span className="profile-button" onClick={handleProfile}>
+                    <img src="/Images/user.svg" alt="Profile" />
                 </span>
             </div>
         </div>
