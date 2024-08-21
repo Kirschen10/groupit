@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CSS/HomePage.css'; // Import CSS file
 import {useUser} from "./UserContext";
+import Notifications from './Notifications';
 
 
 function HomePage() {
@@ -9,6 +10,8 @@ function HomePage() {
     const { user } = useUser();
     const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
+
 
     useEffect(() => {
          const checkNotifications = async () => {
@@ -63,25 +66,31 @@ function HomePage() {
     };
 
     const handleNotification =() =>{
-        navigate('/Notifications')
-    }
+        setShowNotifications(true);
+    };
+
+    const closeNotificationPopup = () => {
+        setShowNotifications(false);
+    };
 
     return (
         <div className="background-homePage">
-            <div>
-                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
-                    <img src={notificationImage} alt="Notifications" />
-                </span>
-            </div>
-            <div>
-                <span className="profile-button" onClick={handleProfile}>
-                    <img src="/Images/user.svg" alt="Profile" />
-                </span>
-            </div>
-            <div>
-                <span className="question-mark-button" onClick={handleQuestions}>
-                    <img src="/Images/question.svg" alt="Question" />
-                </span>
+            <div className="top-buttons-container">
+                <div>
+                    <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                        <img src={notificationImage} alt="Notifications" />
+                    </span>
+                </div>
+                <div>
+                    <span className="question-mark-button" onClick={handleQuestions}>
+                        <img src="/Images/question.svg" alt="Question" />
+                    </span>
+                </div>
+                <div>
+                    <span className="profile-button" onClick={handleProfile}>
+                        <img src="/Images/user.svg" alt="Profile" />
+                    </span>
+                </div>
             </div>
             <h1 className="headline-home-page">What do you<br />wanna do today?</h1>
             <div className="button-container">
@@ -92,6 +101,12 @@ function HomePage() {
                     <img src="/Images/Join Group Button.svg" alt="Join Group" />
                 </button>
             </div>
+
+            {showNotifications && (
+                <div className="popup-overlay">
+                    <Notifications onClose={closeNotificationPopup} /> {/* Render the Notifications component */}
+                </div>
+            )}
         </div>
     );
 }

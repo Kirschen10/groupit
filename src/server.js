@@ -471,9 +471,13 @@ app.get('/find-groups', async (req, res) => {
         const queryText = `
             SELECT DISTINCT g.groupID, g.groupName, g.groupDescription, g.createdAt
             FROM groups_data g
-                     
-            WHERE g.groupName='Harmonic Vibes' or g.groupName = 'Rhythm Ravers' or g.groupName = 'Workout'
-            
+                     JOIN group_user gu ON g.groupID = gu.groupID
+            WHERE g.groupID NOT IN (
+                            SELECT groupID
+                            FROM group_user
+                            WHERE userID = ${userID}
+                        )
+              AND gu.userID IN (${userIDsParameter})
         `;
 
         const request = new sql.Request();

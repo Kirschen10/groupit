@@ -52,8 +52,12 @@ const UserGroups = ({ userID }) => {
                         <div className="group-info">
                             <div className="group-name">{group.groupName}</div>
                             <div className="group-description">{group.groupDescription}</div>                           
-                            <div className="group-details">Number of Users: {group.userCount}</div>
-                            <div className="group-details">Created at: {new Date(group.createdAt).toLocaleDateString()}</div>
+                            <div className="group-details">
+                                Number of Users: {group.userCount}
+                                <br>
+                                </br>
+                                Created at: {new Date(group.createdAt).toLocaleDateString()}
+                            </div>
                             <button className="edit-button" onClick={() => handleEditClick(group)}>Go To Group</button>
                         </div>
                     </div>

@@ -6,14 +6,27 @@
     height: 100vh;
 }
 
+.app h2 {
+    font-size: 3vw;
+    font-weight: 800; /* Make the headline very bold */
+    color: #fff;
+    margin-bottom: 3%;
+    margin-top: -5%; /* Remove any top margin */
+    font-family: Montserrat, sans-serif;
+    line-height: 1.2; /* Adjust line height if needed */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* White shadow with 80% opacity */
+}
+
 .Picker-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    grid-template-rows: repeat(3, 1fr); /* 3 rows */
-    gap: 30px;
-    width: 600px; /* Adjust width as needed */
-    height: 450px; /* Adjust height as needed */
+    grid-template-columns: repeat(5, 9vw); /* 4 columns */
+    grid-template-rows: repeat(3, 9vw); /* 3 rows */
+    gap: 20px;
+    width: 85%; /* Adjust width as needed */
+    height: 60%; /* Adjust height as needed */
     position: relative;
+    margin: 0 auto; /* Center the grid horizontally */
+    justify-content: center;
 }
 
 .Picker-button {
@@ -23,15 +36,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #8925C7;
+    border: 2px solid #82CBDF;
     background-color: #FFFFFF;
     color: #000000;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
+    font-family: Calibri, sans-serif;
+    font-size: 16px;
 }
 
 .Picker-button.selected {
-    background-color: #8925C7;
+    background-color: mediumpurple;
     color: #FFF;
 }
 
@@ -40,7 +55,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px; /* Adjust the gap between buttons */
-    margin-top: -80px;
+    position: relative;
   }
   
   .button-arrow {
@@ -60,25 +75,18 @@
     background-color: #ccc; /* Lighter color when button is disabled */
   }
 
-  h2-select-artists {
-    font-size: 40px; /* Adjust font size as needed */
-    font-weight: bold; /* Make the text bold */
-    color: #ffffff; /* Set the text color */
-    margin-bottom: 54px; /* Add some bottom margin for spacing */
-    text-align: center; /* Center-align the text */
-    letter-spacing: 0.5px; /* Add some letter spacing for emphasis */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Add a subtle text shadow */
-    font-family: Calibri, sans-serif; /* Specify Calibri as the preferred font */
-}
-
 .button-pagination-Lets-Continue{
-  width: 300px;
-  padding: 10px;
-  background-color: #8925C7; /* Blue color for the login button */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  width: 100%; /* Button takes up full width of the form group */
+    padding: 15px;
+    background-color: #82CBDF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: Montserrat;
+    font-size: 19px;
+    box-sizing: border-box; /* Ensure padding is included in the element's total width */
+    border-radius: 50px;
+    font-weight: bold;
 }
   
 

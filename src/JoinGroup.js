@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import './CSS/JoinGroup.css';
+import Notifications from "./Notifications";
 
 const JoinGroup = () => {
     const [groupID, setGroupID] = useState('');
@@ -17,8 +18,8 @@ const JoinGroup = () => {
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
-    const [showJoinGroupByID, setShowJoinGroupByID] = useState(false);
-
+    const [showNotifications, setShowNotifications] = useState(false);
+    const [showJoinGroupByID, setShowJoinGroupByID] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -219,9 +220,13 @@ const JoinGroup = () => {
         navigate(`/HomePage`);
     };
 
-    const handleNotification = () => {
-        navigate('/Notifications')
-    }
+    const handleNotification =() =>{
+        setShowNotifications(true);
+    };
+
+    const closeNotificationPopup = () => {
+        setShowNotifications(false);
+    };
 
     const toggleJoinGroupByID = () => {
         setShowJoinGroupByID(true);
@@ -234,26 +239,28 @@ const JoinGroup = () => {
     };
 
     return (
-        <div className="background-CreateGroup">
-            <div>
-                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
-                    <img src={notificationImage} alt="Notifications" />
-                </span>
-            </div>
+        <div className="background-JoinGroup">
             <div>
                 <span className="Home-page-button" onClick={handleHomePage}>
                     <img src="/Images/Logo.svg" alt="Logo" />
                 </span>
             </div>
-            <div>
-                <span className="profile-button" onClick={handleProfile}>
-                    <img src="/Images/user.svg" alt="Profile" />
-                </span>
-            </div>
-            <div>
-                <span className="question-mark-button" onClick={handleQuestions}>
-                    <img src="/Images/question.svg" alt="Question" />
-                </span>
+            <div className="top-buttons-container">
+                <div>
+                    <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                        <img src={notificationImage} alt="Notifications" />
+                    </span>
+                </div>
+                <div>
+                    <span className="question-mark-button" onClick={handleQuestions}>
+                        <img src="/Images/question.svg" alt="Question" />
+                    </span>
+                </div>
+                <div>
+                    <span className="profile-button" onClick={handleProfile}>
+                        <img src="/Images/user.svg" alt="Profile" />
+                    </span>
+                </div>
             </div>
             <div className="container-joinGroup">
                 <h2>Join Group</h2>
@@ -262,14 +269,14 @@ const JoinGroup = () => {
                     <div className="option-buttons-joinGroup">
                         <button className="bigButton-joinGroup"
                                 onClick={toggleJoinGroupByID}
-                                style={{ opacity: showJoinGroupByID ? 1 : 0.3 }}
+                                style={{ opacity: showJoinGroupByID === true ? 1 : showJoinGroupByID === false ? 0.3 : 1 }}
                         >
                             <img src="/Images/Join Group by ID.svg" alt="Join Group by ID" />
                         </button>
                         <h3>What do you prefer?</h3>
                         <button className="bigButton-joinGroup"
                                 onClick={toggleExploreGroups}
-                                style={{ opacity: showJoinGroupByID ? 0.3 : 1 }}
+                                style={{ opacity: showJoinGroupByID === false ? 1 : showJoinGroupByID === true ? 0.3 : 1 }}
                         >
                             <img src="/Images/Explore Groups.svg" alt="Explore Groups" />
                         </button>
@@ -299,8 +306,12 @@ const JoinGroup = () => {
                                     <div className="group-info">
                                         <div className="group-name">{group.groupName}</div>
                                         <div className="group-description">{group.groupDescription}</div>
-                                        <div className="group-details">Number of Users: {group.userCount}</div>
-                                        <div className="group-details">Created at: {new Date(group.createdAt).toLocaleDateString()}</div>
+                                        <div className="group-details">
+                                            Number of Users: {group.userCount}
+                                            <br>
+                                            </br>
+                                            Created at: {new Date(group.createdAt).toLocaleDateString()}
+                                        </div>
                                         <button className="edit-button" onClick={() => handleJoinFoundGroup(group.groupID)}>Join Group</button>
                                     </div>
                                 </div>
@@ -328,6 +339,11 @@ const JoinGroup = () => {
                     )}
                 </div>
             </div>
+            {showNotifications && (
+                <div className="popup-overlay">
+                    <Notifications onClose={closeNotificationPopup} /> {/* Render the Notifications component */}
+                </div>
+            )}
         </div>
     );
 };

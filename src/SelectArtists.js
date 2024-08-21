@@ -12,13 +12,6 @@ function SelectArtists() {
     const [error, setError] = useState('');
     const { username } = location.state || { username };
 
-    const backgroundStyle = {
-        backgroundImage: `url('/Images/Background_HomePage.svg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-    };
-
     useEffect(() => {
         fetch('http://localhost:8081/top-artists')
             .then(response => response.json())
@@ -47,7 +40,7 @@ function SelectArtists() {
     const [showSearch, setShowSearch] = useState(false);  // Controls the visibility of the search box
     const [selectedArtists, setSelectedArtists] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const artistsPerPage = 12;
+    const artistsPerPage = 15;
     const currentArtists = artists.slice(currentPage * artistsPerPage, (currentPage + 1) * artistsPerPage);
     console.log("artists", artists);
     const handleSelectArtist = (selectedOption) => {
@@ -95,7 +88,7 @@ function SelectArtists() {
     };
     
     return (
-        <div style={backgroundStyle}>
+        <div className="background-homePage">
             <div className="app">
                 <h2>Select Your 5 Favorite Artists </h2>  
                 {error && <div className="error">{error}</div>}       
@@ -106,17 +99,17 @@ function SelectArtists() {
                     onCompletion={handleCompletion} 
                     limit = {5}   
                 />
-                <br />
-               {showSearch && <ArtistSearch options={extraArtists.map(artist => ({ value: artist.id, label: artist.name }))} onSelect={handleSelectArtist} />}
             </div>
             <div className="pagination">
                     <button className="button-arrow" onClick={prevPage} disabled={currentPage === 0}>&#9664;</button>
                     <button className="button-arrow" onClick={handleClickPlus}>+</button>
                     <button className="button-arrow" onClick={nextPage} disabled={(currentPage + 1) * artistsPerPage >= artists.length}>&#9654;</button>
             </div>
+            {showSearch && <ArtistSearch options={extraArtists.map(artist => ({ value: artist.id, label: artist.name }))} onSelect={handleSelectArtist} />}
+
             <div className="pagination">
                 {selectedArtists.length === 5 && 
-                            <button className="button-pagination-Lets-Continue" onClick={handleClickContinue}>Let's Continue!</button>}
+                <button className="button-pagination-Lets-Continue" onClick={handleClickContinue}>Let's Continue!</button>}
             </div>
         </div>
     );

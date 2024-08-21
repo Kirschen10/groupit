@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import './CSS/GroupDetails.css';
 import {useUser} from "./UserContext";
+import Notifications from "./Notifications";
 
 const GroupDetails = () => {
     const location = useLocation();
@@ -35,6 +36,7 @@ const GroupDetails = () => {
     const [originalGroupDescription, setOriginalGroupDescription] = useState(currentGroup.groupDescription); // State to store original group's description
     const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
 
     const resetFeedbackMessage = () => {
         setFeedbackMessage('');
@@ -336,8 +338,13 @@ const GroupDetails = () => {
     };
 
     const handleNotification =() =>{
-        navigate('/Notifications')
-    }
+        setShowNotifications(true);
+    };
+
+    const closeNotificationPopup = () => {
+        setShowNotifications(false);
+    };
+
     const handleStarClick = (trackID) => {
         if (likedSongs[trackID]) {
             // If already liked, remove feedback
@@ -488,26 +495,27 @@ const GroupDetails = () => {
 return (
     <div className="background-group-details">
         <div>
-            <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
-                <img src={notificationImage} alt="Notifications" />
-            </span>
-        </div>
-        <div>
             <span className="Home-page-button" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
         </div>
-        <div>
-            <span className="profile-button" onClick={handleProfile}>
-                <img src="/Images/user.svg" alt="Profile" />
-            </span>
+        <div className="top-buttons-container">
+            <div>
+                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                    <img src={notificationImage} alt="Notifications" />
+                </span>
+            </div>
+            <div>
+                <span className="profile-button" onClick={handleProfile}>
+                    <img src="/Images/user.svg" alt="Profile" />
+                </span>
+            </div>
+            <div>
+                <span className="question-mark-button" onClick={handleQuestions}>
+                    <img src="/Images/question.svg" alt="Question" />
+                </span>
+            </div>
         </div>
-        <div>
-            <span className="question-mark-button" onClick={handleQuestions}>
-                <img src="/Images/question.svg" alt="Question" />
-            </span>
-        </div>
-
         {isEditing ? (
             <form onSubmit={handleSaveClick} className="info-container-edit">
             <h2>Edit Group Information</h2>
@@ -654,6 +662,11 @@ return (
                         <p>You have been successfully removed from the group.</p>
                         <p>Redirecting to profile page in <strong>{countdown}</strong></p>
                     </div>
+                </div>
+            )}
+        {showNotifications && (
+                <div className="popup-overlay">
+                    <Notifications onClose={closeNotificationPopup} /> {/* Render the Notifications component */}
                 </div>
             )}
     </div>

@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 import './CSS/CreateGroup.css';
+import Notifications from "./Notifications";
 
 const CreateGroup = message => {
     const [groupName, setGroupName] = useState('');
@@ -15,6 +16,7 @@ const CreateGroup = message => {
     const navigate = useNavigate();
     const [notificationImage, setNotificationImage] = useState('/Images/Notification.svg');
     const [showNotificationPopup, setShowNotificationPopup] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
     const [userID, setUserID] = useState(null);
 
     const { user } = useUser();
@@ -181,32 +183,38 @@ const CreateGroup = message => {
     };
 
     const handleNotification =() =>{
-        navigate('/Notifications')
-    }
+        setShowNotifications(true);
+    };
+
+    const closeNotificationPopup = () => {
+        setShowNotifications(false);
+    };
 
     const availableUsers = allUsers.filter(user => !users.some(selectedUser => selectedUser.userID === user.value));
 
     return (
     <div className="background-CreateGroup">
         <div>
-            <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
-                <img src={notificationImage} alt="Notifications" />
-            </span>
-        </div>
-        <div>
             <span className="Home-page-button" onClick={handleHomePage}>
                 <img src="/Images/Logo.svg" alt="Logo" />
             </span>
         </div>
-        <div>
-            <span className="profile-button" onClick={handleProfile}>
-                <img src="/Images/user.svg" alt="Profile" />
-            </span>
-        </div>
-        <div>
-            <span className="question-mark-button" onClick={handleQuestions}>
-                <img src="/Images/question.svg" alt="Question" />
-            </span>
+        <div className="top-buttons-container">
+            <div>
+                <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                    <img src={notificationImage} alt="Notifications" />
+                </span>
+            </div>
+            <div>
+                <span className="question-mark-button" onClick={handleQuestions}>
+                    <img src="/Images/question.svg" alt="Question" />
+                </span>
+            </div>
+            <div>
+                <span className="profile-button" onClick={handleProfile}>
+                    <img src="/Images/user.svg" alt="Profile" />
+                </span>
+            </div>
         </div>
         <div className="create-group-container">
             <h2>Create New Group</h2>
@@ -231,36 +239,50 @@ const CreateGroup = message => {
                     ></textarea>
                 </div>
                 <div className="user-add-container">
-                    <Select
-                        options={availableUsers}
-                        value={newUser}
-                        onChange={setNewUser}
-                        placeholder="Enter user name"
-                        isClearable
-                        className="react-select"
-                        classNamePrefix="react-select"
-                    />
-                    <button type="button" className="add-user-button" onClick={handleAddUser}>Add</button>
-                </div>
-                <div className="user-add-container">
+                    <div className="form-group">
+                        <Select
+                            options={availableUsers}
+                            value={newUser}
+                            onChange={setNewUser}
+                            placeholder="Enter user name"
+                            isClearable
+                            className="react-select"
+                            classNamePrefix="react-select"
+                        />
+                        <button className="add-user-button" onClick={handleAddUser}>
+                            Add
+                        </button>
+                    </div>
                     <div className="added-users">
-                        <h4>Added Users:</h4>
+                        <h3>Added Users:</h3>
+                    </div>
+                    <div className="added-users">
                         <ul>
                             {users.map((user, index) => (
                                 <li key={index}>
                                     {user.username}
-                                    <button type="button" className="remove-user-creategroup-button" onClick={() => handleRemoveUser(user.username)}>x</button>
+                                    <button
+                                        className="remove-user-creategroup-button"
+                                        onClick={() => handleRemoveUser(user.username)}
+                                    >x
+                                    </button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                 </div>
-                <button className={"button-CreateGroup"} onClick={handleCreateGroup}>
+                <button className="button-CreateGroup" onClick={handleCreateGroup}>
                     <img src="/Images/Create Group.svg" alt="Create Group" />
                 </button>
                 {error && <p className="error-message">{error}</p>}
             </form>
         </div>
+        {showNotifications && (
+                <div className="popup-overlay">
+                    <Notifications onClose={closeNotificationPopup} /> {/* Render the Notifications component */}
+                </div>
+            )}
+
         </div>
     );
 };

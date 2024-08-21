@@ -4,7 +4,7 @@ import { useUser } from './UserContext';
 import './CSS/Notifications.css'; // Create and import a CSS file for styling
 import axios from 'axios';
 
-function Notifications() {
+function Notifications({ onClose }) {
     const navigate = useNavigate();
     const { user } = useUser();
     const [notifications, setNotifications] = useState([]);
@@ -212,46 +212,30 @@ function Notifications() {
 
 
     return (
-        <div className="background-faq">
-            <div>
-                <span className="Home-page-button" onClick={handleHomePage}>
-                    <img src="/Images/Logo.svg" alt="Logo" />
-                </span>
-            </div>
-            <div>
-                <span className="profile-button" onClick={handleProfile}>
-                    <img src="/Images/user.svg" alt="Profile" />
-                </span>
-            </div>
-            <div>
-                <span className="question-mark-button" onClick={handleQuestions}>
-                    <img src="/Images/question.svg" alt="Question" />
-                </span>
-            </div>
-            <div className="notifications-container">
-                <h1>Notifications</h1>
-                {notifications.map(notification => (
-                    <div key={`${notification.askedUser}-${notification.askingUser}-${notification.groupID}-${notification.status}`} className="notification-card">
-                        {notification.status === 'pending' && (
-                            <>
-                                <p>New request from {notification.askingUserName} to join group {notification.groupName} on {new Date(notification.notificationTimestamp).toLocaleString()}</p>
-                                <button className="button-notifications-page" onClick={() => handleApprove(notification.askedUser, notification.askingUser, notification.groupID)}>Approve</button>
-                                <button className="button-notifications-page" onClick={() => handleRefuse(notification.askedUser, notification.askingUser, notification.groupID)}>Refuse</button>
-                            </>
-                        )}
-                        {notification.status === 'refused' && (
-                            <p>You refused a request from {notification.askingUserName} on {new Date(notification.notificationTimestamp).toLocaleString()} to join group {notification.groupName}</p>
-                        )}
-                        {notification.status === 'approved' && (
-                            <>
-                                <p>You joined group {notification.groupName} after a request from {notification.askingUserName} on {new Date(notification.notificationTimestamp).toLocaleString()}</p>
-                                <button onClick={() => handleGoToGroup(notification)}>Go To Group</button>
-                            </>
-                        )}
-                    </div>
-                ))}
-                {hasMore && <button onClick={loadMore}>Load More</button>}
-            </div>
+        <div className="notifications-container">
+            <button className="close-button" onClick={onClose}>X</button> {/* Add a close button */}
+            <h1>Notifications</h1>
+            {notifications.map(notification => (
+                <div key={`${notification.askedUser}-${notification.askingUser}-${notification.groupID}-${notification.status}`} className="notification-card">
+                    {notification.status === 'pending' && (
+                        <>
+                            <p>New request from {notification.askingUserName} to join group {notification.groupName} on {new Date(notification.notificationTimestamp).toLocaleString()}</p>
+                            <button className="button-notifications-page" onClick={() => handleApprove(notification.askedUser, notification.askingUser, notification.groupID)}>Approve</button>
+                            <button className="button-notifications-page" onClick={() => handleRefuse(notification.askedUser, notification.askingUser, notification.groupID)}>Reject</button>
+                        </>
+                    )}
+                    {notification.status === 'refused' && (
+                        <p>You refused a request from {notification.askingUserName} on {new Date(notification.notificationTimestamp).toLocaleString()} to join group {notification.groupName}</p>
+                    )}
+                    {notification.status === 'approved' && (
+                        <>
+                            <p>You joined group {notification.groupName} after a request from {notification.askingUserName} on {new Date(notification.notificationTimestamp).toLocaleString()}</p>
+                            <button onClick={() => handleGoToGroup(notification)}>Go To Group</button>
+                        </>
+                    )}
+                </div>
+            ))}
+            {hasMore && <button onClick={loadMore}>Load More</button>}
             {showRejoinPopup && (
                 <div className="popup-notifications-container">
                     <div className="popup-notifications-box">

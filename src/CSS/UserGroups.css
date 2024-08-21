@@ -57,7 +57,7 @@ body::-webkit-scrollbar-thumb:hover {
     flex-direction: column;
     align-items: center;
     width: 270px;
-    height: 40vh;
+    height: 60vh;
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 30px;
@@ -93,6 +93,10 @@ body::-webkit-scrollbar-thumb:hover {
 /* Container for group information */
 .group-info {
     text-align: center;
+    flex-grow: 1; /* Allow it to take up remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space out content to prevent overlap */
 }
 
 /* Style for group name */
@@ -100,7 +104,6 @@ body::-webkit-scrollbar-thumb:hover {
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
-    text-align: center;
     font-family: 'Calibri', sans-serif;
     font-size: 23px;
 }
@@ -109,17 +112,20 @@ body::-webkit-scrollbar-thumb:hover {
 .group-description {
     color: #666;
     margin-bottom: 15px;
-    text-align: center;
     font-family: 'Calibri', sans-serif;
     font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Show only 4 lines */
+    -webkit-box-orient: vertical;
 }
 
 
 /* Style for created at date and user count */
 .group-details {
     color: #999;
-    margin-bottom: 5px;
-    text-align: center;
+    margin-bottom: 40px;
     font-family: 'Calibri', sans-serif;
     font-size: 18px;
 }

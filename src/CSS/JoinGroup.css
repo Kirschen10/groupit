@@ -1,24 +1,36 @@
-.background-CreateGroup {
-    background-color: #f4f4f9;
-    height: 100vh;
-    padding: 20px;
-    position: relative;
+.background-JoinGroup {
+    background-image: url('/public/Images/Create + Join Grop Backround.svg');
+    background-size: cover; /* Adjusts the background size to be responsive */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background fixed during scrolling */
+    width: 100%; /* Full width of the viewport */
+    min-height: 100vh;
+    overflow: hidden; /* Prevents overflow issues */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Align items to the start of the container */
+    align-items: center;
+    text-align: center;
+    position: relative; /* Allows positioning of the logo */
+    padding-top: 5vh; /* Add padding to move content down a bit */
+    padding-bottom: 5vh; /* Add padding to move content down a bit */
 }
 
 .container-joinGroup {
-    position: fixed;
+    position: relative;
     top: 10%;
-    width: 60%;
+    width: 65%;
     background-color: rgba(255, 255, 255, 0); /* Transparent background */
     text-align: center;
+    min-height: 60vh;  /* Set a minimum height */
 }
 
 .container-joinGroup h2 {
-    font-size: 40px;
+    font-size: 3vw;
     font-weight: 800; /* Make the headline very bold */
     color: #fff;
-    margin-top: 0%; /* Remove any top margin */
-    font-family: mon, sans-serif; /* Specify Calibri as the preferred font */
+    margin-top: -35px;
+    font-family: Montserrat, sans-serif;
     line-height: 1.2; /* Adjust line height if needed */
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* White shadow with 80% opacity */
 }
@@ -29,6 +41,7 @@
     color: #a0d0dd;
     font-family: "Calibri";
     text-align: center;
+    line-height: 1; /* Adjust line height if needed */
 }
 
 /*.sub-container-join-group {*/
@@ -53,7 +66,7 @@
 }
 
 .bigButton-joinGroup img {
-    height: 180px; /* Adjust the size of the button images */
+    height: 12vw; /* Adjust the size of the button images */
     transition: transform 0.3s ease-in-out; /* Add transition effect */
 }
 
@@ -103,7 +116,6 @@
     font-size: 17px;
 }
 
-
 .form-join-group-by-ID button:hover {
     background-color: rebeccapurple;
 }
@@ -111,113 +123,12 @@
 .content-box-joingroup {
     background-color: rgba(255, 255, 255, 0.2); /* White background with opacity */
     border-radius: 3px; /* Rounded corners */
-    width: 87%; /* Adjust width as needed */
+    width: 90%; /* Adjust width as needed */
     padding: 20px; /* Padding inside the container */
     text-align: center; /* Center the text */
     margin: 0 auto; /* Center horizontally within its parent */
-    max-height: 50vh;
 }
 
-.groupList-joinGroup {
-    list-style: none;
-    padding: 20px;
-    max-height: 40vh;
-    overflow-y: auto;
-    margin: 0;
-}
-
-.groupListItem-joinGroup {
-    background-color: black;
-    padding: 10px 15px;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Group List Styles */
-.groupHeader-joinGroup {
-    display: flex;
-    width: 100%;
-    margin-bottom: 10px;
-    color: white;
-}
-
-.groupName-joinGroup {
-    font-size: 18px;
-    color: white;
-    font-weight: bold;
-}
-
-.groupID-joinGroup {
-    font-size: 14px;
-    color: gray;
-    margin-left: 10px;
-}
-
-.groupButtons-joinGroup {
-    display: flex;
-    gap: 10px;
-}
-
-.infoButton-joinGroup {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    background-color: #bbb;
-}
-
-.joinButton-joinGroup {
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    background-color: #34a853;
-}
-
-.joinButton-joinGroup:hover {
-    background-color: #2c8a42;
-}
-
-.group-info {
-    margin-bottom: 10px;
-}
-
-.group-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.group-actions button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.group-actions button:hover {
-    background-color: #0056b3;
-}
-
-.hover-info {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #6c757d;
-}
 
 .modal {
     position: fixed;
@@ -262,42 +173,42 @@
 
 
 
-/* Group Details Styles */
-.groupDetails-joinGroup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 20px;
-    border: 3px solid #eee;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    max-width: 80%;
-    width: 400px;
-    text-align: left;
-    font-family: 'Arial', sans-serif;
-    border-color: #8925C7;
-}
+/*!* Group Details Styles *!*/
+/*.groupDetails-joinGroup {*/
+/*    display: none;*/
+/*    position: fixed;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    background-color: #ffffff;*/
+/*    padding: 20px;*/
+/*    border: 3px solid #eee;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);*/
+/*    z-index: 1000;*/
+/*    max-width: 80%;*/
+/*    width: 400px;*/
+/*    text-align: left;*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    border-color: #8925C7;*/
+/*}*/
 
-.groupDetails-joinGroup.visible {
-    display: block;
-}
+/*.groupDetails-joinGroup.visible {*/
+/*    display: block;*/
+/*}*/
 
-.groupDetails-joinGroup h3 {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 10px;
-    text-align: center;
-}
+/*.groupDetails-joinGroup h3 {*/
+/*    font-size: 22px;*/
+/*    color: #333;*/
+/*    margin-bottom: 10px;*/
+/*    text-align: center;*/
+/*}*/
 
-.groupDetails-joinGroup p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 10px;
-}
+/*.groupDetails-joinGroup p {*/
+/*    font-size: 16px;*/
+/*    color: #666;*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
 .detailItem-joinGroup {
     display: flex;
