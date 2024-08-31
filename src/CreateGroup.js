@@ -170,6 +170,33 @@ const CreateGroup = message => {
         }
     };
 
+    function autoResizeTextarea(textarea) {
+        textarea.style.height = 'auto'; // Reset height
+        textarea.style.height = `${textarea.scrollHeight}px`; // Set height based on scrollHeight
+    }
+
+    // Attach the function to the input event of the textarea
+    document.querySelectorAll('textarea').forEach(textarea => {
+        textarea.addEventListener('input', () => autoResizeTextarea(textarea));
+    });
+
+    function autoResizeInput(input) {
+        const span = document.createElement('span');
+        document.body.appendChild(span);
+        span.style.position = 'absolute';
+        span.style.visibility = 'hidden';
+        span.style.whiteSpace = 'pre';
+        span.style.font = window.getComputedStyle(input).font; // Match font styles
+        span.textContent = input.value || input.placeholder;
+        input.style.width = `${span.offsetWidth}px`;
+        document.body.removeChild(span);
+    }
+
+    // Attach the function to the input event of the input fields
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('input', () => autoResizeInput(input));
+    });
+
     const handleQuestions = () => {
     navigate(`/Questions`);
     };
@@ -219,26 +246,38 @@ const CreateGroup = message => {
         <div className="create-group-container">
             <h2>Create New Group</h2>
             <form onSubmit={(e) => e.preventDefault()}>
-                <div className="form-group">
-                    <label>Group Name:</label>
-                    <input
-                        type="text"
-                        maxLength="50"
-                        value={groupName}
-                        onChange={(e) => setGroupName(e.target.value)}
-                        required
-                    />
+                <div className="group-name-info-content">
+                    <div>
+                        <p>
+                            <span className="label">Group Name:</span>
+                            <input
+                                type="text"
+                                maxLength="50"
+                                value={groupName}
+                                onChange={(e) => setGroupName(e.target.value)}
+                                required
+                            />
+                        </p>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label>Group Description:</label>
-                    <textarea
-                        maxLength="255"
-                        value={groupDescription}
-                        onChange={(e) => setGroupDescription(e.target.value)}
-                        required
-                    ></textarea>
+                <div className="group-desc-info-content">
+                    <div>
+                        <p>
+                            <span className="label">Group Description:</span>
+                            <textarea
+                                type="text"
+                                maxLength="255"
+                                value={groupDescription}
+                                onChange={(e) => setGroupDescription(e.target.value)}
+                                required
+                            ></textarea>
+                        </p>
+                    </div>
                 </div>
                 <div className="user-add-container">
+                    <div className="added-users">
+                        <h2>Invite users to join:</h2>
+                    </div>
                     <div className="form-group">
                         <Select
                             options={availableUsers}
@@ -253,9 +292,8 @@ const CreateGroup = message => {
                             Add
                         </button>
                     </div>
-                    <div className="added-users">
-                        <h3>Added Users:</h3>
-                    </div>
+                    <br></br>
+                    <br></br>
                     <div className="added-users">
                         <ul>
                             {users.map((user, index) => (
@@ -271,8 +309,8 @@ const CreateGroup = message => {
                         </ul>
                     </div>
                 </div>
-                <button className="button-CreateGroup" onClick={handleCreateGroup}>
-                    <img src="/Images/Create Group.svg" alt="Create Group" />
+                <button className="button-create-group" onClick={handleCreateGroup}>
+                    Create Group
                 </button>
                 {error && <p className="error-message">{error}</p>}
             </form>

@@ -227,7 +227,6 @@
     margin-bottom: 8px;
 }
 
-
 .info-content-edit {
     grid-column: span 2; /* Span two columns of the grid */
     display: grid;

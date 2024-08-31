@@ -247,7 +247,7 @@ function Profile() {
             </span>
             <div className="top-buttons-container">
                 <div>
-                    <span className={`notification-button-profile ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
+                    <span className={`notification-button ${showNotificationPopup ? 'popup' : ''}`} onClick={handleNotification}>
                         <img src={notificationImage} alt="Notifications" />
                     </span>
                 </div>

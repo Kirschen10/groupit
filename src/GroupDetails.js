@@ -621,13 +621,13 @@ return (
                         }}
                         placeholder="Enter user name"
                         isClearable
-                        className="add-user-select-GD" // Apply custom CSS class
+                        className="add-user-select-GD"
                         classNamePrefix="add-user-select-GD"
                     />
                     <button onClick={handleAddUser}>Add User</button>
-                    {addUserErrorMessage && <p className="error-message">{addUserErrorMessage}</p>}
-                    {addUserFeedbackMessage && <p className="feedback-message">{addUserFeedbackMessage}</p>}
                 </div>
+                {addUserErrorMessage && <p className="error-message">{addUserErrorMessage}</p>}
+                {addUserFeedbackMessage && <p className="feedback-message">{addUserFeedbackMessage}</p>}
                 <div className="user-list">
                     <h2>Waiting for Response</h2>
                     <ul>

@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="21/08 16:10">
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="21/08 16:32">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Images/Notification on.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/Images/Notification on.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/CreateGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/CreateGroup.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CSS/GroupDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/GroupDetails.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/HomePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/HomePage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/Notifications.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Notifications.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CSS/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateGroup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GroupDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +81,10 @@
       <workItem from="1723912628817" duration="3923000" />
       <workItem from="1724165381633" duration="8768000" />
       <workItem from="1724232831763" duration="5850000" />
-      <workItem from="1724243759172" duration="3103000" />
+      <workItem from="1724243759172" duration="5276000" />
+      <workItem from="1724253991279" duration="666000" />
+      <workItem from="1725095962698" duration="7628000" />
+      <workItem from="1725108349389" duration="3458000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1718965041377</created>
@@ -183,7 +192,19 @@
       <option name="presentableId" value="LOCAL‎00016" />
       <updated>1724245829626</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL‎00017" summary="21/08 16:32">
+      <created>1724247161002</created>
+      <option name="number" value="LOCAL‎00017" />
+      <option name="presentableId" value="LOCAL‎00017" />
+      <updated>1724247161002</updated>
+    </task>
+    <task id="LOCAL‎00018" summary="21/08 16:32">
+      <created>1724247277005</created>
+      <option name="number" value="LOCAL‎00018" />
+      <option name="presentableId" value="LOCAL‎00018" />
+      <updated>1724247277005</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,6 +262,7 @@
     <MESSAGE value="07/08 21:10" />
     <MESSAGE value="17/08 19:45" />
     <MESSAGE value="21/08 16:10" />
-    <option name="LAST_COMMIT_MESSAGE" value="21/08 16:10" />
+    <MESSAGE value="21/08 16:32" />
+    <option name="LAST_COMMIT_MESSAGE" value="21/08 16:32" />
   </component>
 </project>
