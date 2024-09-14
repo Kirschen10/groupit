@@ -518,7 +518,7 @@ return (
             </div>
         </div>
         {isEditing ? (
-            <form onSubmit={handleSaveClick} className="info-container-edit">
+            <div className="info-container-edit">
             <h2>Edit Group Information</h2>
             <div className="info-content-edit">
                 <div>
@@ -548,7 +548,7 @@ return (
                         <button className="group-edit-button" onClick={handleCancelClick} type="button">Cancel</button>
                 </div>
             </div>
-            </form>
+            </div>
         ) : (
             <div className="group-details-container">
                 <span className="group-header"> {currentGroup.groupName} </span>
@@ -644,24 +644,25 @@ return (
             </div>
         </div>
         {showModal && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <h2>Confirm Leave Group</h2>
-                        <p>Are you sure you want to leave the group?<br /> This action cannot be undone.</p>
-                        <div className="modal-buttons">
-                            <button className="modal-button modal-cancel-button" onClick={cancelLeaveGroup}>Cancel</button>
-                            <button className="modal-button" onClick={confirmLeaveGroup}>Confirm</button>
-                        </div>
+            <div className="modal-GD">
+                <div className="sub-modal-GD">
+                    <div className="modal-content-GD">
+                        <h3>Are you sure you want to leave the group?</h3>
+                        <h2>This action cannot be undone</h2>
+                            <button onClick={confirmLeaveGroup}>Confirm</button>
+                            <button onClick={cancelLeaveGroup}>Cancel</button>
                     </div>
                 </div>
-            )}
+            </div>
+        )}
 
             {showSuccessModal && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <h2>Successfully Left the Group</h2>
-                        <p>You have been successfully removed from the group.</p>
-                        <p>Redirecting to profile page in <strong>{countdown}</strong></p>
+                <div className="modal-GD">
+                    <div className="sub-modal-GD">
+                        <div className="modal-content-GD">
+                            <h3>You have been successfully<br/> removed from the group</h3>
+                            <p>Redirecting to profile page in <strong>{countdown}</strong></p>
+                        </div>
                     </div>
                 </div>
             )}
