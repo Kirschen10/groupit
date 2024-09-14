@@ -321,20 +321,13 @@ const JoinGroup = () => {
 
                     )}
                     {showErrorMessage && feedbackMessage && <p className="feedbackMessage-joinGroup">{feedbackMessage}</p>}
-
                     {showSuccessModal && (
                         <div className="modal">
+                            <button className="close-button-JG" onClick={handleStay}>X</button>
                             <div className="modal-content">
                                 <h3>You have successfully joined the group!</h3>
                                 <button onClick={handleGoToGroup}>Go to Group</button>
-                                <button onClick={handleStay}>Stay</button>
                             </div>
-                        </div>
-                    )}
-
-                    {showErrorMessage && (
-                        <div className="error-message">
-                            <p>{feedbackMessage}</p>
                         </div>
                     )}
                 </div>

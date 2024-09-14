@@ -151,7 +151,7 @@ const GroupDetails = () => {
 
                 if (response.ok) {
                     if (data.hasPendingNotifications) {
-                        setNotificationImage('/Images/Notifications on.svg');
+                        setNotificationImage('/Images/Notification on.svg');
                         setShowNotificationPopup(true);
                         setTimeout(() => {
                             setShowNotificationPopup(false);
@@ -543,8 +543,8 @@ return (
                     </p>
                 </div>
                 <div className="buttons">
-                        <button onClick={handleSaveClick} type="submit">Save</button>
-                        <button onClick={handleCancelClick} type="button">Cancel</button>
+                        <button className="group-edit-button" onClick={handleSaveClick} type="submit">Save</button>
+                        <button className="group-edit-button" onClick={handleCancelClick} type="button">Cancel</button>
                 </div>
             </div>
             </form>
@@ -575,7 +575,7 @@ return (
                 {loading && <div className="loading-indicator"><div className="spinner"></div></div>}
                 {playlist.length === 0 && !loading ? (
                     <div className="no-playlist-found">
-                        <p>This group doesn't have a playlist yet. Feel free to generate one :)</p>
+                        <p>This group doesn't have a playlist yet<br/>Feel free to generate one :)</p>
                         <img src="/Images/not fount.svg" alt="Sad Smiley" />
                     </div>
                 ) : (

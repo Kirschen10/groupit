@@ -38,6 +38,8 @@
     justify-content: space-between; /* Space buttons evenly */
     width: 100%; /* Full width of the parent container */
     margin-bottom: 10px;
+    margin-top: -50px;
+    gap: 10px;
 }
 
 .option-button-AddSong {
@@ -47,9 +49,11 @@
     color: white;
     border: none;
     border-radius: 5px;
+    margin-top: 0px;
     margin-right: 10px; /* Add margin-right for spacing */
     font-family: 'Calibri', sans-serif;
     font-size: 18px;
+    width: 50%;
 }
 
 .option-button-AddSong:hover {
@@ -73,7 +77,7 @@
     background-color: white;
     font-family: 'Calibri', sans-serif;
     font-size: 18px;
-    width: 100%;
+    width: 95%;
 }
 
 .artist-item {
@@ -92,6 +96,7 @@
     background-color: lightgreen;
 }
 
+
 .search-artist {
     display: flex;
     flex-direction: column;
@@ -105,7 +110,8 @@
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 50px;
+    text-align: center;
 }
 
 .search-error {
@@ -140,10 +146,10 @@
     align-items: center;
     background: #333; /* Optional semi-transparent background */
     z-index: 100; /* Ensure it is above other content */
-    top: 60%;
-    left: 18%;
-    width: 200px;
-    height: 200px;
+    top: 70%;
+    left: 1%;
+    width: 550px;
+    height: 120px;
 }
 
 .loading-dots {
@@ -153,13 +159,13 @@
 }
 
 .songs-section {
-    margin-top: 20px;
+    margin-top: -50px;
 }
 
 .songs-section h3 {
     color: mediumpurple;
     margin-bottom: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 .song-search-container {
@@ -173,18 +179,25 @@
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 50px;
+    text-align: center;
 }
 
 .return-button {
-    margin-left: 10px;
+    position: relative;
+    top: 0vh;
+    left: -16vh;
     padding: 10px 20px;
+    font-family: 'Calibri', sans-serif;
     font-size: 16px;
     cursor: pointer;
-    background-color: grey;
+    background-color: #888;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
+}
+.return-button:hover {
+    background-color: #666;
 }
 
 .song-list {
@@ -212,13 +225,17 @@
 
 .add-button {
     padding: 10px 20px;
+    font-family: 'Calibri', sans-serif;
     font-size: 16px;
     cursor: pointer;
     background-color: mediumpurple;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     margin-top: 10px;
+}
+.add-button:hover {
+    background-color: rebeccapurple;
 }
 
 .error-message {
@@ -226,3 +243,68 @@
     margin-top: 10px;
     display: block;
 }
+
+
+
+.react-select-add-song {
+    width: 60%;
+    color: mediumpurple;
+    margin-top: 10px;
+}
+
+.react-select-add-song
+    .react-select-add-song__control {
+        background-color: white; /* Transparent background */
+        border: 2px solid #9374dd; /* Border around the control */
+        border-radius: 50px; /* Rounded corners */
+        font-family: Calibri, sans-serif; /* Font family */
+        font-size: 20px; /* Font size */
+        height: 40px;
+}
+
+.react-select-add-song
+    .react-select-add-song__control--is-focused {
+        border-color: #82CBDF; /* Border color when focused */
+        box-shadow: 0 0 10px 1px #82CBDF; /* Shadow effect when focused */
+}
+
+.react-select-add-song
+    .react-select-add-song__indicator {
+        color: black; /* Color of the dropdown indicator */
+}
+
+.react-select-add-song
+    .react-select-add-song__menu {
+        background-color: white; /* Background color of the dropdown menu */
+        border: 1px solid #666; /* Border around the dropdown menu */
+        border-radius: 5px; /* Rounded corners */
+        font-family: Calibri, sans-serif;
+        max-height: 1px; /* Limit the height of the menu to approximately three rows */
+}
+
+.react-select-add-song
+    .react-select-add-song__option {
+        background-color: white; /* Background color of options */
+        color: #9374dd; /* Text color of options */
+        font-family: Calibri, sans-serif;
+        padding: 10px; /* Padding for the options */
+
+}
+
+.react-select-add-song
+    .react-select-add-song__option--is-focused {
+        background-color: #9374dd; /* Background color when option is focused */
+        color: #82CBDF; /* Text color when option is focused */
+}
+
+.react-select-add-song
+    .react-select-add-song__option--is-selected {
+        background-color: #82CBDF; /* Background color when option is focused */
+        color: #9374dd; /* Text color when option is focused */
+}
+
+.react-select-add-song
+    .react-select-add-song__placeholder {
+        color: black; /* Your custom placeholder color */
+        font-family: Calibri, sans-serif;
+  }

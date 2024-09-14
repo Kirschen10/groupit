@@ -17,6 +17,14 @@
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* White shadow with 80% opacity */
 }
 
+.app h1 {
+    margin: 0 0 20px 0; /* Adjust margins */
+    color: #82CBDF; /* Text color */
+    font-family: "Poor Richard";
+    font-size: 45px;
+    letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
+}
+
 .Picker-grid {
     display: grid;
     grid-template-columns: repeat(5, 9vw); /* 4 columns */
@@ -55,28 +63,32 @@
     justify-content: center;
     align-items: center;
     gap: 20px; /* Adjust the gap between buttons */
-    position: relative;
   }
-  
-  .button-arrow {
-    width: 30px; /* Smaller button size */
-    height: 30px;
-    border-radius: 15px; /* Circular buttons */
-    background-color: #666; /* Background color for the button */
-    color: white; /* Text color */
+
+.pagination-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: none;
     cursor: pointer;
-  }
-  
-  .button-arrow:disabled {
-    background-color: #ccc; /* Lighter color when button is disabled */
-  }
+    z-index: 9999; /* Ensure the button appears above other content */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+}
+
+.pagination-buttons img {
+    height: 60px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+}
+
+.pagination-buttons:hover img {
+    transform: scale(1.05); /* Enlarge the logo image on hover */
+}
 
 .button-pagination-Lets-Continue{
-  width: 100%; /* Button takes up full width of the form group */
+    position: absolute; /* Position it absolutely relative to the nearest positioned ancestor */
+    bottom: 6vh; /* Adjust distance from the bottom */
+    right: 6vh; /* Adjust distance from the right */
+    width: 200px; /* Button takes up full width of the form group */
     padding: 15px;
     background-color: #82CBDF;
     color: #fff;
@@ -88,8 +100,110 @@
     border-radius: 50px;
     font-weight: bold;
 }
-  
 
-select {
-  width: 500px;
+.button-pagination-Lets-Continue:hover {
+    opacity: 0.7;
 }
+
+
+.artist-search-container {
+    position: absolute;
+    bottom: 140px; /* Right above the plus button */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-button-SA {
+    position: absolute; /* Position it absolutely */
+    top: 1vh; /* Align it to the top */
+    left: 1vh; /* Align it to the left */
+    align-self: flex-start;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: rebeccapurple;
+    padding: 0;
+    margin: 0;
+}
+
+.close-button-SA:hover {
+    color: red;
+}
+
+button {
+    cursor: pointer;
+}
+
+.react-select-artist {
+    width: 100%;
+    color: mediumpurple;
+}
+
+.react-select-artist
+    .react-select-artist__control {
+        background-color: white; /* Transparent background */
+        border: 2px solid #9374dd; /* Border around the control */
+        border-radius: 50px; /* Rounded corners */
+        font-family: Calibri, sans-serif; /* Font family */
+        font-size: 20px; /* Font size */
+        height: 40px;
+}
+
+.react-select-artist
+    .react-select-artist__control--is-focused {
+        border-color: #82CBDF; /* Border color when focused */
+        box-shadow: 0 0 10px 1px #82CBDF; /* Shadow effect when focused */
+}
+
+.react-select-artist
+    .react-select-artist__indicator {
+        color: black; /* Color of the dropdown indicator */
+}
+
+.react-select-artist
+    .react-select-artist__menu {
+        background-color: white; /* Background color of the dropdown menu */
+        border: 1px solid #666; /* Border around the dropdown menu */
+        border-radius: 5px; /* Rounded corners */
+        font-family: Calibri, sans-serif;
+        max-height: 1px; /* Limit the height of the menu to approximately three rows */
+}
+
+.react-select-artist
+    .react-select-artist__option {
+        background-color: white; /* Background color of options */
+        color: #9374dd; /* Text color of options */
+        font-family: Calibri, sans-serif;
+        padding: 10px; /* Padding for the options */
+
+}
+
+.react-select-artist
+    .react-select-artist__option--is-focused {
+        background-color: #9374dd; /* Background color when option is focused */
+        color: #82CBDF; /* Text color when option is focused */
+}
+
+.react-select-artist
+    .react-select-artist__option--is-selected {
+        background-color: #82CBDF; /* Background color when option is focused */
+        color: #9374dd; /* Text color when option is focused */
+}
+
+.react-select-artist
+    .react-select-artist__placeholder {
+        color: black; /* Your custom placeholder color */
+        font-family: Calibri, sans-serif;
+  }

@@ -4,17 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="21/08 16:32">
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="31/08 16:48">
+      <change afterPath="$PROJECT_DIR$/public/Images/left arrow.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/plus.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Images/right arrow.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Images/Notification on.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/Images/Notification on.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/CreateGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/CreateGroup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AddSong.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AddSong.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ArtistSearch.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/AddSong.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/AddSong.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/ForgotPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/ForgotPassword.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CSS/GroupDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/GroupDetails.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CSS/HomePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/HomePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/Notifications.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Notifications.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/JoinGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/JoinGroup.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CSS/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/Registration.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Registration.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/SelectArtists.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/SelectArtists.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/SelectSongs.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/SelectSongs.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GroupDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JoinGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/JoinGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SelectArtists.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SelectArtists.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SelectSongs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SelectSongs.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +93,11 @@
       <workItem from="1724243759172" duration="5276000" />
       <workItem from="1724253991279" duration="666000" />
       <workItem from="1725095962698" duration="7628000" />
-      <workItem from="1725108349389" duration="3458000" />
+      <workItem from="1725108349389" duration="3826000" />
+      <workItem from="1725372343968" duration="1602000" />
+      <workItem from="1725474480936" duration="1101000" />
+      <workItem from="1726230497742" duration="9756000" />
+      <workItem from="1726317395782" duration="13557000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1718965041377</created>
@@ -204,7 +217,13 @@
       <option name="presentableId" value="LOCAL‎00018" />
       <updated>1724247277005</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL‎00019" summary="31/08 16:48">
+      <created>1725112154187</created>
+      <option name="number" value="LOCAL‎00019" />
+      <option name="presentableId" value="LOCAL‎00019" />
+      <updated>1725112154187</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,6 +282,7 @@
     <MESSAGE value="17/08 19:45" />
     <MESSAGE value="21/08 16:10" />
     <MESSAGE value="21/08 16:32" />
-    <option name="LAST_COMMIT_MESSAGE" value="21/08 16:32" />
+    <MESSAGE value="31/08 16:48" />
+    <option name="LAST_COMMIT_MESSAGE" value="31/08 16:48" />
   </component>
 </project>

@@ -53,7 +53,9 @@
     font-size: 15px;
     font-weight: bold; /* Make the text bold */
     line-height: 12px;
+    text-align: center;
 }
+
 
 .group-details-container button img {
     height: 30px; /* Adjust icon size */
@@ -62,6 +64,25 @@
 
 .group-details-container button:hover {
     background-color: rebeccapurple; /* Darker background on hover */
+}
+.group-edit-button {
+    background-color: mediumpurple; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 50px; /* Rounded corners */
+    padding: 3px 3px; /* Padding inside buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for background color */
+    height: 35px; /* Set button height */
+    width: 120px; /* Set button width */
+    font-family: Calibri; /* Specify Calibri as the preferred font */
+    font-size: 15px;
+    font-weight: bold; /* Make the text bold */
+    line-height: 12px;
+    text-align: center;
+}
+.group-edit-button:hover {
+    background-color: rebeccapurple;
 }
 
 .group-header {
@@ -435,12 +456,20 @@
 .no-playlist-found {
     color: #82CBDF;
     font-size: 22px;
-    margin-top: 80px;
+    margin-top: 70px;
     font-family: 'Calibri', sans-serif;
     display: flex;
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center items horizontally */
     text-align: center; /* Center text horizontally */
+}
+
+.no-playlist-found p {
+    color: #82CBDF;
+    font-size: 20px;
+    margin-top: 0px;
+    font-family: 'Calibri', sans-serif;
+    display: flex;
 }
 
 .no-playlist-found img {
