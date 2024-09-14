@@ -454,6 +454,7 @@ const GroupDetails = () => {
     };
 
     const handleSaveClick = () => {
+        console.log("Check location state: "+location.state); // Check if it's null, undefined, or missing expected properties
         resetFeedbackMessage();
         fetch('http://localhost:8081/updateGroup', {
             method: 'POST',
@@ -535,7 +536,7 @@ return (
                     <p>
                         <span className="label">Group Description:</span>
                         <input
-                            type="text"
+                            type="textarea"
                             name="groupDescription"
                             value={groupDescription}
                             onChange={(e) => setGroupDescription(e.target.value)}

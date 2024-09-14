@@ -4,26 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="31/08 16:48">
-      <change afterPath="$PROJECT_DIR$/public/Images/left arrow.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Images/plus.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Images/right arrow.svg" afterDir="false" />
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="14/09  19:28">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AddSong.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AddSong.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ArtistSearch.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/AddSong.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/AddSong.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/ForgotPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/ForgotPassword.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/GroupDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/GroupDetails.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/HomePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/HomePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/JoinGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/JoinGroup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/Registration.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Registration.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/SelectArtists.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/SelectArtists.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/SelectSongs.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/SelectSongs.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GroupDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JoinGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/JoinGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SelectArtists.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SelectArtists.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SelectSongs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SelectSongs.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +80,7 @@
       <workItem from="1725372343968" duration="1602000" />
       <workItem from="1725474480936" duration="1101000" />
       <workItem from="1726230497742" duration="9756000" />
-      <workItem from="1726317395782" duration="13557000" />
+      <workItem from="1726317395782" duration="15209000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1718965041377</created>
@@ -223,7 +206,13 @@
       <option name="presentableId" value="LOCAL‎00019" />
       <updated>1725112154187</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL‎00020" summary="14/09  19:28">
+      <created>1726331319055</created>
+      <option name="number" value="LOCAL‎00020" />
+      <option name="presentableId" value="LOCAL‎00020" />
+      <updated>1726331319055</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +229,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="daniv7" />
+                        <option value="origin/may-gd" />
                       </list>
                     </value>
                   </entry>
@@ -283,6 +272,7 @@
     <MESSAGE value="21/08 16:10" />
     <MESSAGE value="21/08 16:32" />
     <MESSAGE value="31/08 16:48" />
-    <option name="LAST_COMMIT_MESSAGE" value="31/08 16:48" />
+    <MESSAGE value="14/09  19:28" />
+    <option name="LAST_COMMIT_MESSAGE" value="14/09  19:28" />
   </component>
 </project>
