@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="13.07 Update Profile Edit">
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="14/09  20:58">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/GroupDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/GroupDetails.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GroupDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/AddSong.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/AddSong.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/CheckMail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/CheckMail.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/ForgotPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/ForgotPassword.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/JoinGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/JoinGroup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/Notifications.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Notifications.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/UserGroups.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/UserGroups.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CheckMail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/CheckMail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ForgotPassword.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +219,13 @@
       <option name="presentableId" value="LOCAL‎00020" />
       <updated>1726331319055</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL‎00021" summary="14/09  20:58">
+      <created>1726336701182</created>
+      <option name="number" value="LOCAL‎00021" />
+      <option name="presentableId" value="LOCAL‎00021" />
+      <updated>1726336701182</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,6 +286,7 @@
     <MESSAGE value="21/08 16:32" />
     <MESSAGE value="31/08 16:48" />
     <MESSAGE value="14/09  19:28" />
-    <option name="LAST_COMMIT_MESSAGE" value="14/09  19:28" />
+    <MESSAGE value="14/09  20:58" />
+    <option name="LAST_COMMIT_MESSAGE" value="14/09  20:58" />
   </component>
 </project>
