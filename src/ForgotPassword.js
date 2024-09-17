@@ -45,12 +45,11 @@ function ForgotPassword() {
     return (
         <div className="background-ForgotPassword">
             <div>
-                <span className="back-to-login-button" onClick={handleBackLogIn}>
+                <span className="back-to-login-button-FP" onClick={handleBackLogIn}>
                     <img src="/Images/Back.png" alt="Back to Login" />
                 </span>
             </div>
             <div className="ForgotPassword-form">
-                {/*<img src="\Images\lock.png" height={"80px"} alt="Lock Icon" className="iconLock"/>*/}
                 <div className="h2-ForgotPassword">
                     <h2>Email Verification</h2>
                 </div>

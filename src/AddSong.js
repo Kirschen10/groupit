@@ -137,11 +137,6 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
     return (
         <div className="add-song-container">
             <div className="add-song-content">
-                {loading && (
-                    <div className="loading-container">
-                        <div className="loading-dots">...</div>
-                    </div>
-                )}
                 {!selectedArtist && (
                     <>
                         <div className="option-buttons-AddSong">
@@ -155,7 +150,7 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
                                 className={`option-button-AddSong ${isTopArtists ? 'active' : ''}`}
                                 onClick={() => { setIsTopArtists(true); setIsSearching(false); setSearchResults([]); }}
                             >
-                                Choosing an artist from Top 100 list
+                                Choose an artist from Top 100 list
                             </button>
                         </div>
                         {isSearching && (
@@ -169,6 +164,7 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
                                 {searchError === 'Please enter at least 2 characters' && (
                                     <div className="search-error">{searchError}</div>
                                 )}
+                                {loading && <div className="loading-indicator"><div className="spinner"></div></div>}
                                 {searchError === 'No artist found' && (
                                     <div className="no-artist-found">
                                         {searchError}
@@ -207,6 +203,9 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
                 )}
                 {selectedArtist && !loading && (
                     <div className="songs-section">
+                        <button onClick={handleReturn} className="return-button">
+                                Return to choose an artist
+                            </button>
                         <h3>The songs of {selectedArtist}</h3>
                         <div className="song-search-container">
                             <input
@@ -215,9 +214,6 @@ const AddSong = ({ userID, onAddSong, onCancel }) => {
                                 value={searchSong}
                                 onChange={(e) => setSearchSong(e.target.value)}
                             />
-                            <button onClick={handleReturn} className="return-button">
-                                Return to choose a singer
-                            </button>
                         </div>
                         <div className="song-list">
                             {filteredSongs.map((song) => (

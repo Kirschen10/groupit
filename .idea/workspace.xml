@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="21/08 16:10">
+    <list default="true" id="99321cc6-c259-4691-bbd2-f3640583f30d" name="Changes" comment="14/09  20:58">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/GroupDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/GroupDetails.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSS/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GroupDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/AddSong.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/AddSong.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/CheckMail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/CheckMail.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/ForgotPassword.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/ForgotPassword.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/JoinGroup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/JoinGroup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/Notifications.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/Notifications.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CSS/UserGroups.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/CSS/UserGroups.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CheckMail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/CheckMail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ForgotPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ForgotPassword.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="may_final_fixes" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -75,7 +80,14 @@
       <workItem from="1723912628817" duration="3923000" />
       <workItem from="1724165381633" duration="8768000" />
       <workItem from="1724232831763" duration="5850000" />
-      <workItem from="1724243759172" duration="3103000" />
+      <workItem from="1724243759172" duration="5276000" />
+      <workItem from="1724253991279" duration="666000" />
+      <workItem from="1725095962698" duration="7628000" />
+      <workItem from="1725108349389" duration="3826000" />
+      <workItem from="1725372343968" duration="1602000" />
+      <workItem from="1725474480936" duration="1101000" />
+      <workItem from="1726230497742" duration="9756000" />
+      <workItem from="1726317395782" duration="15209000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1718965041377</created>
@@ -183,7 +195,37 @@
       <option name="presentableId" value="LOCAL‎00016" />
       <updated>1724245829626</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL‎00017" summary="21/08 16:32">
+      <created>1724247161002</created>
+      <option name="number" value="LOCAL‎00017" />
+      <option name="presentableId" value="LOCAL‎00017" />
+      <updated>1724247161002</updated>
+    </task>
+    <task id="LOCAL‎00018" summary="21/08 16:32">
+      <created>1724247277005</created>
+      <option name="number" value="LOCAL‎00018" />
+      <option name="presentableId" value="LOCAL‎00018" />
+      <updated>1724247277005</updated>
+    </task>
+    <task id="LOCAL‎00019" summary="31/08 16:48">
+      <created>1725112154187</created>
+      <option name="number" value="LOCAL‎00019" />
+      <option name="presentableId" value="LOCAL‎00019" />
+      <updated>1725112154187</updated>
+    </task>
+    <task id="LOCAL‎00020" summary="14/09  19:28">
+      <created>1726331319055</created>
+      <option name="number" value="LOCAL‎00020" />
+      <option name="presentableId" value="LOCAL‎00020" />
+      <updated>1726331319055</updated>
+    </task>
+    <task id="LOCAL‎00021" summary="14/09  20:58">
+      <created>1726336701182</created>
+      <option name="number" value="LOCAL‎00021" />
+      <option name="presentableId" value="LOCAL‎00021" />
+      <updated>1726336701182</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,7 +242,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="daniv7" />
+                        <option value="origin/may-gd" />
                       </list>
                     </value>
                   </entry>
@@ -241,6 +283,10 @@
     <MESSAGE value="07/08 21:10" />
     <MESSAGE value="17/08 19:45" />
     <MESSAGE value="21/08 16:10" />
-    <option name="LAST_COMMIT_MESSAGE" value="21/08 16:10" />
+    <MESSAGE value="21/08 16:32" />
+    <MESSAGE value="31/08 16:48" />
+    <MESSAGE value="14/09  19:28" />
+    <MESSAGE value="14/09  20:58" />
+    <option name="LAST_COMMIT_MESSAGE" value="14/09  20:58" />
   </component>
 </project>

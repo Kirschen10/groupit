@@ -135,12 +135,14 @@
     transition: background-color 0.3s; /* Transition for background color */
     display: flex;
     align-items: center; /* Center icon and text vertically */
+    justify-content: center; /* Horizontally center the text */
     gap: 5px; /* Space between icon and text */
     height: 35px; /* Set button height */
     width: 120px; /* Set button width */
     font-family: Calibri; /* Specify Calibri as the preferred font */
     font-size: 15px;
     font-weight: bold; /* Make the text bold */
+    text-align: center;
 }
 
 .info-container button img {
@@ -149,6 +151,10 @@
 }
 
 .info-container button:hover {
+    background-color: rebeccapurple; /* Darker background on hover */
+}
+
+.info-container-edit button:hover {
     background-color: rebeccapurple; /* Darker background on hover */
 }
 
@@ -227,7 +233,6 @@
     margin-bottom: 8px;
 }
 
-
 .info-content-edit {
     grid-column: span 2; /* Span two columns of the grid */
     display: grid;
@@ -242,6 +247,9 @@
     border-radius: 50px; /* Rounded corners */
     background-color: transparent; /* Semi-transparent background */
     height: 0px;
+    font-family: "Calibri";
+    font-size: 17px;
+    text-align: center;
 }
 
 .info-content-edit div {

@@ -42,7 +42,7 @@ body::-webkit-scrollbar {
     font-weight: 900; /* Make the headline very bold */
     color: #fff;
     margin-bottom: 5%;
-    margin-top: 10%; /* Remove any top margin */
+    margin-top: 10%;
     font-family: Montserrat, sans-serif;
     line-height: 1.2; /* Adjust line height if needed */
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* White shadow with 80% opacity */

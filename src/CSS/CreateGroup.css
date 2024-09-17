@@ -96,10 +96,17 @@
 }
 
 .create-group-container {
-    position: relative;
     top: 10%;
-    width: 80%;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0); /* Transparent background */
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-group-container form {
+    width: 80%; /* Make the form take up the full width of its container */
 }
 
 .create-group-container h2 {
@@ -112,66 +119,88 @@
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* White shadow with 80% opacity */
 }
 
+.group-name-info-content {
+    display: grid;
+    grid-template-columns: 1fr ;
+    gap: 20px;
+    width: 35%;
+    margin: 0 auto; /* Center the container horizontally */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-width: 35%;
+}
+
+.group-desc-info-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 15px;
+    width: 80%;
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+.group-name-info-content input {
+    color: mediumpurple; /* Text color */
+    border: 2px solid transparent; /* Border around the text box */
+    border-radius: 50px; /* Rounded corners like the profile fields */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    font-family: mon, sans-serif;
+    font-size: 30px; /* Font size for the text inside the input */
+    font-weight: 850; /* Make the headline very bold */
+    text-align: center; /* Center the label text */
+    width: 90%;
+    min-width: 90%;
+}
+
+.group-desc-info-content textarea {
+    color: white; /* Text color */
+    border: 2px solid transparent; /* Border around the text box */
+    border-radius: 50px; /* Rounded corners like the profile fields */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    font-family: "Calibri Light", sans-serif;
+    font-size: 25px; /* Font size for the text inside the input */
+    text-align: center; /* Center the label text */
+    width: 90%;
+    overflow: hidden; /* Hide scrollbars */
+    resize: none; /* Prevent manual resizing */
+}
+
+.group-name-info-content div,
+.group-desc-info-content div {
+    position: relative;
+    font-family: "Poor Richard"; /* Font family like the profile page */
+}
+
+.group-name-info-content div p,
+.group-desc-info-content div p {
+    margin: 5px 0; /* Adjust margins */
+    color: white; /* Make text color white */
+    padding: 10px; /* Adjust padding as needed */
+    border: 2px solid white; /* Border around the text box */
+    border-radius: 50px; /* Rounded corners */
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+}
+
+.group-name-info-content div p span.label,
+.group-desc-info-content div p span.label {
+    position: absolute;
+    top: -10px;
+    left: 25px;
+    background-color: black;
+    color: white;
+    padding: 2px 5px;
+    font-size: 1.3em;
+    font-family: "Calibri Light";
+}
+
 .form-group {
     display: flex;
-    width: 100%;
-    justify-content: center; /* Center search and button */
-    margin-bottom: 10px;
-}
-
-.form-group label {
-    width: 30%; /* Adjust the width as needed */
-    margin-right: 10px;
-    font-weight: bold;
-    font-family: Calibri, sans-serif;
-    text-align: right;
-    color: #fff;
-}
-
-.form-group input{
-    width: 30%; /* Adjust the width as needed */
-    margin: 5px 0; /* Adjust margins */
-    color: white; /* Make text color white */
-    padding: 10px; /* Adjust padding as needed */
-    border: 2px solid white; /* Border around the text box */
-    border-radius: 5px; /* Rounded corners */
-    background-color: rgba(0, 0, 0, 0); /* Semi-transparent background */
-    text-align: center; /* Align text to center */
-}
-
-
-.form-group textarea {
-    width: 50%; /* Adjust the width as needed */
-    margin: 5px 0; /* Adjust margins */
-    color: white; /* Make text color white */
-    padding: 10px; /* Adjust padding as needed */
-    border: 2px solid white; /* Border around the text box */
-    border-radius: 5px; /* Rounded corners */
-    background-color: rgba(0, 0, 0, 0); /* Semi-transparent background */
-    text-align: center; /* Align text to center */
-}
-
-.button-CreateGroup {
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-.button-CreateGroup img {
-    height: 90px; /* Adjust the size of the button images */
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
-}
-
-.button-CreateGroup:hover img {
-    transform: scale(1.1); /* Enlarge the button image on hover */
-}
-
-
-
-.error-message {
-    color: red;
-    margin-top: 20px;
-    font-size: 16px;
+    flex-direction: row; /* Align items in a row */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center the items horizontally */
+    gap: 10px; /* Space between select and button */
+    width: 100%; /* Full width of the container */
+    max-width: 600px; /* Optional: Max width to keep it responsive */
+    margin: 0 auto;
 }
 
 .form-group.vertical {
@@ -194,64 +223,11 @@
     justify-content: space-between; /* Add space between items */
 }
 
-
-.add-user-select {
-    width: 60%; /* Adjust width as needed */
-    color: mediumpurple;
-    margin-right: 20px; /* Add margin to the right of the select input */
+.error-message {
+    color: red;
+    margin-top: 20px;
+    font-size: 16px;
 }
-
-
-
-
-
-
-/*.react-select*/
-/*  .react-select__control--is-focused.react-select__control--menu-is-open {*/
-/*  background-color: rgba(255, 255, 255, 0.25); !* Transparent background *!*/
-/*  border-color: #82CBDF;*/
-/*  box-shadow: 0 0 10px 1px #82CBDF;*/
-/*  border-radius: 50px; !* Rounded corners *!*/
-/*  font-family: Calibri, sans-serif; !* Font family *!*/
-/*  font-size: 20px; !* Font size *!*/
-/*  padding: 10px; !* Padding around the text *!*/
-/*}*/
-
-/*.react-select*/
-/*  .react-select__control {*/
-/*    width: 800px;*/
-/*    background-color: rgba(255, 255, 255, 0); !* Transparent background *!*/
-/*    border-color: #82CBDF;*/
-/*    border-radius: 50px; !* Rounded corners *!*/
-/*    font-family: Calibri, sans-serif;*/
-/*    font-size: 20px;*/
-/*    padding: 10px; !* Padding around the text *!*/
-/*}*/
-
-/*.react-select*/
-/*  .react-select__indicator {*/
-/*    border-radius: 50px; !* Rounded corners *!*/
-/*    color: black; !* Color of the dropdown indicator *!*/
-/*    font-family: Calibri, sans-serif;*/
-/*}*/
-
-/*.react-select*/
-/*  .react-select__menu {*/
-/*    background-color: white; !* Background color of the dropdown menu *!*/
-/*    border: 1px solid #666; !* Border around the dropdown menu *!*/
-/*    border-radius: 50px; !* Rounded corners *!*/
-/*    font-family: Calibri, sans-serif;*/
-/*    color: #9374dd; !* Text color *!*/
-/*}*/
-
-
-/*.react-select*/
-/*  .react-select__option--is-focused {*/
-/*    background-color: #555; !* Background color when option is focused *!*/
-/*    color: white; !* Text color when option is focused *!*/
-/*    font-family: Calibri, sans-serif;*/
-/*}*/
-
 
 .add-user-button {
     background-color: mediumpurple; /* Button background color */
@@ -263,7 +239,7 @@
     transition: background-color 0.3s; /* Transition for background color */
     align-items: center; /* Center icon and text vertically */
     gap: 5px; /* Space between icon and text */
-    height: 35px; /* Set button height */
+    height: 40px; /* Set button height */
     width: 120px; /* Set button width */
     font-family: Calibri; /* Specify Calibri as the preferred font */
     font-size: 15px;
@@ -278,10 +254,17 @@
 
 .added-users {
     width: 100%;
-    color: #82CBDF; /* Text color */
+    align-content: center;
+    align-items: center;
+}
+
+.added-users h2 {
+    margin: 0 0 20px 0; /* Adjust margins */
+    color: mediumpurple; /* Text color */
     font-family: "Poor Richard";
-    font-size: 30px;
+    font-size: 40px;
     letter-spacing: 0.6px; /* Add some letter spacing for emphasis */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0); /* White shadow with 80% opacity */
 }
 
 .added-users ul {
@@ -290,21 +273,24 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: center; /* Center list items */
-    color: white;
-
+    justify-content: center;  /* Center list items */
+    font-family: 'Calibri';
+    color: black;
+    font-size: 18px;
 }
 
 .added-users li {
-    background-color: white;
-    color: black;
-    border-radius: 50px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 10px;
-    text-align: center; /* Center text inside list items */
-    flex: 1 1 20%; /* Allow up to 5 items per row, adjust as needed */
-    max-width: 12%; /* Ensure items wrap correctly */
-    font-family: Calibri;
-    font-size: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;  /* Center text inside list items */
+    width: 150px; /* Fixed width for all items */
+    box-sizing: border-box; /* Include padding and border in the width */
+    font-family: 'Calibri', sans-serif;
+    font-size: 19px;
+    font-weight: bold;
 }
 
 /* Remove user button styles */
@@ -314,7 +300,7 @@
     color: black;
     cursor: pointer;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .remove-user-creategroup-button:hover {
@@ -327,19 +313,18 @@
 
 
 .react-select {
-    width: 30%;
+    width: 50%;
     color: mediumpurple;
-
 }
 
 .react-select
     .react-select__control {
         background-color: white; /* Transparent background */
         border: 2px solid #9374dd; /* Border around the control */
-        border-radius: 5px; /* Rounded corners */
+        border-radius: 50px; /* Rounded corners */
         font-family: Calibri, sans-serif; /* Font family */
         font-size: 20px; /* Font size */
-        padding: 8px; /* Padding around the text */
+        height: 40px;
 }
 
 .react-select
@@ -385,3 +370,21 @@
         color: black; /* Your custom placeholder color */
         font-family: Calibri, sans-serif;
   }
+
+.button-create-group {
+    width: 250px; /* Button takes up full width of the form group */
+    padding: 15px;
+    background-color: #82CBDF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: Calibri;
+    font-size: 19px;
+    font-weight: bold;
+    box-sizing: border-box; /* Ensure padding is included in the element's total width */
+    border-radius: 50px;
+}
+
+.button-create-group:hover {
+    opacity: 0.7;
+}

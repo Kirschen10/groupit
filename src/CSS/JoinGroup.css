@@ -29,14 +29,14 @@
     font-size: 3vw;
     font-weight: 800; /* Make the headline very bold */
     color: #fff;
-    margin-top: -35px;
+    margin-top: 5vh;
     font-family: Montserrat, sans-serif;
     line-height: 1.2; /* Adjust line height if needed */
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4); /* White shadow with 80% opacity */
 }
 
 .container-joinGroup h3 {
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 2000; /* Make the headline very bold */
     color: #a0d0dd;
     font-family: "Calibri";
@@ -135,30 +135,51 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
+    z-index: 9999;
 }
 
 .modal-content {
     text-align: center;
+    padding: 10px;
 }
 
-.modal button {
-    margin-top: 10px;
+.modal-content button {
+    margin-top: 0px;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: mediumpurple;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-family: 'Calibri', sans-serif;
+    font-size: 16px;
 }
 
-.modal button:hover {
-    background-color: #0056b3;
+.modal-content button:hover {
+    background-color: rebeccapurple;
+}
+
+.close-button-JG {
+    position: absolute; /* Position it absolutely */
+    top: 6vh; /* Align it to the top */
+    left: 6vh; /* Align it to the left */
+    align-self: flex-start;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: mediumpurple;
+    padding: 0;
+    margin: 0;
+}
+
+.close-button-JG:hover {
+    color: red;
 }
 
 .error-message {
@@ -167,48 +188,6 @@
     font-weight: bold;
 }
 
-
-/*OLD*/
-
-
-
-
-/*!* Group Details Styles *!*/
-/*.groupDetails-joinGroup {*/
-/*    display: none;*/
-/*    position: fixed;*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    transform: translate(-50%, -50%);*/
-/*    background-color: #ffffff;*/
-/*    padding: 20px;*/
-/*    border: 3px solid #eee;*/
-/*    border-radius: 10px;*/
-/*    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);*/
-/*    z-index: 1000;*/
-/*    max-width: 80%;*/
-/*    width: 400px;*/
-/*    text-align: left;*/
-/*    font-family: 'Arial', sans-serif;*/
-/*    border-color: #8925C7;*/
-/*}*/
-
-/*.groupDetails-joinGroup.visible {*/
-/*    display: block;*/
-/*}*/
-
-/*.groupDetails-joinGroup h3 {*/
-/*    font-size: 22px;*/
-/*    color: #333;*/
-/*    margin-bottom: 10px;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.groupDetails-joinGroup p {*/
-/*    font-size: 16px;*/
-/*    color: #666;*/
-/*    margin-bottom: 10px;*/
-/*}*/
 
 .detailItem-joinGroup {
     display: flex;
@@ -228,7 +207,7 @@
 /* Feedback Styles */
 .feedbackMessage-joinGroup {
     color: red;
-    font-size: 14px;
+    font-size: 17px;
     margin-top: 20px;
 }
 

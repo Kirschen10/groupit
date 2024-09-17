@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation  } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './CSS/SelectArtists.css';
 import Grid from './Grid';
-import ArtistSearch from './ArtistSearch';
+import Select from "react-select";
 
 function SelectArtists() {
     const navigate = useNavigate();
@@ -10,6 +10,7 @@ function SelectArtists() {
     const [artists, setArtists] = useState([]);
     const [extraArtists, setExtraArtists] = useState([]);
     const [error, setError] = useState('');
+    const [searchOptions, setSearchOptions] = useState([]); // Add a separate state for search options
     const { username } = location.state || { username };
 
     useEffect(() => {
@@ -27,6 +28,7 @@ function SelectArtists() {
                     }));
                     setArtists(top20);
                     setExtraArtists(next80);
+                    setSearchOptions(next80); // Initialize search options
                 } else {
                     setError('Unexpected response format for top artists');
                 }
@@ -37,26 +39,30 @@ function SelectArtists() {
             });
     }, []);
 
-    const [showSearch, setShowSearch] = useState(false);  // Controls the visibility of the search box
+    const [showSearch, setShowSearch] = useState(false);
     const [selectedArtists, setSelectedArtists] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const artistsPerPage = 15;
     const currentArtists = artists.slice(currentPage * artistsPerPage, (currentPage + 1) * artistsPerPage);
-    console.log("artists", artists);
+
     const handleSelectArtist = (selectedOption) => {
-        const newArtist = { id: selectedOption.value, name: selectedOption.label };
-        setArtists(prevArtists => [...prevArtists, newArtist]);
+        if (selectedOption) {
+            const newArtist = { id: selectedOption.value, name: selectedOption.label };
+            setArtists(prevArtists => [...prevArtists, newArtist]);
+            // Update search options to remove the selected artist
+            setSearchOptions(prevOptions => prevOptions.filter(artist => artist.id !== selectedOption.value));
+        }
         setShowSearch(false);
     };
 
-    useEffect(() => {
-        console.log("Selected Artists: ", selectedArtists);
-    }, [selectedArtists]);
-    
     const handleClickPlus = () => {
-        setShowSearch(true);
-    }
-    
+        setShowSearch(prevShowSearch => !prevShowSearch);
+    };
+
+    const closeSearch = () => {
+        setShowSearch(false);  // Close the search box
+    };
+
     const nextPage = () => {
         if ((currentPage + 1) * artistsPerPage < artists.length) {
             setCurrentPage(currentPage + 1);
@@ -75,40 +81,63 @@ function SelectArtists() {
 
     const handleClickContinue = () => {
         const selectedArtistsDetails = selectedArtists.map(artistId => {
-            console.log("Searching for artist ID:", artistId); // Log the current artist ID being processed
             const results = artists.find(a => a.id === artistId);
-            if (!results) {
-                console.log("No artist found for ID:", artistId); // Log if no artist is found
-            }
             return results ? { id: results.id, name: results.name } : null;
-        }).filter(artist => artist !== null);  // Filter out any null entries
-    
-        console.log("Selected Artists Details:", selectedArtistsDetails); // Log the final array
-        navigate('/selectSongs', { state: { selectedArtists: selectedArtistsDetails, username: username } }); // Pass username to the next page
+        }).filter(artist => artist !== null);
+
+        navigate('/selectSongs', { state: { selectedArtists: selectedArtistsDetails, username: username } });
     };
-    
+
     return (
         <div className="background-homePage">
             <div className="app">
-                <h2>Select Your 5 Favorite Artists </h2>  
-                {error && <div className="error">{error}</div>}       
-            <Grid
+                <h2>Select Your 5 Favorite Artists</h2>
+                {error && <div className="error">{error}</div>}
+                <Grid
                     Picker={currentArtists}
                     selectedCatalog={selectedArtists}
                     setSelectedCatalog={setSelectedArtists}
-                    onCompletion={handleCompletion} 
-                    limit = {5}   
+                    onCompletion={handleCompletion}
+                    limit={5}
                 />
             </div>
             <div className="pagination">
-                    <button className="button-arrow" onClick={prevPage} disabled={currentPage === 0}>&#9664;</button>
-                    <button className="button-arrow" onClick={handleClickPlus}>+</button>
-                    <button className="button-arrow" onClick={nextPage} disabled={(currentPage + 1) * artistsPerPage >= artists.length}>&#9654;</button>
+                <span className="pagination-buttons" onClick={prevPage} style={{visibility: currentPage > 0 ? 'visible' : 'hidden'}}>
+                    <img src="/Images/left arrow.svg" alt="Left Arrow" />
+                </span>
+                <span className="pagination-buttons" onClick={handleClickPlus}>
+                    <img src="/Images/plus.svg" alt="Plus" />
+                </span>
+                <span className="pagination-buttons" onClick={nextPage} style={{visibility: (currentPage + 1) * artistsPerPage < artists.length ? 'visible' : 'hidden'}}>
+                    <img src="/Images/right arrow.svg" alt="Right Arrow" />
+                </span>
             </div>
-            {showSearch && <ArtistSearch options={extraArtists.map(artist => ({ value: artist.id, label: artist.name }))} onSelect={handleSelectArtist} />}
-
+            {showSearch &&
+                <div className="artist-search-container">
+                    <button className="close-button-SA" onClick={closeSearch}>x</button>
+                    <Select
+                        options={searchOptions.map(artist => ({ value: artist.id, label: artist.name }))}
+                        onChange={handleSelectArtist}
+                        placeholder="Search for an artist"
+                        isClearable
+                        className="react-select-artist"
+                        classNamePrefix="react-select-artist"
+                        styles={{
+                            menuList: (provided) => ({
+                                ...provided,
+                                maxHeight: '120px',  // Assuming each row is 40px, so 3 rows = 120px
+                                overflowY: 'auto',   // Enable scrolling when the options exceed the height
+                            }),
+                            menu: (provided) => ({
+                                ...provided,
+                                maxHeight: '120px',  // Limit the height of the dropdown itself
+                            })
+                        }}
+                    />
+                </div>
+            }
             <div className="pagination">
-                {selectedArtists.length === 5 && 
+                {selectedArtists.length === 5 &&
                 <button className="button-pagination-Lets-Continue" onClick={handleClickContinue}>Let's Continue!</button>}
             </div>
         </div>
